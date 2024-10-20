@@ -107,6 +107,3 @@ SELLFY_MERN/
 Contributions are welcome! Feel free to submit a pull request or create an issue to discuss potential changes.
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
