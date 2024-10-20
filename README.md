@@ -69,7 +69,7 @@ Start both the server and client in two separate terminal windows.
 npm start
 ```
 
-#### Run the Frontend (Client)
+#### Run the Frontend (Client) 
 
 ```bash
 # In the /client directory
