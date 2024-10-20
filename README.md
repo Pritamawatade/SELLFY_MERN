@@ -110,5 +110,3 @@ Contributions are welcome! Feel free to submit a pull request or create an issue
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
-
-You can modify the sections based on additional features you might implement, like payment integration, user roles, or deployment.
