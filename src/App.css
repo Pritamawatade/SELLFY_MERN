@@ -1,38 +1,242 @@
-.App {
-  text-align: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body {
+  font-family: "Lato", sans-serif;
+}
+@media (min-width:1300px){
+  .container,.container-lg,.container-md,.container-sm,.container-xl,.container-xxl{
+    max-width: 1200px !important;
   }
 }
+.bg-purple {
+  background: #8e00a3;
+}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.headerwrapper .top-strip {
+  padding: 8px 0px;
+}
+.headerwrapper .top-strip p {
+  color: #ffff;
+}
+
+.headerwrapper .header {
+  width: 100%;
+  height: auto;
+  padding: 15px 0px;
+}
+
+.logowrapper img {
+  width: 100%;
+}
+
+.locationmodal .MuiPaper-elevation{
+  padding: 25px;
+}
+
+.headerwrapper .header .part2 {
+  width: 150px;
+  height: 80px;
+  min-width: 150px;
+  /* flex: 0 0 15; */
+}
+
+.headerwrapper .header .part2 .countryDrop {
+  width: 170px;
+  height: 50px;
+  min-width: 170px;
+  text-align: left;
+  justify-content: flex-start;
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  border-radius: 7px;
+  padding: 10px 10px;
+}
+
+.headerwrapper .header .part2 .countryDrop .label {
+  font-size: 14px !important;
+  text-transform: capitalize !important;
+  color: rgba(0, 0, 0, 0.5) !important;
+  line-height: 16px;
+}
+
+.headerwrapper .header .part2 .countryDrop .name {
+  font-size: 14px !important;
+  text-transform: capitalize !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-weight: 700;
+  line-height: 16px;
+
+}
+
+.headerwrapper .header .part2 .countryDrop span.ml-auto svg{
+  opacity: 0.7;
+}
+
+ .headerSearch{
+  width: 90%;
+  height: 60px;
+  background: #f3f4f7;
+  padding: 10px;
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+ .headerSearch input{
+  background: transparent !important;
+  outline: none !important;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 30px;
+  border: 0px !important;
+  padding: 0px 20px !important;
+
+
+}
+
+
+ .headerSearch button{
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  min-width: 40px !important;
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 50% !important;
+  color: #000;
+
+
+
+}
+
+ .headerSearch button svg{
+  font-size: 20px;
+
+}
+
+header .circle{
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-width: 45px !important;
+  height: 45px !important;
+  width: 45px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: black;
 }
 
-.App-link {
-  color: #61dafb;
+header .circle svg{
+  font-size: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cartTab .price{
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 700;
 }
+.cartTab button{
+  background: #fff1ee !important;
+
+}
+.cartTab button svg{
+  color: #ea2b0f !important;
+}
+
+.cartTab .count{
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: #ea2b0f;
+  border-radius: 50%;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+
+}
+
+nav .allCatTab{
+  background: #2bbef9;
+  padding: 10px 30 px !important;
+  border-radius: 30px !important;
+
+}
+nav .allCatTab *{
+  color: #fff;
+
+}
+
+nav .navPart1{
+  max-width: 20%;
+  flex: 0 0 20%;
+}
+
+nav .navPart2{
+  max-width: 80%;
+  flex: 0 0 80%;
+}
+nav .allCatTab:hover{
+  background: #2bbef9;
+}
+nav .allCatTab .text{
+  font-weight: 600;
+}
+
+nav .allCatTab .icon1 svg{
+  font-size: 20px !important;
+ }
+
+nav .allCatTab .icon2 svg{
+  font-size: 15px !important;
+ }
+
+nav .navPart2 ul {
+margin-bottom: 0px !important;
+}
+
+nav .navPart2 ul li a{
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: 8px 13px;
+}
+
+nav .navPart2 ul li a:hover{
+  color: #2bbef9;
+  background: #f0faff;
+  border-radius: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
