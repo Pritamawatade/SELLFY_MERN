@@ -104,6 +104,6 @@ SELLFY_MERN/
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit a pull request or create an issue to discuss potential changes.
+Contributions are welcome Feel free to submit a pull request or create an issue to discuss potential changes.
 
 ## License
