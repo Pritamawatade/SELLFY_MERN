@@ -81,7 +81,7 @@ npm start
 Alternatively, you can use a single terminal to start both the client and server simultaneously if a configuration is set up for concurrent run.
 
 ```bash
-npm run dev
+npm start
 ```
 
 ## Technologies Used
