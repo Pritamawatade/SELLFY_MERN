@@ -12,6 +12,18 @@ body {
     max-width: 1200px !important;
   }
 }
+
+::-webkit-scrollbar{
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #ccc !important;
+}
+::-webkit-scrollbar-track{
+  background: transparent !important;
+}
 .bg-purple {
   background: #8e00a3;
 }
@@ -35,8 +47,43 @@ body {
 
 .locationmodal .MuiPaper-elevation{
   padding: 25px;
+  position: relative;
 }
 
+.locationmodal .locationList{
+  margin-bottom: 0px !important;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.locationmodal .locationList li{
+  width: 100%;
+  list-style: none;
+}
+
+.locationmodal .locationList li button{
+  width: 100%;
+  text-transform: capitalize;
+  color: #000;
+  padding: 15px 20px !important;
+  justify-content: flex-start;
+  font-size: 15px;
+}
+
+.locationmodal .close_{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-width: 40px !important;
+  height: 40px !important;
+  width: 40px !important;
+  border-radius: 50% !important;
+  color: #000;
+}
+
+.locationmodal .close_ svg{
+  font-size: 22px;
+}
 .headerwrapper .header .part2 {
   width: 150px;
   height: 80px;
@@ -55,7 +102,10 @@ body {
   border-radius: 7px;
   padding: 10px 10px;
 }
-
+.headerwrapper{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* padding-bottom: 10px; */
+}
 .headerwrapper .header .part2 .countryDrop .label {
   font-size: 14px !important;
   text-transform: capitalize !important;
@@ -199,30 +249,61 @@ nav .allCatTab .icon2 svg{
 nav .navPart2 ul {
 margin-bottom: 0px !important;
 }
-
 nav .navPart2 ul li a{
+  text-decoration: none;
+}
+nav .navPart2 ul li Button{
   color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   font-size: 15px;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  padding: 8px 13px;
+  padding: 8px 15px;
 }
 
-nav .navPart2 ul li a:hover{
-  color: #2bbef9;
+nav .navPart2 ul li Button:hover{
+  color: #00b7ff;
   background: #f0faff;
   border-radius: 25px;
 }
 
+nav .navPart2 ul li{
+  position: relative;
+  padding-bottom: 20px;
+}
+nav .navPart2 ul li .submenu{
+  position: absolute;
+  top: 150%;
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
 
 
+nav .navPart2 ul li .submenu a{
+  display: block;
+  width: 100%;
 
+}
 
+nav .navPart2 ul li .submenu a button{
+  width: 100%;
+  justify-content: flex-start !important;
+  border-radius: 0px !important;
+  text-transform: capitalize !important;
+  font-weight: 500;
+}
 
-
+nav .navPart2 ul li:hover .submenu{
+  opacity: 1;
+  visibility: visible;
+  top: 100% ;
+}
 
 
 

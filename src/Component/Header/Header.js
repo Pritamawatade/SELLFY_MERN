@@ -6,9 +6,11 @@ import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
-
+import { useContext } from "react";
+import { mycontext } from "../../App";
 
 const Header = () => {
+  const context = useContext(mycontext);
   return (
     <>
       <div className="headerwrapper">
@@ -29,7 +31,7 @@ const Header = () => {
                 </Link>
               </div>
               <div className="col-sm-10 d-flex align-items-center part2">
-                <CountryDrop />
+                {context.countryList.length !==0 && <CountryDrop />}
 
                 {/* Header search bar start here */}
 

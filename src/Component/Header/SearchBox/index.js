@@ -8,6 +8,8 @@ const SearchBox = () => {
         <Button>
           <IoSearchOutline />
         </Button>
+        
+        
       </div>
     )
 }
