@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/index.js";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from "./Component/Header/Header";
 import { createContext, useEffect, useState } from "react";

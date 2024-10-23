@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/sellfy-wordmark-1.svg";
 import CountryDrop from "./CountryDropdown";
 import Button from "@mui/material/Button";
 import { FiUser } from "react-icons/fi";
@@ -8,6 +8,7 @@ import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
 import { useContext } from "react";
 import { mycontext } from "../../App";
+import Home from "../../Pages/Home";
 
 const Header = () => {
   const context = useContext(mycontext);
@@ -64,6 +65,7 @@ const Header = () => {
           <Navigation />
 
       </div>
+      <Home />
     </>
   );
 };
