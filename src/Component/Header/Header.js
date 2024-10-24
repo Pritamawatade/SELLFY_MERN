@@ -65,7 +65,7 @@ const Header = () => {
           <Navigation />
 
       </div>
-      <Home />
+      {/* <Home /> */}
     </>
   );
 };

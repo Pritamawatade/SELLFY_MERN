@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Navigation = () => {
-  const [isOpenSidebarVal, setisOpenSidebarVal] = useState(true);
+  const [isOpenSidebarVal, setisOpenSidebarVal] = useState(false);
 
   return (
     <nav>
@@ -95,6 +95,26 @@ const Navigation = () => {
                 <Link to="/">
                   <Button>women</Button>
                 </Link>
+                <div className="submenu shadow">
+                  <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                </div>
               </li>
               <li className="list-inline-item">
                 <Link to="/">

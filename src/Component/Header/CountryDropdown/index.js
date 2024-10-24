@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function CountryDrop() {
   const context = useContext(mycontext);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState("India");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [countryList, setCountryList] = useState(context.countryList);
 
   const selectedTab = (index, country) =>{
