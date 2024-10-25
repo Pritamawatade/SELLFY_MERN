@@ -3,6 +3,8 @@ import { IoIosMenu } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { FaAngleRight } from "react-icons/fa";
+
 
 const Navigation = () => {
   const [isOpenSidebarVal, setisOpenSidebarVal] = useState(false);
@@ -26,7 +28,77 @@ const Navigation = () => {
                 <ul>
                   <li>
                     <Link to="/">
-                      <Button>men</Button>
+                      <Button>men
+                        <FaAngleRight className="ml-auto" />
+                      </Button>
+
+                    </Link>
+                    <div className="submenu">
+                    <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                    </div>
+                  </li>
+                  <li>
+                    <Link to="/">
+                      <Button>woman
+                        <FaAngleRight className="ml-auto" />
+                      </Button>
+                    </Link>
+                    <div className="submenu">
+                    <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>clothing</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>footwear</Button>
+                  </Link>
+                  <Link to="/">
+                    <Button>watches</Button>
+                  </Link>
+                    </div>
+                  </li>
+                  <li>
+                    <Link to="/">
+                      <Button>beauty</Button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/">
+                      <Button>watches</Button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/">
+                      <Button>kids</Button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/">
+                      <Button>gifts</Button>
                     </Link>
                   </li>
                   <li>
