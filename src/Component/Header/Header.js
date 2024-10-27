@@ -8,7 +8,6 @@ import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
 import { useContext } from "react";
 import { mycontext } from "../../App";
-import Home from "../../Pages/Home";
 
 const Header = () => {
   const context = useContext(mycontext);
