@@ -86,8 +86,8 @@ body {
   font-size: 15px;
 }
 
-.locationmodal .close_ {
-  position: absolute;
+ .close_ {
+  position: absolute !important;
   top: 10px;
   right: 10px;
   min-width: 40px !important;
@@ -97,7 +97,7 @@ body {
   color: #000;
 }
 
-.locationmodal .close_ svg {
+ .close_ svg {
   font-size: 22px;
 }
 .headerwrapper .header .part2 {
@@ -820,7 +820,10 @@ footer .copywrite ul li a:hover{
 }
 
 
-
+.productModal .MuiPaper-elevation {
+  padding: 20px !important;
+  position: relative !important;
+}
 
 
 
