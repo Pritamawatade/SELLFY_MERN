@@ -498,13 +498,13 @@ nav .navPart2 ul li:hover .submenu {
   font-weight: 600;
 }
 
-.productItem .info .oldPrice {
+ .info .oldPrice {
   font-size: 16px !important;
   font-weight: bold !important;
   color: #C2C2D3 !important;
   text-decoration: line-through !important;
 }
-.productItem .info .netPrice {
+ .info .netPrice {
   font-size: 16px !important;
   font-weight: bold !important;
   text-decoration: line-through !important;
@@ -823,12 +823,57 @@ footer .copywrite ul li a:hover{
 .productModal .MuiPaper-elevation {
   padding: 20px !important;
   position: relative !important;
+  max-width: 900px !important;
+  width: 900px !important;
 }
 
+.productModal h4{
+  font-size: 20px !important;
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.productZoom{
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 0px;
+  overflow: hidden;
+  
+}
+.zoomSliderBig{
+  width: 100% !important;
+}
 
+.zoomSlider{
+  padding-top: 30px;
 
+}
 
+.zoomSlider .slick-slide{padding-right: 20px !important;}
+.zoomSlider *{
+  outline: none !important;
+}
+.zoomSlider .item{
+  border: 2px solid transparent !important;
+  overflow: hidden !important;
+  border-radius: 15px !important;
+  cursor: pointer;
+}
+.zoomSlider .slick-current .item{
+  border: 2px solid #3bb77e !important;
+ }
+.zoomSlider .slick-arrow{
+top: 55% !important;
+zoom: 80% !important;
 
+}
+
+.zoomSlider .slick-arrow.slick-next{
+  right: -2% !important;
+}
+.zoomSlider .slick-arrow.slick-prev{
+  left: -5% !important;
+}
 
 
 
