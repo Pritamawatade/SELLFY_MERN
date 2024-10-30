@@ -121,6 +121,7 @@ const goto = (index) =>{
               <span className="netPrice text-danger bolder">$7.35</span>
            
             </div>
+            <span className="bg-green-100 text-green-600 p-1 px-2 mt-5 border-3 rounded-full">IN STOCK</span>
           </div>
         </div>
       </Dialog>
