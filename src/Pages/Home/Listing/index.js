@@ -3,7 +3,6 @@ import React from 'react'
 import Sidebar from '../../../Component/Sidebar'
 import { Link } from 'react-router-dom'
 import rightbanner from "../../../assets/images/rightbanner.png"
-
 function Listing() {
   return (
     <>

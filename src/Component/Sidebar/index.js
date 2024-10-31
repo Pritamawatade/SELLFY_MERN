@@ -134,8 +134,6 @@ function Sidebar() {
                 <li>
                 <FormControlLabel control={<Checkbox defaultChecked />} label="Whelch's" />
                 </li>
-               
-               
             </ul>
         </div>
     </div>
@@ -143,5 +141,7 @@ function Sidebar() {
   </div>
   </>;
 }
+
+
 
 export default Sidebar;
