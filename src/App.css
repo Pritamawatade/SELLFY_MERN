@@ -878,6 +878,88 @@ zoom: 80% !important;
 .zoomSlider .slick-arrow.slick-prev{
   left: -5% !important;
 }
+.add-to-cart{
+  background-color: #4f61aa !important;
+  padding: 10px 35px !important;
+  color: #fff !important;
+  border-radius: 30px !important;
+  font-size: 13px !important;
+  font-weight: 300 !important;
+  margin-left: 30px !important;
+
+}
+.quantityDrop{
+  width: 150px !important;
+  gap: 20px;
+
+}
+.quantityDrop button{
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: #edeef5 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+}
+
+.quantityDrop input{
+  outline: none;
+  width: 30px !important;
+  border: 0px !important;
+  background: transparent !important;
+
+}
+
+.btn-round{
+  border-radius: 30px !important;
+}
+
+.productModal .col-md-7 .actions  button{
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+  font-size: 10px !important;
+}
+.productModal  .col-md-7 .actions button svg{
+  color: #000 !important;
+  font-size: 20px !important;
+}
+.product_listing_page{
+  padding: 50px 0px;
+}
+.product_listing_page .product_listing {
+  gap: 20px;
+}
+.product_listing_page .product_listing .sidebar{
+width: 20%;
+flex: 0 0 20%;
+}
+.product_listing_page .product_listing .content_right{
+width: 80%;
+flex: 0 0 80%;
+padding-left: 30px;
+}
+.product_listing_page .product_listing .sidebar .filterbox ul li * {
+  padding: 1px ;
+  margin: 1px ;
+}
+.product_listing_page .product_listing .sidebar .filterbox .scroll{
+  max-height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden ;
+}
+
+.range-slider .range-slider__thumb, .range-slider .range-slider__range{
+  background-color: #000;
+}
+.range-slider{
+  height: 5px !important;
+}
+.range-slider .range-slider__thumb{
+  width: 15px !important;
+  height: 15px !important;
+}
+
 
 
 

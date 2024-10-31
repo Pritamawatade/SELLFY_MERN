@@ -2,15 +2,20 @@ import Rating from "@mui/material/Rating";
 import { SlSizeFullscreen } from "react-icons/sl";
 import Button from "@mui/material/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
-import ProductModal from "../ProductModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { mycontext } from "../../App";
 
 const ProductItem = () => {
-  const [isOpenProuctModal, setIsOpenProductModal] = useState(false);
 
-  const viewProductDetails = () => setIsOpenProductModal(true);
+  const context = useContext(mycontext);
+  const viewProductDetails = () => {
+    context.setIsOpenProductModal(true);
+  }
 
-  const closeProductModal = () => setIsOpenProductModal(false);
+
+  const closeProductModal = () => {
+    context.setIsOpenProductModal(false);
+  }
   return (
   <>
       <div className="item productItem">
@@ -23,7 +28,7 @@ const ProductItem = () => {
   
           <spna className="badge badge-primary">28%</spna>
           <div className="actions">
-            <Button onClick={() =>viewProductDetails(1)}>
+            <Button onClick={() =>viewProductDetails()}>
               <SlSizeFullscreen />
             </Button>
             <Button>
@@ -50,7 +55,7 @@ const ProductItem = () => {
         </div>
       </div>
 
-      {isOpenProuctModal && <ProductModal closeProductModal={closeProductModal}/>}
+    
 
       {/* <ProductModal /> */}
   </>
