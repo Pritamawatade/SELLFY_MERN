@@ -960,7 +960,64 @@ padding-left: 30px;
   height: 15px !important;
 }
 
+.product_listing_page .product_listing .content_right .showBy{
+  width: 100%;
+  height: 50px;
+  background: #f0f1f3 !important;
+  margin-top: 15px !important;
+}
+.product_listing_page .product_listing .content_right .showBy .btnWrapper{
+  padding: 5px;
+}
+.product_listing_page .product_listing .content_right{
+  width: 100%;
+ 
+  }
+
+.product_listing_page .product_listing .content_right .showBy .btnWrapper button{
+  color: #000 !important;
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 24px 8px !important;
+}
+
+.product_listing_page .product_listing .content_right .showBy .btnWrapper button svg{
+  font-size: 20px !important;
+  color: #000000 !important;
+  opacity: 0.5 !important;
+
+}
+.product_listing_page .product_listing .content_right .showBy .btnWrapper button svg:hover { opacity: 1 !important;}
+
+.showPerPageDropdown .MuiPaper-root{
+  margin-top: 20px !important;
+  width: 80px !important;
+}
+
+.showByFilter button{
+  color: #898989 !important;
+  text-transform: capitalize !important;
+}
 
 
+.showByFilter button svg{
+  font-size: 20px !important;
+}
 
+.productListing{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important; 
+}
+.productListing .productItem.four{
+  width: 23% !important;
+}
+
+
+/* video number 16 , 31 min */
 
