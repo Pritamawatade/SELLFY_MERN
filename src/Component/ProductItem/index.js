@@ -5,7 +5,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { useContext, useState } from "react";
 import { mycontext } from "../../App";
 
-const ProductItem = () => {
+const ProductItem = (props) => {
 
   const context = useContext(mycontext);
   const viewProductDetails = () => {
@@ -18,7 +18,7 @@ const ProductItem = () => {
   }
   return (
   <>
-      <div className="item productItem">
+      <div className={`item  productItem ${props.itemView}`}>
         <div className="imgWrapper">
           <img
             src="https://klbtheme.com/bacola/wp-content/uploads/2021/04/product-image-62-346x310.jpg"

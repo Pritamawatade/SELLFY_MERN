@@ -1,25 +1,118 @@
-import React from 'react'
+import React from "react";
+import Button from "@mui/material/Button";
+import { AiOutlineMenu } from "react-icons/ai";
+import { BsFillGridFill } from "react-icons/bs";
+import { TbGridDots } from "react-icons/tb";
+import { FaAngleDown } from "react-icons/fa6";
 
-import Sidebar from '../../../Component/Sidebar'
-import { Link } from 'react-router-dom'
-import rightbanner from "../../../assets/images/rightbanner.png"
+import { TfiLayoutGrid4Alt } from "react-icons/tfi";
+import { Menu, MenuItem } from "@mui/material";
+
+import Sidebar from "../../../Component/Sidebar";
+import { Link } from "react-router-dom";
+import rightbanner from "../../../assets/images/rightbanner.png";
+import ProductItem from "../../../Component/ProductItem";
+
+
 function Listing() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [productView, setProductView] = React.useState("four");
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
-        <section className="product_listing_page">
-            <div className="container">
-                <div className=" product_listing d-flex">
-                    <Sidebar />
+      <section className="product_listing_page">
+        <div className="container">
+          <div className="product_listing d-flex">
+            <Sidebar />
 
-                    <div className="content_right">
-                      <Link to="/productdetail"> <img src={rightbanner} alt=""/> </Link>
-                    </div>
-
+            <div className="content_right">
+              <Link to="/productdetail">
+                {" "}
+                <img src={rightbanner} alt="" />{" "}
+              </Link>
+              <div className="showBy d-flex align-items-center mt3 mb3">
+                <div className="d-flex btnWrapper">
+                  <Button onClick={() => setProductView("one")}>
+                    <AiOutlineMenu />
+                  </Button>
+                  <Button onClick={() => setProductView("two")}>
+                    <BsFillGridFill />
+                  </Button>
+                  <Button onClick={() => setProductView("three")}>
+                    <TbGridDots />
+                  </Button>
+                  <Button onClick={() => setProductView("four")}>
+                    <TfiLayoutGrid4Alt />
+                  </Button>
                 </div>
+
+                <div className="ml-auto showByFilter">
+                  <Button
+                  className="text-slate-500"
+                    id="demo-positioned-button"
+                    aria-controls={open ? "demo-positioned-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    
+                    Show <span className="ml-1 text-black">9 </span>&nbsp; <FaAngleDown className="ml-auto"/>
+                  </Button>
+                  <Menu
+                    className="showPerPageDropdown mt-2"
+                    id="demo-positioned-menu"
+                    aria-labelledby="demo-positioned-button"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>10</MenuItem>
+                    <MenuItem onClick={handleClose}>20</MenuItem>
+                    <MenuItem onClick={handleClose}>30</MenuItem>
+                  </Menu>
+                </div>
+              </div>
+
+              <div className="productListing">
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+                  <ProductItem itemView={productView} />
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }
 
-export default Listing
+export default Listing;
