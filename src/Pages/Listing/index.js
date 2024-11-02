@@ -8,10 +8,10 @@ import { FaAngleDown } from "react-icons/fa6";
 import { TfiLayoutGrid4Alt } from "react-icons/tfi";
 import { Menu, MenuItem } from "@mui/material";
 
-import Sidebar from "../../../Component/Sidebar";
+import Sidebar from "../../Component/Sidebar";
 import { Link } from "react-router-dom";
-import rightbanner from "../../../assets/images/rightbanner.png";
-import ProductItem from "../../../Component/ProductItem";
+import rightbanner from "../../assets/images/rightbanner.png";
+import ProductItem from "../../Component/ProductItem";
 import Pagination from '@mui/material/Pagination';
 
 
