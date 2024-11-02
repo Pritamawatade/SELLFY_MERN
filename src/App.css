@@ -1077,23 +1077,73 @@ section {
  margin-left: -10px;
 }
 
+.detailsPageTabs{
+  border-radius: 25px !important;
+}
+
+.card{
+   border-radius: 10px !important;
+}
+
+.customTabs ul li button {
+  padding: 10px 20px !important;
+  color: black !important;;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 20px !important;
+  font-size: 10px !important;
+}
+
+.reviewsCard .image{
+  width: 100%;
+}
+.reviewsCard .rounded-circle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 100px;
+  width: 100px;
+
+}
+.reviewsCard {
+  margin-bottom: 25px !important;
+}
+
+.reviewsCard .rounded-circle  img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewForm{
+  margin-bottom: 25px !important;
+}
+
+.reviewForm .form-group .form-control{
+  height: 60px;
+  font-size: 18px;
+}
+
+.reviewForm .form-group textarea.form-control{
+  height: 200px;
+  padding: 8px;
+}
+
+.form-group button{
+  background-color: rgb(4, 172, 244);
+  color: white;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.reviewSection .progress {
+  height: 20px;
+  margin-top: 10px;
+ margin-bottom: 10px;
+}
 
 
 
