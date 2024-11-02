@@ -7,6 +7,7 @@ import { MdOutlineCompareArrows } from "react-icons/md";
 import ProductZoom from "../../Component/ProductZoom";
 import QuantityBox from "../../Component/QuantityBox/QuantityBox";
 import Button from "@mui/material/Button";
+import RelatedProducts from "./RelatedProducts";
 
 const ProductDetials = () => {
   const [activeSize, setActiveSize] = useState(0);
@@ -18,7 +19,7 @@ const ProductDetials = () => {
     <>
       <section className="productDetails section">
         <div className="container">
-          <div className="row">
+          <div className="row ">
             <div className="col-md-4">
               <ProductZoom />
             </div>
@@ -117,8 +118,8 @@ const ProductDetials = () => {
             </div>
           </div>
 
-          <div className="card mt-5 p-5 detailsPageTabs">
-            <div className="customTabs">
+          <div className="card mt-5 p-5 detailsPageTabs bg-red-600">
+            <div className="customTabs ">
               <ul className="list list-inline">
                 <li className="list-inline-item">
                   <Button onClick={() => setActiveTab(0)}>Description</Button>
@@ -512,7 +513,12 @@ const ProductDetials = () => {
                 </div>
               )}
             </div>
+
           </div>
+
+
+          <RelatedProducts title="RELATED PRODUCTS" />
+          <RelatedProducts title="RECENTLY SEEN"/>
         </div>
       </section>
     </>
