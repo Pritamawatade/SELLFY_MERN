@@ -1037,5 +1037,81 @@ padding-left: 30px;
   transition: all 0.5s ease !important;
 }
 
+section {
+  padding: 40px 0px;
+}
+
+.productSize{
+  width: 100%;
+  height: auto;
+  padding: 25px 0px !important;
+}
+
+.productSize ul li{
+  margin-left: 10px !important;
+}
+
+.productSize ul li a{
+
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+  transition: all 0.5s ease !important;
+  border: 1px solid rgba(0, 0, 0, 0.1)!important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  background-color: #00b7ff;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.productSize ul li a.active{
+  background-color: rgb(0, 255, 0) !important;
+  color: #fff !important;
+}
+
+
+.info1 button svg{
+ margin-left: -10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

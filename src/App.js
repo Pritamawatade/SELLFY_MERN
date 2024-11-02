@@ -7,7 +7,8 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "./Component/Footer/index.js";
 import ProductModal from "./Component/ProductModal/index.js";
-import Listing from "./Pages/Home/Listing/index.js";
+import Listing from "./Pages/Listing/index.js";
+import ProductDetials from "./Pages/ProductDetails/index.js";
 const mycontext = createContext();
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
     <Routes>
       <Route path="/" exact={true} element={<Home />} />
       <Route path="/cat/:id" exact={true} element={<Listing />} />
+      <Route path="/product/:id" exact={true} element={<ProductDetials />} />
     </Routes>
     <Footer/>
 
