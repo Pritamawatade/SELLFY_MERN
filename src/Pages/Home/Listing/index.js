@@ -12,6 +12,8 @@ import Sidebar from "../../../Component/Sidebar";
 import { Link } from "react-router-dom";
 import rightbanner from "../../../assets/images/rightbanner.png";
 import ProductItem from "../../../Component/ProductItem";
+import Pagination from '@mui/material/Pagination';
+
 
 
 function Listing() {
@@ -38,16 +40,16 @@ function Listing() {
               </Link>
               <div className="showBy d-flex align-items-center mt3 mb3">
                 <div className="d-flex btnWrapper">
-                  <Button onClick={() => setProductView("one")}>
+                  <Button className={productView === "one" && "active" } onClick={() => setProductView("one")}>
                     <AiOutlineMenu />
                   </Button>
-                  <Button onClick={() => setProductView("two")}>
+                  <Button className={productView === "two" && "active" } onClick={() => setProductView("two")}>
                     <BsFillGridFill />
                   </Button>
-                  <Button onClick={() => setProductView("three")}>
+                  <Button className={productView === "three" && "active" } onClick={() => setProductView("three")}>
                     <TbGridDots />
                   </Button>
-                  <Button onClick={() => setProductView("four")}>
+                  <Button className={productView === "four" && "active" } onClick={() => setProductView("four")}>
                     <TfiLayoutGrid4Alt />
                   </Button>
                 </div>
@@ -107,6 +109,11 @@ function Listing() {
                   <ProductItem itemView={productView} />
                   <ProductItem itemView={productView} />
               </div>
+
+                  <div className="d-flex align-items-center justify-center  mt-5">
+                  <Pagination count={10} color="primary"  size="large"/>
+                  </div>
+
             </div>
           </div>
         </div>
