@@ -18,7 +18,6 @@ import ProductItem from "../../Component/ProductItem/index.js";
 import HomeCat from "../../Component/HomeCat/index.js";
 import coupon from "../../assets/images/coupon.jpg";
 import { IoMailOutline } from "react-icons/io5";
-import Footer from "../../Component/Footer/index.js";
 
 
 const Home = () => {
