@@ -1142,15 +1142,43 @@ section {
 }
 
 
+.cartPage table thead{
+  background-color: #dfdfdf;  
+  border-radius: 10px !important;
+}
 
+.cartPage table thead th{
+  border: 0px !important;
+}
 
+.cartPage table thead th:first-child{
+  border-top-left-radius:10px ;
+  border-bottom-left-radius:10px ;
+}
 
+.cartPage table thead th:last-child{
+  border-top-right-radius:10px !important;
+  border-bottom-right-radius:10px !important;
+}
+.cartImgWrapper{
+  width: 280px;
+}
+a:hover{
+  text-decoration: none !important;
 
+}
 
+.cartPage table th, .cartPage table td {
+  vertical-align: middle;
+}
 
-
-
-
+.cartPage table .quantityDrop button {
+  zoom: 80%;
+  
+}
+.cartPage table tr{
+  transition: all 0.5s ease;
+}
 
 
 

@@ -10,12 +10,14 @@ import ProductModal from "./Component/ProductModal/index.js";
 import Listing from "./Pages/Listing/index.js";
 import ProductDetials from "./Pages/ProductDetails/index.js";
 import Cart from "./Pages/Cart/index.js";
+import SignIn from "./Pages/SignIn/index.js";
 const mycontext = createContext();
 
 function App() {
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isOpenProuctModal, setIsOpenProductModal] = useState(false);
+  const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
 
 
   useEffect((url) => {
@@ -34,19 +36,27 @@ function App() {
     selectedCountry,
     setSelectedCountry,
     isOpenProuctModal, 
-    setIsOpenProductModal
+    setIsOpenProductModal,
+    isHeaderFooterShow,
+    setIsHeaderFooterShow
   }
   return <>
   <BrowserRouter>
   <mycontext.Provider value={values}>
-  <Header />
+  {
+      isHeaderFooterShow && <Header />
+    }
+  
     <Routes>
       <Route path="/" exact={true} element={<Home />} />
       <Route path="/cat/:id" exact={true} element={<Listing />} />
       <Route path="/product/:id" exact={true} element={<ProductDetials />} />
       <Route path="/cart" exact={true} element={<Cart />} />
+      <Route path="/SignIn" exact={true} element={<SignIn />} />
     </Routes>
-    <Footer/>
+    {
+      isHeaderFooterShow &&  <Footer/>
+    }
 
     {isOpenProuctModal && <ProductModal />}
 
