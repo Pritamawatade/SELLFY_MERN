@@ -2,8 +2,10 @@ import { useContext, useEffect } from "react";
 import { mycontext } from "../../App";
 import { FaGoogle } from "react-icons/fa";
 import { TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const SignIn = () => {
+
+const SignUp = () => {
   const context = useContext(mycontext);
 
   useEffect(() => {
@@ -11,7 +13,7 @@ const SignIn = () => {
   });
   return (
     <>
-      <section className="section max-h-screen overflow-visible">
+      <section className="section max-h-screen overflow-visible " >
   
         <div className="container">
        
@@ -28,16 +30,35 @@ const SignIn = () => {
         </div>
 
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Sign In
+          Sign Up
         </h2>
         
         {/* Email Input */}
+      <div className="flex items-center gap-3">
+          <TextField
+            label="full name"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            className="mb-2"
+            required
+          />
+          <TextField
+            label="Contact no"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            className="mb-2"
+            required
+          />
+      </div>
         <TextField
           label="Email"
           variant="outlined"
           fullWidth
           margin="normal"
-          className="mb-4"
+          className="mb-2"
+          required
         />
 
         {/* Password Input */}
@@ -46,24 +67,43 @@ const SignIn = () => {
           variant="outlined"
           type="password"
           fullWidth
+          required
+
           margin="normal"
           className="mb-2"
         />
 
         {/* Forgot Password Link */}
-        <div className="flex justify-end mb-4">
-          <a 
-            href="/forgot-password" 
+        <div className="flex justify-end mb-2">
+          <Link 
+            to="/"
             className="text-sm text-blue-600 hover:underline transition duration-300"
           >
             Forgot Password?
-          </a>
+          </Link>
+        </div>
+        <div className="flex justify-end mb-2">
+          <Link 
+            to="/signin"
+            className="text-sm text-blue-600 hover:underline transition duration-300"
+          >
+            Signin
+          </Link>
         </div>
 
         {/* Sign In Button */}
+        <Link>
         <button className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:-translate-y-1">
-          Sign In
+          Sign Up
         </button>
+        </Link>
+
+        {/* Divider */}
+        <Link to="/">
+        <button onClick={()=> context.setIsHeaderFooterShow(true)} className="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300 ease-in-out transform hover:-translate-y-1 mt-2">
+          Cancle 
+        </button>
+        </Link>
 
         {/* Divider */}
         <div className="flex items-center justify-center my-4">
@@ -85,4 +125,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

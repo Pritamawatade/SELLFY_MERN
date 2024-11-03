@@ -40,9 +40,12 @@ const Header = () => {
                 {/* Header search bar end here */}
 
                  <div className="part3 d-flex align-items-center ml-auto">
-                  <Button className="circle ml-3">
+                  {
+                    context.isLogIn == true ? <Button className="circle ml-3">
                     <FiUser />
-                  </Button>
+                  </Button> : <Link to="/signin"><button className="bg-sky-500 m-2 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"> SignIn </button></Link>
+                  }
+                 
                   <div className="ml-auto cartTab d-flex align-items-center">
                     <span className="price">$3.29</span>
                     <div className="position-relative ml-2">

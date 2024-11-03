@@ -11,6 +11,7 @@ import Listing from "./Pages/Listing/index.js";
 import ProductDetials from "./Pages/ProductDetails/index.js";
 import Cart from "./Pages/Cart/index.js";
 import SignIn from "./Pages/SignIn/index.js";
+import SignUp from "./Pages/SignUp/index.js";
 const mycontext = createContext();
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isOpenProuctModal, setIsOpenProductModal] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
+  const [isLogIn, setIsLogIn] = useState(false);  
 
 
   useEffect((url) => {
@@ -38,7 +40,9 @@ function App() {
     isOpenProuctModal, 
     setIsOpenProductModal,
     isHeaderFooterShow,
-    setIsHeaderFooterShow
+    setIsHeaderFooterShow,
+    isLogIn,
+    setIsLogIn,
   }
   return <>
   <BrowserRouter>
@@ -53,6 +57,7 @@ function App() {
       <Route path="/product/:id" exact={true} element={<ProductDetials />} />
       <Route path="/cart" exact={true} element={<Cart />} />
       <Route path="/SignIn" exact={true} element={<SignIn />} />
+      <Route path="/Signup" exact={true} element={<SignUp />} />
     </Routes>
     {
       isHeaderFooterShow &&  <Footer/>
