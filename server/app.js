@@ -1,5 +1,4 @@
 const express = require('express');
-
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -15,7 +14,9 @@ app.use(bodyParser.json())
  
 //Routes 
 
-const CatagoryRoutes = require('./routes/category')
+const categoryRoutes = require('./routes/categories.js')
+
+app.use(`api/category`, categoryRoutes)
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -30,9 +31,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 })
 
 app.listen(process.env.PORT, () =>{
-    console.log(`app is listening on port${process.env.PORT}`);
+    console.log(`app is listening on port ${process.env.PORT}`);
     
 })
 
-
-//video no 20 18 min
