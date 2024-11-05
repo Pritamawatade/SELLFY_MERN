@@ -15,8 +15,10 @@ app.use(bodyParser.json())
 //Routes 
 
 const categoryRoutes = require('./routes/categories')
+const productRoutes = require('./routes/product')
 
 app.use(`/api/category`, categoryRoutes)
+app.use(`/api/products`, productRoutes)
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {
