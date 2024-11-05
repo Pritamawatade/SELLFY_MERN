@@ -7,7 +7,7 @@ const categorySchema = mongoose.Schema({
         
     },
     images:{
-        type:String,
+        type:[String],
         required:true
     },
     color:{
@@ -16,4 +16,14 @@ const categorySchema = mongoose.Schema({
     }
 })
 
+
+categorySchema.virtual('id').get(function(){
+    return this._id.toHexString();
+})
+
+categorySchema.set('toJSON',{
+    virtuals: true,
+});
+
 exports.Category = mongoose.model('Category', categorySchema);
+exports.CategorySchema = categorySchema;

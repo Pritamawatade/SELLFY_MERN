@@ -14,9 +14,9 @@ app.use(bodyParser.json())
  
 //Routes 
 
-const categoryRoutes = require('./routes/categories.js')
+const categoryRoutes = require('./routes/categories')
 
-app.use(`api/category`, categoryRoutes)
+app.use(`/api/category`, categoryRoutes)
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -29,6 +29,8 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 .catch((error) => {
     console.error('Error connecting to MongoDB:', error.message)
 })
+
+
 
 app.listen(process.env.PORT, () =>{
     console.log(`app is listening on port ${process.env.PORT}`);
