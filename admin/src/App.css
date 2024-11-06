@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+
+*{
+  margin: 0;
+  padding: 0;
+}
 body{
   font-family: "Bitter", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  background: #ebe9e9;
 
 }
+
+header{
+  width: 100%;
+  width: 80px;
+}
+
