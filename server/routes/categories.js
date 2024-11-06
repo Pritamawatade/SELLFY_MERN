@@ -126,4 +126,6 @@ router.post("/create", async (req, res) => {
   res.status(201).json(category);
 });
 
+
+
 module.exports = router;

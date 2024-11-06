@@ -10,6 +10,11 @@ const productSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    images:[{
+        type:String,
+        required:true,
+        
+    }],
     brand:{
         type:String,
         default:''
@@ -31,6 +36,18 @@ const productSchema = mongoose.Schema({
         type:Number,
         default:0,
     },
+    numReviews:{
+        type:Number,
+        default:0,
+    },
+    isFeatured:{
+        type:Boolean,
+        default:false,
+    },
+    dateCreated:{
+        type:Date,
+        default:Date.now,
+    }
 
 })
 
