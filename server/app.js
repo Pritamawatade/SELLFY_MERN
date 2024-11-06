@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 //Routes 
 
 const categoryRoutes = require('./routes/categories')
-const productRoutes = require('./routes/product')
+const productRoutes = require('./routes/products')
 
 app.use(`/api/category`, categoryRoutes)
 app.use(`/api/products`, productRoutes)
