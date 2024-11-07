@@ -23,6 +23,7 @@ import Avatar from '@mui/material/Avatar';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [notificationDrop, setnotificationDrop] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleOpenMyAccDrop = (event) => {
     setAnchorEl(event.currentTarget);
