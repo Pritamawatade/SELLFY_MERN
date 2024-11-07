@@ -15,7 +15,10 @@ body{
 }
 
 header{
-  width: 100%;
-  width: 80px;
+  width: 100% !important;
+  height: 80px !important;
+  background: #fff;
 }
+header .logo{width: 45px !important;}
+header .row{margin: 0px !important;}
 
