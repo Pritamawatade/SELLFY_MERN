@@ -93,7 +93,11 @@ header button.rounded-circle svg{
 }
 
 
-
+.notification .MuiPaper-root {
+  top: 78px !important;
+    left: 70% !important;
+    /* border: 11px slid red !important; */
+}
 
 
 
