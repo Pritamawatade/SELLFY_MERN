@@ -219,15 +219,6 @@ const Header = () => {
       </Menu>
 
 
-
-
-
-
-{/* TODO: vide 1 hour */}
-
-
-
-
             </div>
           </div>
         </div>
