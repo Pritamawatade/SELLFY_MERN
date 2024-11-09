@@ -9,14 +9,15 @@ function App() {
     <BrowserRouter>
     <Header />
     <div className="d-flex main">
+      <div className="sibarWrapper">
       <Sidebar />
-    </div>
+      </div>
    <div className='content'>
-      
         <Routes>
           <Route path='/' exact={true} element={<Dashboard />} />
           <Route path='/dashboard' exact={true} element={<Dashboard />} />
         </Routes>
+    </div>
    </div>
     </BrowserRouter>
   );
