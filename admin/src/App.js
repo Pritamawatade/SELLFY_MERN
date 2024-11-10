@@ -6,7 +6,7 @@ import Header from './component/Header';
 import Sidebar from './component/Sidebar';
 function App() {
   return (
-    
+
     <BrowserRouter>
     <Header />
     <div className="d-flex main">
@@ -25,3 +25,5 @@ function App() {
 }
 
 export default App;
+
+// TODO: video at 5 min
