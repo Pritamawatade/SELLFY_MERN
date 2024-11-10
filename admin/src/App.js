@@ -27,5 +27,3 @@ function App() {
 export default App;
 
 // TODO: video at 5 min
-// TODO: video at 5 min
-// TODO: video at 5 min
