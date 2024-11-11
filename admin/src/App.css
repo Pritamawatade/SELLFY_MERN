@@ -124,7 +124,12 @@ header button.rounded-circle svg{
 
 
 
-
+.main .sibarWrapper{
+  width: 30%;
+  flex: 0 0 30%;
+  transition: all 0.3 ease-in-out;
+  
+}
 
 
 
