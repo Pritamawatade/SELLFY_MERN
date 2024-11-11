@@ -33,41 +33,6 @@ const Sidebar = () =>{
            <h1>sidebar</h1>
            <h1>sidebar</h1>
            <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
-           <h1>sidebar</h1>
         </div>
     )
 }
