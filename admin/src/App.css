@@ -10,14 +10,18 @@ body{
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  background: #ebe9e9;
+  background: #e8e6e6 !important;
 
 }
 
 header{
   width: 100% !important;
   height: 80px !important;
-  background: #d7e5e6;
+  background: #fff !important;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
 }
 header .logo{width: 45px !important;}
 header .row{margin: 0px !important;}
@@ -100,11 +104,25 @@ header button.rounded-circle svg{
     width: 350px;
     max-height:400px;
     overflow-y: scroll !important;
+    border-radius: 4px !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-::-webkit-scrollbar{
+/* #notification ::-webkit-scrollbar{
   width: 10px;
-  height: 10px;
+  height: 10%;
+  background-color: #b5cdd3;
+  transition: all 0.2s ease-in-out;
+  border-radius: 5px;
+} */
+
+#notification::-webkit-scrollbar-thumb {
   background-color: #00c8ff;
+  border-radius: 10px;
+}
+
+#notification::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
 }
 
 .infoh4{
@@ -124,25 +142,62 @@ header button.rounded-circle svg{
 
 
 
-.main .sibarWrapper{
-  width: 30%;
+.main .sideWrapper{
+  width: 20%;
   flex: 0 0 30%;
   transition: all 0.3 ease-in-out;
 
 }
-.main .sibarWrapper .sidebar{
+.main .sideWrapper .sidebar{
   width: 20%;
-  height: 100vh;
+  height: calc(100% - 70px);
   position: fixed !important;
-  top: 79x;
+  top: 70px;
   left: 0px ;
   background: #ffffff;
+ overflow-y: scroll !important;;
+  padding-bottom: 40px;
 }
 
+.main .sideWrapper .sidebar ::-webkit-scrollbar-thumb {
+  height: 10px;
+  width: 10px;
+  background-color: #00c8ff !important;
+  border-radius: 10px;
+}
 
+.main .sideWrapper .sidebar::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+.main .sideWrapper .sidebar ul li{
+  list-style-type: none !important;
+  padding: 10px 10px;
+  border-radius: 5px;
+}
 
-
-
+.main .sideWrapper .sidebar ul li button:hover{
+  background: rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in-out;
+}
+.main .sideWrapper .sidebar ul li button{
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  padding: 12px 15px !important;
+  text-transform: capitalize !important; 
+  text-align: left;
+  border-radius: 0px !important;
+  width: 100%;
+  border-radius: 7px !important;
+}
+.main .sideWrapper .sidebar ul li button *{
+  color: rgba(0, 0, 0, 0.7) !important;
+  font-size: 20px;
+}
+.main .sideWrapper .sidebar ul li button .icon{ width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:10px; margin-right:10px;}
+.main .sideWrapper .sidebar ul li button .icon svg{ font-size: 25px;}
+.main .sideWrapper .sidebar ul li button .arrow { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:auto;}
 
 
 

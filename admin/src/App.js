@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
     <Header />
     <div className="d-flex main">
-      <div className="sibarWrapper">
+      <div className="sideWrapper">
       <Sidebar />
       </div>
    <div className='content'>
@@ -24,6 +24,5 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
 
-// TODO: video at 5 min
