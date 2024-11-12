@@ -201,6 +201,27 @@ header button.rounded-circle svg{
 
 
 
+.main .sideWrapper .sidebar ul li  ul li{
+  list-style: none; 
+  padding-left: 40px;
+  
+  
+}
+
+
+.main .sideWrapper .sidebar ul li ul li a{ border-bottom: 0px !important; text-decoration: none; color: #747171; font-size: 16px; padding: 7px 10px; border-left: 2px solid rgba(0, 0, 0, 0.1); transition: all 0.1s ease-in-out;}
+
+.main .sideWrapper .sidebar ul li ul li a:hover{
+  color: #002aff;
+  transition: all 0.1s ease-in-out;
+  border-left: 2px solid rgb(6, 93, 255);
+}
+
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapse{ height: 0px; }
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapsed{ height: auto; }
+
+
+
 
 
 

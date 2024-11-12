@@ -12,9 +12,14 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { FaProductHunt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
-
+import { useState } from "react";
 
 const Sidebar = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const isOpenSubMenu = (index) => {
+    setActiveTab(index);
+  };
   return (
     <div className="sidebar" id="sidebar1">
       <ul>
@@ -32,17 +37,37 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/">
-            <Button className="dashboard w-100">
-              <span className="icon">
-                <FaProductHunt />
-              </span>
-              Product
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
+          <Button
+            className={`w-100 ${activeTab === 1 ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(1)}
+          >
+            <span className="icon">
+              <FaProductHunt />
+            </span>
+            Product
+            <span className="arrow">
+              <IoIosArrowForward />
+            </span>
+          </Button>
+          <div
+            className={`submenuWrapper ${
+              activeTab === 1 ? "collapse" : "colapsed"
+            }`}
+          >
+
+            //TODO video at 45 min
+            <ul className="submenu">
+              <li>
+                <Link to="/">Prroduct list</Link>
+              </li>
+              <li>
+                <Link to="/">Prroduct view</Link>
+              </li>
+              <li>
+                <Link to="/">Prroduct upload</Link>
+              </li>
+            </ul>
+          </div>
         </li>
         <li>
           <Link to="/">
