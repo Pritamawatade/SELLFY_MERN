@@ -55,6 +55,7 @@ const Sidebar = () => {
             }`}
           >
 
+            //TODO video at 45 min
             <ul className="submenu">
               <li>
                 <Link to="/">Prroduct list</Link>
