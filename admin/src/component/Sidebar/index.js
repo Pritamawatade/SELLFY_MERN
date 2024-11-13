@@ -1,3 +1,4 @@
+import { RiLogoutBoxFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa";
 import { IoIosLogIn } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
@@ -5,9 +6,7 @@ import { MdNotificationAdd } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { BsCartCheckFill } from "react-icons/bs";
-
 import { IoIosArrowForward } from "react-icons/io";
-
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { FaProductHunt } from "react-icons/fa";
@@ -16,9 +15,15 @@ import { useState } from "react";
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [isActiveTab, setIsActiveTab] = useState(false);
 
   const isOpenSubMenu = (index) => {
-    setActiveTab(index);
+    if (index === activeTab && isActiveTab) {
+      setActiveTab(0);
+      setIsActiveTab(false);
+    }
+    else{setActiveTab(index);
+      setIsActiveTab(true);}
   };
   return (
     <div className="sidebar" id="sidebar1">
@@ -38,7 +43,7 @@ const Sidebar = () => {
         </li>
         <li>
           <Button
-            className={`w-100 ${activeTab === 1 ? "active" : ""}`}
+            className={`w-100 ${activeTab === 1 && isActiveTab ? "active" : ""}`}
             onClick={() => isOpenSubMenu(1)}
           >
             <span className="icon">
@@ -51,11 +56,9 @@ const Sidebar = () => {
           </Button>
           <div
             className={`submenuWrapper ${
-              activeTab === 1 ? "collapse" : "colapsed"
+              activeTab === 1 ? "collapsed" : "collapse"
             }`}
           >
-
-            //TODO video at 45 min
             <ul className="submenu">
               <li>
                 <Link to="/">Prroduct list</Link>
@@ -71,7 +74,10 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/">
-            <Button className="dashboard w-100">
+          <Button
+            className={`w-100 ${activeTab === 2 && isActiveTab ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(2)}
+          >
               <span className="icon">
                 <BsCartCheckFill />
               </span>
@@ -84,7 +90,10 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/">
-            <Button className="dashboard w-100">
+          <Button
+            className={`w-100 ${activeTab === 3 && isActiveTab ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(3)}
+          >
               <span className="icon">
                 <RiMessage2Fill />
               </span>
@@ -97,7 +106,10 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/">
-            <Button className="dashboard w-100">
+          <Button
+            className={`w-100 ${activeTab === 4 && isActiveTab ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(4)}
+          >
               <span className="icon">
                 <MdNotificationAdd />
               </span>
@@ -110,7 +122,10 @@ const Sidebar = () => {
         </li>
         <li>
           <Link to="/">
-            <Button className="dashboard w-100">
+          <Button
+            className={`w-100 ${activeTab === 5 && isActiveTab ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(5)}
+          >
               <span className="icon">
                 <IoSettings />
               </span>
@@ -147,46 +162,13 @@ const Sidebar = () => {
             </Button>
           </Link>
         </li>
-        <li>
-          <Link to="/">
-            <Button className="dashboard w-100">
-              <span className="icon">
-                <RiDashboardHorizontalLine />
-              </span>
-              Dashboard
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <Button className="dashboard w-100">
-              <span className="icon">
-                <RiDashboardHorizontalLine />
-              </span>
-              Dashboard
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <Button className="dashboard w-100">
-              <span className="icon">
-                <RiDashboardHorizontalLine />
-              </span>
-              Dashboard
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
-        </li>
       </ul>
+
+      <div className="logoutWrapper ">
+        <div className="logout bg-sky-400 w-100">
+          <Button>Logout <RiLogoutBoxFill /> </Button>
+        </div>
+      </div>
     </div>
   );
 };
