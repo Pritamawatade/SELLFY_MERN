@@ -11,6 +11,7 @@ body{
   font-weight: 400;
   font-style: normal;
   background: #e8e6e6 !important;
+  overflow-x: hidden !important;
 
 }
 
@@ -246,13 +247,25 @@ header button.rounded-circle svg{
 }
 
 
+.main .content{
+  width: 80%;
+  flex: 0 0 80%;
+  transition: all 0.3 ease-in-out;
+  padding-left: 30px;
+}
 
 
 
+.right-content{
+  padding: 90px 30px;
+}
 
+.dashboardBoxWrapper{
+  width: 100%;
+  gap: 15%;
+}
 
-
-
+.dashboardBoxWrapper .dashboardBox{width: 45%; height: 250px; background: red;}
 
 
 
