@@ -200,7 +200,7 @@ header button.rounded-circle svg{
 .main .sideWrapper .sidebar ul li button .arrow { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:auto; transition: all 0.1s ease-in-out;}
 .main .sideWrapper .sidebar ul li button.active{background: rgb(145, 145, 145);}
 .main .sideWrapper .sidebar ul li button.active .arrow svg{ transform: rotate(90deg);} 
-
+.main .sideWrapper .sidebar ul li button.active .icon  svg{ color: #002aff !important;}
 .main .sideWrapper .sidebar ul li  ul li{
   list-style: none; 
   padding-left: 40px;
@@ -217,8 +217,8 @@ header button.rounded-circle svg{
   border-left: 2px solid rgb(6, 93, 255);
 }
 .main .sideWrapper .sidebar ul li .submenuWrapper{transition: all 0.5s ease-in-out;}
-.main .sideWrapper .sidebar ul li .submenuWrapper .collapse{ height: 0px; transition: all 0.5s ease-in-out;}
-.main .sideWrapper .sidebar ul li .submenuWrapper .collapsed{ height: auto;  transition: all 0.4s ease-in-out;}
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapse{ height: 0px; transition: all 0.5s ease-in-out; }
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapsed{ height: auto;  transition: all 0.4s ease-in-out; padding: 10px 10px;}
 
 .logoutWrapper  {width: 85% !important; background-color: #00c8ff; margin: 20px; margin-right: 60px; height: 90px; border-radius: 20px;}
 
