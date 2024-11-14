@@ -272,9 +272,9 @@ header button.rounded-circle svg{
 
 .row .box{
   height: 100%;
-  width: 100%;
-  background: #b28181;
+  width: 100% !important;
 }
+.row .box button svg{font-size: 20px !important; font-weight: 600 !important; transition: all 0.2s ease !important; color: #fff !important;}
 .dashboardBoxWrapper .dashboardBox .col1 {
   padding: 10px 10px;
 }
@@ -286,11 +286,25 @@ header button.rounded-circle svg{
 
 .dashboardBoxWrapper .dashboardBox .icon svg{font-size: 60px !important; opacity: 0.4;}
 
+.dashboardBox .info1 p{font-size: 19px; font-weight: 600; color: white;}
+.dashboardBox .info1 span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent !important;;
+  border-radius: 50%;
 
+}
 
-
-
-
+.dashboardBox .info1 span button {
+  font-size: 20px !important;
+  color: white !important;
+}
+#reactgooglegraph-2 g{
+  color: white !important;
+}
 
 
 

@@ -8,7 +8,7 @@ function App() {
   return (
 
     <BrowserRouter>
-    <Header />
+    <Header /> 
     <div className="d-flex main">
       <div className="sideWrapper">
       <Sidebar />
