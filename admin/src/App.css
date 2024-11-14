@@ -266,7 +266,7 @@ header button.rounded-circle svg{
   flex-wrap: wrap !important;
 }
 
-.dashboardBoxWrapper .dashboardBox{width: 45%; height: 250px; background: rgb(111, 94, 94); }
+.dashboardBoxWrapper .dashboardBox{width: 49%; height: 200px; background: rgb(111, 94, 94); border-radius: 10px; }
 
 
 
@@ -275,9 +275,16 @@ header button.rounded-circle svg{
   width: 100%;
   background: #b28181;
 }
+.dashboardBoxWrapper .dashboardBox .col1 {
+  padding: 10px 10px;
+}
+.dashboardBoxWrapper .dashboardBox .col1 h4{
+  font-size: 20px !important;
+}
 
+.dashboardBoxWrapper .dashboardBox .col1 span{font-size: 40px !important; font-weight: 700;}
 
-
+.dashboardBoxWrapper .dashboardBox .icon svg{font-size: 60px !important; opacity: 0.4;}
 
 
 
