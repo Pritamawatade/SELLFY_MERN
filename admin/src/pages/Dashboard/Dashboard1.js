@@ -5,7 +5,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import Menu from "@mui/material/Menu";  
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
-function DashboardBox(props) {  
+function DashboardBox(props) {   
   const options = [
   "last day",
   "last week",
