@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import "bootstrap/dist/css/bootstrap.min.css"
 import Header from './component/Header';
 import Sidebar from './component/Sidebar';
-function App() {
+function App() {  
   return (
 
     <BrowserRouter>
