@@ -44,7 +44,7 @@ const Dashboard = () => {
   const options1 = {
     title: "My Daily Activities",
     backgroundColor: { fill: "transparent" },
-  };
+  };  
   return (
     <div className="right-content w-100">
       <div className="row">
