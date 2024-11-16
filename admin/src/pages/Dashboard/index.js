@@ -10,10 +10,34 @@ import React from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+
+
+import { MdDeleteForever } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+
+
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 const Dashboard = () => {
+  const [showBy, setshowBy] = React.useState("");
+  const [showByCategory, setShowByCategory] = React.useState("");
+  
+  const handleChange = (event) => {
+    setshowBy(event.target.value);
+  };
+  const handleChange1 = (event) => {
+    setShowByCategory(event.target.value);
+  };
+
   const options = [
     "last day",
     "last week",
@@ -42,9 +66,8 @@ const Dashboard = () => {
   ];
 
   const options1 = {
-    title: "My Daily Activities",
     backgroundColor: { fill: "transparent" },
-  };  
+  };
   return (
     <div className="right-content w-100">
       <div className="row">
@@ -120,8 +143,90 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="shadow mt-3 border p-3 card">
-        <h3 className="font-bold">Best Selling Product</h3>
+      <div className="shadow mt-3 border-0 p-3 card">
+        <h3 className="font-bold text-gray-700">Best Selling Product</h3>
+        <div className="row cardFilters mt-3">
+          <div className="col-md-3">
+            <h5 className="mt-3 lableText">SHOW BY</h5>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={showBy}
+              label="ShowBy"
+              onChange={handleChange}
+              className="w-100 showBy-select"
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </div>
+          
+          <div className="col-md-3">
+            <h5 className="mt-3 lableText">Category By</h5>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={showByCategory}
+              label="ShowBy"
+              onChange={handleChange1}
+              className="w-100 category-select"
+            
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </div>
+
+        </div>
+
+        <div className="table-responsive mt-3">
+          <div className="table table-bordered ">
+            <thead className="title">
+              <tr  className="">
+                <th>UID</th>
+                <th>PRODUCT</th>
+                <th>CATEGORY</th>
+                <th>BRAND</th>
+                <th>PRICE</th>
+                <th>STOCK</th>
+                <th>RATING</th>
+                <th>ORDERS</th>
+                <th>SALES</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#1</td>
+                <td>Tops and skirt set for Female...
+                Women's exclusive summ</td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td>
+                  <Button variant="contained" className="bg-red-200">
+                   <FaEye />
+                  </Button>
+                  <Button variant="contained" color="success">
+                    <MdEdit />
+                  </Button>
+                  <Button variant="contained" color="secondary">
+                    <MdDeleteForever />
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </div>
+        </div>
       </div>
     </div>
   );

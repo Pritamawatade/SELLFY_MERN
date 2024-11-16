@@ -307,15 +307,27 @@ header button.rounded-circle svg{
 }  
 
 
+.card{margin: 20px 0px; border-radius: 10px;}
+.lableText{font-size: 14px !important; font-weight:600 !important; color: #403e57 !important; text-transform: uppercase;}
+
+.showBy-select{
+  height: 40px !important;
+  width: 100% !important;
+}
+
+.category-select{
+  height: 40px !important;
+  width: 100% !important;
+}
 
 
 
+.title th{
+  background-color: rgb(4, 138, 254) !important;
+  font-size: 14px !important;
+  margin: 0;
 
-
-
-
-
-
+}
 
 
 
