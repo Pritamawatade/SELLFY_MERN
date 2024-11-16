@@ -164,8 +164,8 @@ const Sidebar = () => {
         </li>
       </ul>
 
-      <div className="logoutWrapper ">
-        <div className="logout bg-sky-400 w-100">
+      <div className="logoutWrapper">
+        <div className="logout bg-sky-400 w-100  border-3 border-r-slate-800 rounded-xl">
           <Button>Logout <RiLogoutBoxFill /> </Button>
         </div>
       </div>

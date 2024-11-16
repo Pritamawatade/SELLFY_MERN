@@ -21,6 +21,8 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 
+import Pagination from '@mui/material/Pagination';
+
 
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -199,9 +201,21 @@ const Dashboard = () => {
             </thead>
             <tbody>
               <tr>
-                <td>#1</td>
-                <td>Tops and skirt set for Female...
-                Women's exclusive summ</td>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
@@ -212,21 +226,272 @@ const Dashboard = () => {
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
-                <td>
-                  <Button variant="contained" className="bg-red-200">
-                   <FaEye />
-                  </Button>
-                  <Button variant="contained" color="success">
-                    <MdEdit />
-                  </Button>
-                  <Button variant="contained" color="secondary">
-                    <MdDeleteForever />
-                  </Button>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
                 </td>
               </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
+              <tr>
+                
+                <td className="font-bold">#1</td>
+                <td>
+                  <div className="flex items-center justify-center mb-0">
+                    <div className="imgWrapper">
+                      <div className="image w-16">
+                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                      </div>
+                    </div>
+                    <div className="text">
+                    Tops and skirt set for Female...
+                    Women's exclusive summ
+                    </div>
+                  </div>
+                </td>
+                <td>womans</td>
+                <td>reachman</td>
+                <td>
+                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="text-green-500 text-xl">$19</span>
+                </td>
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>5(16)</td>
+                <td>280</td>
+                <td>$23</td>
+                <td id="actions" className="m-0 p-0">
+                <span className="m-0 p-0 block">
+                    <Button className="mr-1 flex items-center">
+                      <FaEye />
+                    </Button>
+                    <Button className="mr-1" color="success">
+                      <MdEdit />
+                    </Button>
+                    <Button color="secondary">
+                      <MdDeleteForever />
+                    </Button>
+                </span>
+                </td>
+              </tr>
+              
             </tbody>
           </div>
         </div>
+        <Pagination count={10} color="primary"   showFirstButton showLastButton />
+
       </div>
     </div>
   );
