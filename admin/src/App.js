@@ -24,7 +24,7 @@ function App() {
           <div className={`sideWrapper ${isTogglesidebar == true ? "toggle" : ""}`}>
             <Sidebar />
           </div>
-          <div className="content">
+          <div className={`content ${isTogglesidebar == true ? "toggle" : ""}`}>
             <Routes>
               <Route path="/" exact={true} element={<Dashboard />} />
               <Route path="/dashboard" exact={true} element={<Dashboard />} />

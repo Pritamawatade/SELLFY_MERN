@@ -149,6 +149,9 @@ header button.rounded-circle svg{
   transition: all 0.3 ease-in-out;
 
 }
+
+.main .sideWrapper.toggle{width: 0%; flex: 0 0 0%;}
+.main .sideWrapper.toggle .sidebar{left: -100%; transition: all 0.3 ease-in-out; } 
 .main .sideWrapper .sidebar{
   width: 20%;
   height: calc(100% - 70px);
@@ -159,6 +162,7 @@ header button.rounded-circle svg{
  overflow-y: scroll !important;
  overflow-x: hidden !important;;
   padding-bottom: 40px;
+  transition: all 0.3 ease-in-out;
 }
 
 .main .sideWrapper .sidebar::-webkit-scrollbar-thumb {
@@ -251,11 +255,14 @@ header button.rounded-circle svg{
 .main .content{
   width: 80%;
   flex: 0 0 80%;
- 
+  transition: all 0.5s ease-in-out;
+}
+.main .content.toggle{
+  width: 100% !important; 
+  flex: 0 0 100% !important;
 }
 
-
-
+  
 .right-content{
   padding: 90px 30px;
 }
