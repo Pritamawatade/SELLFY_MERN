@@ -11,11 +11,14 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { FaProductHunt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { myContext } from "../../App";
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isActiveTab, setIsActiveTab] = useState(false);
+
+  const context = useContext(myContext);
 
   const isOpenSubMenu = (index) => {
     if (index === activeTab && isActiveTab) {

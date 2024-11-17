@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { MdMenuOpen } from "react-icons/md";
-import React from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import SearchBox from "../SearchBox";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineEmail } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { IoMdMenu } from "react-icons/io";
+
 import { MdLightMode } from "react-icons/md";
 
 import Menu from "@mui/material/Menu";
@@ -16,8 +18,12 @@ import Divider from "@mui/material/Divider";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
+import { myContext } from "../../App";
 
 const Header = () => {
+
+  const context = useContext(myContext);
+  
   const [anchorEl, setAnchorEl] = React.useState(false);
   const [isOpenNotificationDrop, setisOpenNotificationDrop] =
     React.useState(false);
@@ -58,8 +64,14 @@ const Header = () => {
           </div>
 
           <div className="col-sm-3 d-flex align-items-center part2">
-            <Button className="rounded-circle ">
-              <MdMenuOpen />
+            <Button className="rounded-circle " onClick={() => context.setIsToggleSidebar(!context.isTogglesidebar)}>
+             {
+              context.isTogglesidebar? (
+                <IoMdMenu className="text-2xl" />
+              ) : (
+                <MdMenuOpen className="text-2xl" />
+              ) 
+             }
             </Button>
             <SearchBox />
           </div>

@@ -206,7 +206,7 @@ const Dashboard = () => {
                 <td>
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
-                      <div className="image w-16">
+                      <div className="image w-16 ">
                         <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
                       </div>
                     </div>
@@ -492,6 +492,7 @@ const Dashboard = () => {
         </div>
         <Pagination count={10} color="primary"   showFirstButton showLastButton />
 
+        <p className="text-gray-400 text-lg font-normal">Showing 1 to 10 of 50 entries</p>
       </div>
     </div>
   );
