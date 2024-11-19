@@ -23,7 +23,7 @@ import { myContext } from "../../App";
 const Header = () => {
 
   const context = useContext(myContext);
-  const [isLogged, setIsLoggedIn] = useState(true);
+  const [isLogged, setIsLoggedIn] = useState(false);
   
   const [anchorEl, setAnchorEl] = React.useState(false);
   const [isOpenNotificationDrop, setisOpenNotificationDrop] =
@@ -302,6 +302,7 @@ const Header = () => {
               {
                 isLogged === true ?
                 
+                // my account section 
             <div className="myAccWrapper">
             <Button
               className="myAcc d-flex align-items-center"
@@ -381,7 +382,7 @@ const Header = () => {
                 Logout
               </MenuItem>
             </Menu>
-          </div> : <Button>Sign in</Button>
+          </div> : <Button  variant="contained" color="success" className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Sign in</Button>
               }
 
           </div>

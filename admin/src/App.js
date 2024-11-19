@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
 import { createContext, useContext, useState } from "react";
+import Login from "./pages/Login";
 
 const myContext = createContext();
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/" exact={true} element={<Dashboard />} />
               <Route path="/dashboard" exact={true} element={<Dashboard />} />
+              <Route path="/login" exact={true} element={<Login />} />
             </Routes>
           </div>
         </div>
