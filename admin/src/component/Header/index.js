@@ -382,10 +382,12 @@ const Header = () => {
                 Logout
               </MenuItem>
             </Menu>
-          </div> : <Button  variant="contained" color="success" className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Sign in</Button>
-              }
-
-          </div>
+          </div> : 
+              <Link to="/login">
+                <Button  variant="contained" color="success" className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Sign in</Button>
+              </Link>
+          }
+        </div>
         </div>
       </div>
     </header>

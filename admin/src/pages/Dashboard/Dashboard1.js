@@ -1,10 +1,11 @@
 import { IoTimerOutline } from "react-icons/io5";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import Menu from "@mui/material/Menu";  
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
+import { myContext } from "../../App";
 function DashboardBox(props) {   
   const options = [
   "last day",
@@ -25,6 +26,12 @@ function DashboardBox(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const context = useContext(myContext);
+
+    useEffect(() => {
+        context.setIsHeaderFooterShow(true);
+    }, [])
   return (
     <>
       <div

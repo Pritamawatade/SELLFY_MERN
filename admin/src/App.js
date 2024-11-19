@@ -6,30 +6,39 @@ import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
 import { createContext, useContext, useState } from "react";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 const myContext = createContext();
 function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
+  const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
 
   const values = {
     isTogglesidebar,
     setIsToggleSidebar,
+    isHeaderFooterShow,
+    setIsHeaderFooterShow,
   }
 
 
   return (
     <BrowserRouter>
       <myContext.Provider value={values}>
-        <Header />
+       {
+        isHeaderFooterShow && <Header /> 
+       }
         <div className="d-flex main">
-          <div className={`sideWrapper ${isTogglesidebar == true ? "toggle" : ""}`}>
+          {
+            isHeaderFooterShow && <div className={`sideWrapper ${isTogglesidebar == true ? "toggle" : ""}`}>
             <Sidebar />
           </div>
+          }
           <div className={`content ${isTogglesidebar == true ? "toggle" : ""}`}>
             <Routes>
               <Route path="/" exact={true} element={<Dashboard />} />
               <Route path="/dashboard" exact={true} element={<Dashboard />} />
               <Route path="/login" exact={true} element={<Login />} />
+              <Route path="/signup" exact={true} element={<SignUp />} />
             </Routes>
           </div>
         </div>
