@@ -2,23 +2,23 @@ import { IoTimerOutline } from "react-icons/io5";
 import React, { useContext, useEffect, useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
-import Menu from "@mui/material/Menu";  
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 import { myContext } from "../../App";
 import { motion } from "framer-motion"
 
-function DashboardBox(props) {   
+function DashboardBox(props) {
   const options = [
-  "last day",
-  "last week",
-  "last month",
-  "last year",
+    "last day",
+    "last week",
+    "last month",
+    "last year",
   ];
 
   const ITEM_HEIGHT = 48;
 
-  
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -30,17 +30,18 @@ function DashboardBox(props) {
 
   const context = useContext(myContext);
 
-    useEffect(() => {
-        context.setIsHeaderFooterShow(true);
-    }, [])
+  useEffect(() => {
+    context.setIsHeaderFooterShow(true);
+  }, [])
 
   const boxVariants = {
-    hidden: { 
+    hidden: {
       y: 50,
       opacity: 0
     },
-    visible: { 
+    visible: {
       y: 0,
+    
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -52,20 +53,22 @@ function DashboardBox(props) {
   return (
     <>
       <motion.div
-       variants={boxVariants}
-       initial="hidden"
-       animate="visible"
-     
+        variants={boxVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+
         className="dashboardBox"
         style={{
           backgroundImage: `linear-gradient(to right, ${props.color?.[0]}, ${props.color?.[1]})`,
         }}
       >
-        <motion.div 
-           variants={boxVariants}
-           initial="hidden"
-           animate="visible"
-            className="d-flex w-100 align-items-center">
+        <motion.div
+          variants={boxVariants}
+          initial="hidden"
+          animate="visible"
+          className="d-flex w-100 align-items-center">
           <div className="col1">
             <h4 className="text-white">Total Users</h4>
             <span className="text-white">277</span>
@@ -80,34 +83,34 @@ function DashboardBox(props) {
           <span className="icon1 ml-auto ">
             <Button onClick={handleClick}><HiOutlineDotsVertical /></Button>
             <Menu
-            className="border rounded-full"
-        id="long-menu"
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        slotProps={{
-          paper: {
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: '20ch',
-            },
-          },
-        }}
-      >
-        {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-           <span className="mr-1"><IoTimerOutline /></span> {option}
-          </MenuItem>
-        ))}
-      </Menu>
+              className="border rounded-full"
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              slotProps={{
+                paper: {
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: '20ch',
+                  },
+                },
+              }}
+            >
+              {options.map((option) => (
+                <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+                  <span className="mr-1"><IoTimerOutline /></span> {option}
+                </MenuItem>
+              ))}
+            </Menu>
           </span>
         </div>
       </motion.div>
     </>
-  ); 
+  );
 }
 
 export default DashboardBox;

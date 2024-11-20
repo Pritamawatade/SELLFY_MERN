@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa";
 import { IoIosLogIn } from "react-icons/io";
@@ -20,18 +21,62 @@ const Sidebar = () => {
 
   const context = useContext(myContext);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const boxVariants = {
+    hidden: {
+      y: 50,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+    
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
   const isOpenSubMenu = (index) => {
     if (index === activeTab && isActiveTab) {
       setActiveTab(0);
       setIsActiveTab(false);
+    } else {
+      setActiveTab(index);
+      setIsActiveTab(true);
     }
-    else{setActiveTab(index);
-      setIsActiveTab(true);}
   };
   return (
     <div className="sidebar" id="sidebar1">
-      <ul>
-        <li>
+      <motion.ul
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.li variants={itemVariants}>   
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">
@@ -43,8 +88,8 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Button
             className={`w-100 ${activeTab === 1 && isActiveTab ? "active" : ""}`}
             onClick={() => isOpenSubMenu(1)}
@@ -62,25 +107,30 @@ const Sidebar = () => {
               activeTab === 1 ? "collapsed" : "collapse"
             }`}
           >
-            <ul className="submenu">
-              <li>
+            <motion.ul 
+              className="submenu"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.li variants={itemVariants}>
                 <Link to="/">Prroduct list</Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li variants={itemVariants}>
                 <Link to="/">Prroduct view</Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li variants={itemVariants}>
                 <Link to="/">Prroduct upload</Link>
-              </li>
-            </ul>
+              </motion.li>
+            </motion.ul>
           </div>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
-          <Button
-            className={`w-100 ${activeTab === 2 && isActiveTab ? "active" : ""}`}
-            onClick={() => isOpenSubMenu(2)}
-          >
+            <Button
+              className={`w-100 ${activeTab === 2 && isActiveTab ? "active" : ""}`}
+              onClick={() => isOpenSubMenu(2)}
+            >
               <span className="icon">
                 <BsCartCheckFill />
               </span>
@@ -90,13 +140,13 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
-          <Button
-            className={`w-100 ${activeTab === 3 && isActiveTab ? "active" : ""}`}
-            onClick={() => isOpenSubMenu(3)}
-          >
+            <Button
+              className={`w-100 ${activeTab === 3 && isActiveTab ? "active" : ""}`}
+              onClick={() => isOpenSubMenu(3)}
+            >
               <span className="icon">
                 <RiMessage2Fill />
               </span>
@@ -106,13 +156,13 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
-          <Button
-            className={`w-100 ${activeTab === 4 && isActiveTab ? "active" : ""}`}
-            onClick={() => isOpenSubMenu(4)}
-          >
+            <Button
+              className={`w-100 ${activeTab === 4 && isActiveTab ? "active" : ""}`}
+              onClick={() => isOpenSubMenu(4)}
+            >
               <span className="icon">
                 <MdNotificationAdd />
               </span>
@@ -122,13 +172,13 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
-          <Button
-            className={`w-100 ${activeTab === 5 && isActiveTab ? "active" : ""}`}
-            onClick={() => isOpenSubMenu(5)}
-          >
+            <Button
+              className={`w-100 ${activeTab === 5 && isActiveTab ? "active" : ""}`}
+              onClick={() => isOpenSubMenu(5)}
+            >
               <span className="icon">
                 <IoSettings />
               </span>
@@ -138,8 +188,8 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">
@@ -151,8 +201,8 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-        <li>
+        </motion.li>
+        <motion.li variants={itemVariants}>
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">
@@ -164,14 +214,20 @@ const Sidebar = () => {
               </span>
             </Button>
           </Link>
-        </li>
-      </ul>
+        </motion.li>
+      </motion.ul>
 
-      <div className="logoutWrapper">
+      <motion.div
+       variants={boxVariants}
+       initial="hidden"
+       animate="visible"
+       whileHover={{ scale: 1.1 }}
+       whileTap={{ scale: 0.95 }}
+      className="logoutWrapper">
         <div className="logout bg-sky-400 w-100  border-3 border-r-slate-800 rounded-xl">
           <Button>Logout <RiLogoutBoxFill /> </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

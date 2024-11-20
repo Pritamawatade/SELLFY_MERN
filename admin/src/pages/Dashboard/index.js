@@ -29,10 +29,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { motion } from "framer-motion";
 const Dashboard = () => {
   const [showBy, setshowBy] = React.useState("");
   const [showByCategory, setShowByCategory] = React.useState("");
-  
+
   const handleChange = (event) => {
     setshowBy(event.target.value);
   };
@@ -67,6 +68,22 @@ const Dashboard = () => {
     ["watched", 7],
   ];
 
+  const boxVariants = {
+    hidden: {
+      y: 50,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
+    
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   const options1 = {
     backgroundColor: { fill: "transparent" },
   };
@@ -90,14 +107,19 @@ const Dashboard = () => {
             <DashboardBox color={["#5dacf4", "#f2ca27"]} icon={<MdReviews />} />
           </div>
         </div>
-        <div className="col-md-4">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="col-md-4">
           <div
-            className="box w-100 w-full border rounded"
+            className="box w-100 w-full border-2 rounded-xl"
             style={{
               background: "linear-gradient(to bottom, #1a51b7, #296ef5)",
+              
             }}
           >
-            <div className="flex items-center justify-end">
+            <motion.div
+              className="flex items-center justify-end">
               <h5 className="text-white font-bold p-2 text-xl">Total sales</h5>
               <Button onClick={handleClick}>
                 <HiOutlineDotsVertical />
@@ -133,7 +155,7 @@ const Dashboard = () => {
                   </MenuItem>
                 ))}
               </Menu>
-            </div>
+            </motion.div>
             <Chart
               chartType="PieChart"
               data={data}
@@ -142,7 +164,7 @@ const Dashboard = () => {
               height={"400px"}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="shadow mt-3 border-0 p-3 card">
@@ -163,7 +185,7 @@ const Dashboard = () => {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </div>
-          
+
           <div className="col-md-3">
             <h5 className="mt-3 lableText">Category By</h5>
             <Select
@@ -173,7 +195,7 @@ const Dashboard = () => {
               label="ShowBy"
               onChange={handleChange1}
               className="w-100 category-select"
-            
+
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
@@ -186,7 +208,15 @@ const Dashboard = () => {
         <div className="table-responsive mt-3">
           <div className="table table-bordered ">
             <thead className="title">
-              <tr  className="">
+              <motion.tr
+                variants={boxVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.95 }} 
+                viewport={{ once: true }}
+                className=""
+              >
                 <th>UID</th>
                 <th>PRODUCT</th>
                 <th>CATEGORY</th>
@@ -197,11 +227,15 @@ const Dashboard = () => {
                 <th>ORDERS</th>
                 <th>SALES</th>
                 <th>ACTIONS</th>
-              </tr>
+              </motion.tr>
             </thead>
             <tbody>
-              <tr>
-                
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -211,8 +245,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -222,12 +256,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -237,12 +271,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -252,8 +290,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -263,12 +301,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -278,12 +316,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -293,8 +335,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -304,12 +346,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -319,12 +361,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -334,8 +380,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -345,12 +391,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -360,12 +406,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -375,8 +425,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -386,12 +436,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -401,12 +451,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -416,8 +470,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -427,12 +481,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -442,12 +496,16 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
-              <tr>
-                
+              </motion.tr>
+
+              <motion.tr
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 <td className="font-bold">#1</td>
                 <td>
                   <div className="flex items-center justify-center mb-0">
@@ -457,8 +515,8 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="text">
-                    Tops and skirt set for Female...
-                    Women's exclusive summ
+                      Tops and skirt set for Female...
+                      Women's exclusive summ
                     </div>
                   </div>
                 </td>
@@ -468,12 +526,12 @@ const Dashboard = () => {
                   <span className="line-through text-red-400 text-lg">$21</span><br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td> 
+                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
-                <span className="m-0 p-0 block">
+                  <span className="m-0 p-0 block">
                     <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
@@ -483,14 +541,14 @@ const Dashboard = () => {
                     <Button color="secondary">
                       <MdDeleteForever />
                     </Button>
-                </span>
+                  </span>
                 </td>
-              </tr>
-              
+              </motion.tr>
+
             </tbody>
           </div>
         </div>
-        <Pagination count={10} color="primary"   showFirstButton showLastButton />
+        <Pagination count={10} color="primary" showFirstButton showLastButton />
 
         <p className="text-gray-400 text-lg font-normal">Showing 1 to 10 of 50 entries</p>
       </div>
