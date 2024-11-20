@@ -1,24 +1,25 @@
 import { IoTimerOutline } from "react-icons/io5";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import Menu from "@mui/material/Menu";  
 import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 import { myContext } from "../../App";
+import { motion } from "framer-motion"
+
 function DashboardBox(props) {   
   const options = [
   "last day",
   "last week",
   "last month",
   "last year",
-  "custom range",
-  
   ];
+
   const ITEM_HEIGHT = 48;
 
   
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,15 +33,39 @@ function DashboardBox(props) {
     useEffect(() => {
         context.setIsHeaderFooterShow(true);
     }, [])
+
+  const boxVariants = {
+    hidden: { 
+      y: 50,
+      opacity: 0
+    },
+    visible: { 
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <>
-      <div
+      <motion.div
+       variants={boxVariants}
+       initial="hidden"
+       animate="visible"
+     
         className="dashboardBox"
         style={{
           backgroundImage: `linear-gradient(to right, ${props.color?.[0]}, ${props.color?.[1]})`,
         }}
       >
-        <div className="d-flex w-100 align-items-center">
+        <motion.div 
+           variants={boxVariants}
+           initial="hidden"
+           animate="visible"
+            className="d-flex w-100 align-items-center">
           <div className="col1">
             <h4 className="text-white">Total Users</h4>
             <span className="text-white">277</span>
@@ -49,7 +74,7 @@ function DashboardBox(props) {
           <div className="ml-auto p-2">
             <span className="icon">{props?.icon && props.icon}</span>
           </div>
-        </div>
+        </motion.div>
         <div className="d-flex w-100 align-items-center mb-0 mt-3 p-3 info1">
           <p className="text1">Last month</p>
           <span className="icon1 ml-auto ">
@@ -80,7 +105,7 @@ function DashboardBox(props) {
       </Menu>
           </span>
         </div>
-      </div>
+      </motion.div>
     </>
   ); 
 }

@@ -19,6 +19,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
 import { myContext } from "../../App";
+import { motion } from "framer-motion"
+
 
 const Header = () => {
 
@@ -384,7 +386,10 @@ const Header = () => {
             </Menu>
           </div> : 
               <Link to="/login">
-                <Button  variant="contained" color="success" className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Sign in</Button>
+                <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                variant="contained" color="success" className="bg-sky-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Sign in</motion.button>
               </Link>
           }
         </div>
