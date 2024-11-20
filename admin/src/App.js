@@ -4,7 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
@@ -12,12 +12,20 @@ const myContext = createContext();
 function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
+  const [themeMode, setThemeMode] = useState("light");
 
+useEffect(() => {
+  document.body.classList.remove("light");
+  document.body.classList.remove(themeMode);
+  document.body.classList.add(themeMode);
+}, [themeMode])
   const values = {
     isTogglesidebar,
     setIsToggleSidebar,
     isHeaderFooterShow,
     setIsHeaderFooterShow,
+    themeMode,
+    setThemeMode
   }
 
 
