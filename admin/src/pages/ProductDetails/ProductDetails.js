@@ -1,7 +1,21 @@
+import 'swiper/css';
+import { TbBrandAmigo } from "react-icons/tb";
+
+import 'swiper/css/navigation';
+
+// import './styles.css';
+
+// import required modules
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+
 const ProductDetails = () => {
     return (
         <div className="right-content w-100">
-            <div className=" p-32">
+            <div className=" p-12">
                 <div className="header bg-white border rounded-xl p-3">
                     <h4>Product View</h4>
                 </div>
@@ -9,11 +23,45 @@ const ProductDetails = () => {
 
             <div className="card">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-5">
+
+                        <h4 className='mb-3 mt-3 pl-2'>Product Gallery</h4>
+
+                        <div className="siperWrapper py-3 pl-2">
+                            <Swiper
+                                spaceBetween={50}
+                                navigation={true}
+                                modules={[Navigation]}
+                                slidesPerView={1}
+                                onSwiper={(swiper) => console.log(swiper)}
+                            >
+                                <SwiperSlide>
+                                    <img src="https://mironcoder-hotash.netlify.app/images/product/single/01.webp" alt="" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img src="https://mironcoder-hotash.netlify.app/images/product/single/02.webp" alt="" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img src="https://mironcoder-hotash.netlify.app/images/product/single/03.webp" alt="" />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img src="https://mironcoder-hotash.netlify.app/images/product/single/04.webp" alt="" />
+                                </SwiperSlide>
+                                ...
+                            </Swiper>
+                        </div>
 
                     </div>
-                    <div className="col-md-8">
-                        
+                    <div className="col-md-7">
+                        <div className='rightContent py-3 pl-2'><h4>Product Details</h4>
+                            <h4 className='p-2 '>Formal suits for men wedding slim fit 3 piece dress business party jacket</h4>
+
+                            <div className="flex">
+                                <span>
+                                    {/* video 10 */}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

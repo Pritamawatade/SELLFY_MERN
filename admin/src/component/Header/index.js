@@ -58,7 +58,7 @@ const Header = () => {
               className="d-flex align-items-center logo no-underline"
             >
               <img
-                style={{ width: "76px" }}
+                style={{ width: "100px", height: "40px" }} 
                 src="https://bloggingx.com/wp-content/uploads/2021/11/sellfy-logo.png"
                 alt=""
                 srcset=""

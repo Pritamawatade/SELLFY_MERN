@@ -36,12 +36,24 @@ function DashboardBox(props) {
 
   const boxVariants = {
     hidden: {
-      y: 50,
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      y: 20,
       opacity: 0
     },
     visible: {
       y: 0,
-    
       opacity: 1,
       transition: {
         duration: 0.5,
@@ -56,18 +68,15 @@ function DashboardBox(props) {
         variants={boxVariants}
         initial="hidden"
         animate="visible"
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-
         className="dashboardBox"
         style={{
           backgroundImage: `linear-gradient(to right, ${props.color?.[0]}, ${props.color?.[1]})`,
         }}
       >
         <motion.div
-          variants={boxVariants}
-          initial="hidden"
-          animate="visible"
+          variants={itemVariants}
           className="d-flex w-100 align-items-center">
           <div className="col1">
             <h4 className="text-white">Total Users</h4>

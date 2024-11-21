@@ -60,6 +60,17 @@ const Sidebar = () => {
     }
   };
 
+  const hoverAnimation = {
+    scale: 1.02,
+    rotate: 2,
+    y: -3,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 10
+    }
+  };
+
   const isOpenSubMenu = (index) => {
     if (index === activeTab && isActiveTab) {
       setActiveTab(0);
@@ -76,7 +87,11 @@ const Sidebar = () => {
         initial="hidden"
         animate="visible"
       >
-        <motion.li variants={itemVariants}>   
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >   
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">
@@ -89,7 +104,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Button
             className={`w-100 ${activeTab === 1 && isActiveTab ? "active" : ""}`}
             onClick={() => isOpenSubMenu(1)}
@@ -113,19 +132,35 @@ const Sidebar = () => {
               initial="hidden"
               animate="visible"
             >
-              <motion.li variants={itemVariants}>
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Link to="/">Prroduct list</Link>
               </motion.li>
-              <motion.li variants={itemVariants}>
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Link to="/">Prroduct view</Link>
               </motion.li>
-              <motion.li variants={itemVariants}>
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Link to="/">Prroduct upload</Link>
               </motion.li>
             </motion.ul>
           </div>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button
               className={`w-100 ${activeTab === 2 && isActiveTab ? "active" : ""}`}
@@ -141,7 +176,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button
               className={`w-100 ${activeTab === 3 && isActiveTab ? "active" : ""}`}
@@ -157,7 +196,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button
               className={`w-100 ${activeTab === 4 && isActiveTab ? "active" : ""}`}
@@ -173,7 +216,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button
               className={`w-100 ${activeTab === 5 && isActiveTab ? "active" : ""}`}
@@ -189,7 +236,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">
@@ -202,7 +253,11 @@ const Sidebar = () => {
             </Button>
           </Link>
         </motion.li>
-        <motion.li variants={itemVariants}>
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
           <Link to="/">
             <Button className="dashboard w-100">
               <span className="icon">

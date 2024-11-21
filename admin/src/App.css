@@ -27,8 +27,23 @@ header{
 body.dark header{
   background-color: #112143 !important;
 }
-
-header .logo{width: 45px !important;}
+.swiper-button-next, .swiper-button-prev{
+  height: 40px !important;
+  width: 40px !important;
+  background-color: #f0f5ff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: background-color transform 0.3s ease !important;
+}
+.swiper-button-next::after, .swiper-button-prev::after{
+  font-size: 20px !important;
+  color: #000 !important;
+}
+header .logo{width: 107px !important;}
 header .row{margin: 0px !important;}
 
 header button.rounded-circle{
