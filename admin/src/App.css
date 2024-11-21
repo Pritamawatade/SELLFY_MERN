@@ -24,6 +24,10 @@ header{
   top: 0px;
   z-index: 1000;
 }
+body.dark header{
+  background-color: #112143 !important;
+}
+
 header .logo{width: 45px !important;}
 header .row{margin: 0px !important;}
 
@@ -52,11 +56,24 @@ header button.rounded-circle svg{
   min-width: 400px !important;
   background: #f0f5ff;
 }
+
+body.dark .searchBox{
+  background: #112143 !important;
+  color: #fff !important;
+}
 .searchBox svg{
   color: #292929;
   font-size: 40px;
   padding: 2px 10px;
 }
+body.dark .searchBox svg{
+  color: #fff !important;
+}
+body.dark .searchBox input{
+  background: #112143 !important;
+  color: #fff !important;
+}
+
 .searchBox input{
   background: #f0f5ff;
   outline: none !important;
@@ -75,6 +92,10 @@ header button.rounded-circle svg{
   color: #000;
   text-align: left !important;  
   text-transform: capitalize !important;
+}
+
+body.dark .myAcc{
+  color: #fff !important;
 }
 
  .userImg .rounded-circle{
@@ -149,6 +170,9 @@ header button.rounded-circle svg{
   transition: all 0.3s ease-in-out;
   
 }
+body.dark  .sideWrapper{
+  background-color: #112143 !important;
+}
 .main .sideWrapper.toggle {
   width: 0% !important;
   flex: 0 0 0% !important;
@@ -171,6 +195,9 @@ header button.rounded-circle svg{
   transition: all 0.3 ease-in-out;
   scrollbar-width: thin; 
   scrollbar-color: #00c8ff #f0f0f0;  
+}
+body.dark .sideWrapper .sidebar{
+  background-color: #112143 !important;
 }
 
 .main .sideWrapper .sidebar::-webkit-scrollbar {
@@ -211,8 +238,14 @@ header button.rounded-circle svg{
   border-radius: 7px !important;
 }
 .main .sideWrapper .sidebar ul li button *{
-  color: rgba(0, 0, 0, 0.7) !important;
+  color: rgba(0, 0, 0, 0.7);
   font-size: 20px;
+}
+body.dark .sideWrapper .sidebar ul li button {
+  color: #fff !important;
+}
+body.dark .sideWrapper .sidebar ul li button *{
+  color: #fff !important;
 }
 .main .sideWrapper .sidebar ul li button .icon{ width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:10px; margin-right:10px;}
 .main .sideWrapper .sidebar ul li button .icon svg{ font-size: 25px;}
@@ -280,7 +313,32 @@ header button.rounded-circle svg{
 .right-content{
   padding: 90px 30px;
 }
+body.dark .right-content{
+  background-color: #112143 !important;
+}
 
+body.dark .right-content .table1, body.dark .right-content .table1 h3{
+  background: #112143 !important;
+  color: #fff !important;
+}
+body.dark .right-content .table1 th, body.dark .right-content .table1 td{
+  background: #112143 !important;
+  color: #fff !important
+}
+
+#long-menu{
+  border: none !important;
+}
+
+body.dark .lableText{
+  color: #fff !important;
+}
+body.dark #demo-simple-select{
+  color: #fff !important;
+}
+body.dark .right-content .table1 ul li .MuiButtonBase-root{
+  color: #fff !important;
+}
 .dashboardBoxWrapper{
   width: 100%;
   gap: 15px;

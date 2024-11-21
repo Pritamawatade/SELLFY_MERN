@@ -25,7 +25,7 @@ import { motion } from "framer-motion"
 const Header = () => {
 
   const context = useContext(myContext);
-  const [isLogged, setIsLoggedIn] = useState(false);
+  const [isLogged, setIsLoggedIn] = useState(true);
   
   const [anchorEl, setAnchorEl] = React.useState(false);
   const [isOpenNotificationDrop, setisOpenNotificationDrop] =
@@ -80,7 +80,7 @@ const Header = () => {
           </div>
 
           <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
-            <Button className="rounded-circle mr-3">
+            <Button className="rounded-circle mr-3" onClick={() => context.setThemeMode(!context.themeMode)}>
               <MdLightMode className="text-2xl" />
             </Button>
             <Button

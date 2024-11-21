@@ -167,7 +167,7 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      <div className="shadow mt-3 border-0 p-3 card">
+      <div className="shadow mt-3 border-0 p-3 card table1">
         <h3 className="font-bold text-gray-700">Best Selling Product</h3>
         <div className="row cardFilters mt-3">
           <div className="col-md-3">
