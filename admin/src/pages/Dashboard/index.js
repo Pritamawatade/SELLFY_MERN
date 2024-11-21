@@ -30,6 +30,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   const [showBy, setshowBy] = React.useState("");
   const [showByCategory, setShowByCategory] = React.useState("");
@@ -262,9 +263,11 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                   <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -307,9 +310,12 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                  <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
+
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -352,9 +358,11 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                  <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -397,9 +405,11 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                  <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -442,9 +452,11 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                  <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -487,9 +499,11 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                  <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -532,9 +546,12 @@ const Dashboard = () => {
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                    <Button className="mr-1 flex items-center">
+                       <Link to="/product/details">
+                   <Button className="mr-1 flex items-center">
                       <FaEye />
                     </Button>
+                   </Link>
+
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
