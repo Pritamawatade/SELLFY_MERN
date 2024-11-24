@@ -312,7 +312,7 @@ const Dashboard = () => {
                   <span className="m-0 p-0 block">
                   <Link to="/product/details">
                    <Button className="mr-1 flex items-center">
-                      <FaEye />
+                      <z />
                     </Button>
                    </Link>
 
