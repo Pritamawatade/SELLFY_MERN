@@ -144,13 +144,7 @@ body.dark .myAcc{
     border-radius: 4px !important;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-/* #notification ::-webkit-scrollbar{
-  width: 10px;
-  height: 10%;
-  background-color: #b5cdd3;
-  transition: all 0.2s ease-in-out;
-  border-radius: 5px;
-} */
+
 
 #notification::-webkit-scrollbar-thumb {
   background-color: #00c8ff;
@@ -169,7 +163,7 @@ body.dark .myAcc{
 }
  
 
-.info .time{
+.info .time{ 
   font-size: 13px;
   font-weight: 600;
   color: rgb(6, 93, 255) !important;

@@ -25,7 +25,7 @@ useEffect(() => {
     document.body.classList.add("dark");
     localStorage.setItem("theme", "dark");
   }
-}, [themeMode])
+}, [themeMode]) 
   const values = {
     isTogglesidebar,
     setIsToggleSidebar,
