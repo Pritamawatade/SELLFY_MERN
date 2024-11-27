@@ -13,16 +13,14 @@ import Menu from "@mui/material/Menu";
 // import MenuItem from "@mui/material/MenuItem";
 import { Button } from "@mui/material";
 
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
 
 import { MdDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 
-import Pagination from '@mui/material/Pagination';
-
+import Pagination from "@mui/material/Pagination";
 
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -72,17 +70,17 @@ const Dashboard = () => {
   const boxVariants = {
     hidden: {
       y: 50,
-      opacity: 0
+      opacity: 0,
     },
     visible: {
       y: 0,
-    
+
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   const options1 = {
@@ -111,16 +109,15 @@ const Dashboard = () => {
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="col-md-4">
+          className="col-md-4"
+        >
           <div
             className="box w-100 w-full border-2 rounded-xl"
             style={{
               background: "linear-gradient(to bottom, #1a51b7, #296ef5)",
-              
             }}
           >
-            <motion.div
-              className="flex items-center justify-end">
+            <motion.div className="flex items-center justify-end">
               <h5 className="text-white font-bold p-2 text-xl">Total sales</h5>
               <Button onClick={handleClick}>
                 <HiOutlineDotsVertical />
@@ -196,14 +193,12 @@ const Dashboard = () => {
               label="ShowBy"
               onChange={handleChange1}
               className="w-100 category-select"
-
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </div>
-
         </div>
 
         <div className="table-responsive mt-3">
@@ -214,7 +209,7 @@ const Dashboard = () => {
                 initial="hidden"
                 animate="visible"
                 whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.95 }} 
+                whileTap={{ scale: 0.95 }}
                 viewport={{ once: true }}
                 className=""
               >
@@ -242,32 +237,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16 ">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                   <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -289,32 +294,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                  <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <z />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <z />
+                      </Button>
+                    </Link>
 
                     <Button className="mr-1" color="success">
                       <MdEdit />
@@ -337,32 +352,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                  <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -384,32 +409,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                  <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -431,32 +466,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                  <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -478,32 +523,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                  <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
                     <Button className="mr-1" color="success">
                       <MdEdit />
                     </Button>
@@ -525,32 +580,42 @@ const Dashboard = () => {
                   <div className="flex items-center justify-center mb-0">
                     <div className="imgWrapper">
                       <div className="image w-16">
-                        <img src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200" alt="" />
+                        <img
+                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
+                          alt=""
+                        />
                       </div>
                     </div>
                     <div className="text">
-                      Tops and skirt set for Female...
-                      Women's exclusive summ
+                      Tops and skirt set for Female... Women's exclusive summ
                     </div>
                   </div>
                 </td>
                 <td>womans</td>
                 <td>reachman</td>
                 <td>
-                  <span className="line-through text-red-400 text-lg">$21</span><br />
+                  <span className="line-through text-red-400 text-lg">$21</span>
+                  <br />
                   <span className="text-green-500 text-xl">$19</span>
                 </td>
-                <td>  <Rating name="half-rating" defaultValue={2.5} precision={0.5} /></td>
+                <td>
+                  {" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={2.5}
+                    precision={0.5}
+                  />
+                </td>
                 <td>5(16)</td>
                 <td>280</td>
                 <td>$23</td>
                 <td id="actions" className="m-0 p-0">
                   <span className="m-0 p-0 block">
-                       <Link to="/product/details">
-                   <Button className="mr-1 flex items-center">
-                      <FaEye />
-                    </Button>
-                   </Link>
+                    <Link to="/product/details">
+                      <Button className="mr-1 flex items-center">
+                        <FaEye />
+                      </Button>
+                    </Link>
 
                     <Button className="mr-1" color="success">
                       <MdEdit />
@@ -561,13 +626,14 @@ const Dashboard = () => {
                   </span>
                 </td>
               </motion.tr>
-
             </tbody>
           </div>
         </div>
         <Pagination count={10} color="primary" showFirstButton showLastButton />
 
-        <p className="text-gray-400 text-lg font-normal">Showing 1 to 10 of 50 entries</p>
+        <p className="text-gray-400 text-lg font-normal">
+          Showing 1 to 10 of 50 entries
+        </p>
       </div>
     </div>
   );

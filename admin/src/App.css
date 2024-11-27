@@ -1,21 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
-body{
+body {
   font-family: "Bitter", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   background: #e8e6e6 !important;
   overflow-x: hidden !important;
-
 }
 
-header{
+header {
   width: 100% !important;
   height: 80px !important;
   background: #fff !important;
@@ -24,10 +22,11 @@ header{
   top: 0px;
   z-index: 1000;
 }
-body.dark header{
+body.dark header {
   background-color: #112143 !important;
 }
-.swiper-button-next, .swiper-button-prev{
+.swiper-button-next,
+.swiper-button-prev {
   height: 40px !important;
   width: 40px !important;
   background-color: #f0f5ff !important;
@@ -39,57 +38,60 @@ body.dark header{
   cursor: pointer !important;
   transition: background-color transform 0.3s ease !important;
 }
-.swiper-button-next::after, .swiper-button-prev::after{
+.swiper-button-next::after,
+.swiper-button-prev::after {
   font-size: 20px !important;
   color: #000 !important;
 }
-header .logo{width: 107px !important;}
-header .row{margin: 0px !important;}
+header .logo {
+  width: 107px !important;
+}
+header .row {
+  margin: 0px !important;
+}
 
-header button.rounded-circle{
+header button.rounded-circle {
   min-width: 40px !important;
   width: 40px !important;
   height: 40px !important;
   background: #f0f5ff !important;
   color: #292929;
-
 }
-header button.rounded-circle:hover svg{
+header button.rounded-circle:hover svg {
   color: #00c8ff;
   transition: all 0.2s ease-in-out;
   font-size: 24px !important;
 }
-header button.rounded-circle svg{
+header button.rounded-circle svg {
   color: #000;
   font-size: 22px !important;
 }
 
-
-.searchBox{
+.searchBox {
   height: 40px;
   width: 400px;
   min-width: 400px !important;
   background: #f0f5ff;
 }
 
-body.dark .searchBox{
+body.dark .searchBox {
   background: #112143 !important;
   color: #fff !important;
 }
-.searchBox svg{
+.searchBox svg {
   color: #292929;
   font-size: 40px;
   padding: 2px 10px;
 }
-body.dark .searchBox svg{
+body.dark .searchBox svg {
   color: #fff !important;
 }
-body.dark .searchBox input{
+body.dark .searchBox input {
   background: #112143 !important;
   color: #fff !important;
 }
 
-.searchBox input{
+.searchBox input {
   background: #f0f5ff;
   outline: none !important;
   border: none !important;
@@ -98,53 +100,49 @@ body.dark .searchBox input{
   padding: 5px;
 }
 
-.part3 button svg{
+.part3 button svg {
   font-size: 20px !important;
-  
 }
 
-.myAcc{
+.myAcc {
   color: #000;
-  text-align: left !important;  
+  text-align: left !important;
   text-transform: capitalize !important;
 }
 
-body.dark .myAcc{
+body.dark .myAcc {
   color: #fff !important;
 }
 
- .userImg .rounded-circle{
+.userImg .rounded-circle {
   display: flex;
   align-items: center !important;
-  justify-content: center !important;;
+  justify-content: center !important;
   width: 40px;
   height: 40px;
   overflow: hidden;
 }
 
- .userImg .rounded-circle img{
+.userImg .rounded-circle img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-
 }
 
-.userInfo   p{
+.userInfo p {
   opacity: 0.7;
 }
 
-
 .notification .MuiPaper-root {
   top: 78px !important;
-    left: 70% !important;
-    /* border: 11px slid red !important; */
-    width: 350px;
-    max-height:400px;
-    overflow-y: scroll !important;
-    border-radius: 4px !important;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  left: 70% !important;
+  /* border: 11px slid red !important; */
+  width: 350px;
+  max-height: 400px;
+  overflow-y: scroll !important;
+  border-radius: 4px !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 #notification::-webkit-scrollbar-thumb {
   background-color: #00c8ff;
@@ -156,30 +154,25 @@ body.dark .myAcc{
   border-radius: 10px;
 }
 
-.infoh4{
-  white-space:break-spaces !important;
+.infoh4 {
+  white-space: break-spaces !important;
   font-size: 16px;
   margin-left: 15px;
 }
- 
 
-.info .time{ 
+.info .time {
   font-size: 13px;
   font-weight: 600;
   color: rgb(6, 93, 255) !important;
   margin-left: 15px;
-  
 }
 
-
-
-.main .sideWrapper{
+.main .sideWrapper {
   width: 20%;
   flex: 0 0 20%;
   transition: all 0.3s ease-in-out;
-  
 }
-body.dark  .sideWrapper{
+body.dark .sideWrapper {
   background-color: #112143 !important;
 }
 .main .sideWrapper.toggle {
@@ -191,21 +184,21 @@ body.dark  .sideWrapper{
   left: -100% !important;
   transition: all 0.3s ease-in-out !important;
 }
-.main .sideWrapper .sidebar{
+.main .sideWrapper .sidebar {
   width: 20%;
   height: calc(100% - 70px);
   position: fixed !important;
   top: 70px;
-  left: 0px ;
+  left: 0px;
   background: #ffffff;
- overflow-y: scroll !important;
- overflow-x: hidden !important;;
-  padding-bottom: 40px;  
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  padding-bottom: 40px;
   transition: all 0.3 ease-in-out;
-  scrollbar-width: thin; 
-  scrollbar-color: #00c8ff #f0f0f0;  
+  scrollbar-width: thin;
+  scrollbar-color: #00c8ff #f0f0f0;
 }
-body.dark .sideWrapper .sidebar{
+body.dark .sideWrapper .sidebar {
   background-color: #112143 !important;
 }
 
@@ -225,65 +218,110 @@ body.dark .sideWrapper .sidebar{
   border-radius: 10px;
 }
 
-.main .sideWrapper .sidebar ul li{
+.main .sideWrapper .sidebar ul li {
   list-style-type: none !important;
   padding: 10px 10px;
   border-radius: 5px;
 }
 
-.main .sideWrapper .sidebar ul li button:hover{
+.main .sideWrapper .sidebar ul li button:hover {
   background: rgba(0, 0, 0, 0.1);
   transition: all 0.1s ease-in-out;
 }
-.main .sideWrapper .sidebar ul li button{
+.main .sideWrapper .sidebar ul li button {
   align-items: center;
   justify-content: center;
   color: #000;
   padding: 12px 15px !important;
-  text-transform: capitalize !important; 
+  text-transform: capitalize !important;
   text-align: left;
   border-radius: 0px !important;
   width: 100%;
   border-radius: 7px !important;
 }
-.main .sideWrapper .sidebar ul li button *{
+.main .sideWrapper .sidebar ul li button * {
   color: rgba(0, 0, 0, 0.7);
   font-size: 20px;
 }
 body.dark .sideWrapper .sidebar ul li button {
   color: #fff !important;
 }
-body.dark .sideWrapper .sidebar ul li button *{
+body.dark .sideWrapper .sidebar ul li button * {
   color: #fff !important;
 }
-.main .sideWrapper .sidebar ul li button .icon{ width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:10px; margin-right:10px;}
-.main .sideWrapper .sidebar ul li button .icon svg{ font-size: 25px;}
-.main .sideWrapper .sidebar ul li button .arrow { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-left:auto; transition: all 0.1s ease-in-out;}
-.main .sideWrapper .sidebar ul li button.active{background: rgb(145, 145, 145);}
-.main .sideWrapper .sidebar ul li button.active .arrow svg{ transform: rotate(90deg);} 
-.main .sideWrapper .sidebar ul li button.active .icon  svg{ color: #002aff !important;}
-.main .sideWrapper .sidebar ul li  ul li{
-  list-style: none; 
+.main .sideWrapper .sidebar ul li button .icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.main .sideWrapper .sidebar ul li button .icon svg {
+  font-size: 25px;
+}
+.main .sideWrapper .sidebar ul li button .arrow {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: all 0.1s ease-in-out;
+}
+.main .sideWrapper .sidebar ul li button.active {
+  background: rgb(145, 145, 145);
+}
+.main .sideWrapper .sidebar ul li button.active .arrow svg {
+  transform: rotate(90deg);
+}
+.main .sideWrapper .sidebar ul li button.active .icon svg {
+  color: #002aff !important;
+}
+.main .sideWrapper .sidebar ul li ul li {
+  list-style: none;
   padding-left: 40px;
-  
-  
 }
 
+.main .sideWrapper .sidebar ul li ul li a {
+  border-bottom: 0px !important;
+  text-decoration: none;
+  color: #747171;
+  font-size: 16px;
+  padding: 7px 10px;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in-out;
+}
 
-.main .sideWrapper .sidebar ul li ul li a{ border-bottom: 0px !important; text-decoration: none; color: #747171; font-size: 16px; padding: 7px 10px; border-left: 2px solid rgba(0, 0, 0, 0.1); transition: all 0.1s ease-in-out;}
-
-.main .sideWrapper .sidebar ul li ul li a:hover{
+.main .sideWrapper .sidebar ul li ul li a:hover {
   color: #002aff;
   transition: all 0.1s ease-in-out;
   border-left: 2px solid rgb(6, 93, 255);
 }
-.main .sideWrapper .sidebar ul li .submenuWrapper{transition: all 0.5s ease-in-out;}
-.main .sideWrapper .sidebar ul li .submenuWrapper .collapse{ height: 0px; transition: all 0.5s ease-in-out; }
-.main .sideWrapper .sidebar ul li .submenuWrapper .collapsed{ height: auto;  transition: all 0.4s ease-in-out; padding: 10px 10px;}
+.main .sideWrapper .sidebar ul li .submenuWrapper {
+  transition: all 0.5s ease-in-out;
+}
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapse {
+  height: 0px;
+  transition: all 0.5s ease-in-out;
+}
+.main .sideWrapper .sidebar ul li .submenuWrapper .collapsed {
+  height: auto;
+  transition: all 0.4s ease-in-out;
+  padding: 10px 10px;
+}
 
-.logoutWrapper  {width: 85% !important; background-color: #00c8ff; margin: 20px; margin-right: 60px; height: 90px; border-radius: 20px;}
+.logoutWrapper {
+  width: 85% !important;
+  background-color: #00c8ff;
+  margin: 20px;
+  margin-right: 60px;
+  height: 90px;
+  border-radius: 20px;
+}
 
-.logout{
+.logout {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,8 +332,10 @@ body.dark .sideWrapper .sidebar ul li button *{
   font-weight: 600;
   cursor: pointer;
 }
-.logout button:hover{background: rgb(79, 157, 157);}
-.logout button{
+.logout button:hover {
+  background: rgb(79, 157, 157);
+}
+.logout button {
   background: rgb(125, 241, 241) !important;
   border-radius: 6px !important;
   text-transform: capitalize !important;
@@ -306,154 +346,158 @@ body.dark .sideWrapper .sidebar ul li button *{
   box-shadow: rgba(255, 0, 0, 0.1) 0px 7px 12px;
 }
 
-
-.main .content{
+.main .content {
   width: 80%;
   flex: 0 0 80%;
   transition: all 0.3s ease-in-out;
 }
-.main .content.toggle{
-  width: 100% !important; 
+.main .content.toggle {
+  width: 100% !important;
   flex: 0 0 100% !important;
   transition: all 0.3s ease-in-out;
 }
 
-  
-.right-content{
+.right-content {
   padding: 90px 30px;
 }
-body.dark .right-content{
+body.dark .right-content {
   background-color: #112143 !important;
 }
 
-body.dark .right-content .table1, body.dark .right-content .table1 h3{
+body.dark .right-content .table1,
+body.dark .right-content .table1 h3 {
   background: #112143 !important;
   color: #fff !important;
 }
-body.dark .right-content .table1 th, body.dark .right-content .table1 td{
+body.dark .right-content .table1 th,
+body.dark .right-content .table1 td {
   background: #112143 !important;
-  color: #fff !important
+  color: #fff !important;
 }
 
-#long-menu{
+#long-menu {
   border: none !important;
 }
 
-body.dark .lableText{
+body.dark .lableText {
   color: #fff !important;
 }
-body.dark #demo-simple-select{
+body.dark #demo-simple-select {
   color: #fff !important;
 }
-body.dark .right-content .table1 ul li .MuiButtonBase-root{
+body.dark .right-content .table1 ul li .MuiButtonBase-root {
   color: #fff !important;
 }
-.dashboardBoxWrapper{
+.dashboardBoxWrapper {
   width: 100%;
   gap: 15px;
   flex-wrap: wrap !important;
 }
 
-.dashboardBoxWrapper .dashboardBox{width: 49%; height: 200px; background: rgb(111, 94, 94); border-radius: 10px; }
+.dashboardBoxWrapper .dashboardBox {
+  width: 49%;
+  height: 200px;
+  background: rgb(111, 94, 94);
+  border-radius: 10px;
+}
 
 /* .dashboardBoxWrapper .dashboardBox .col1 {
   padding: 10px 10px;
 } */
-.row .box{
+.row .box {
   height: 100%;
   width: 100% !important;
 }
-.row .box button svg{font-size: 20px !important; font-weight: 600 !important; transition: all 0.2s ease !important; color: #fff !important;}
+.row .box button svg {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  color: #fff !important;
+}
 .dashboardBoxWrapper .dashboardBox .col1 {
   padding: 10px 10px;
 }
-.dashboardBoxWrapper .dashboardBox .col1 h4{
+.dashboardBoxWrapper .dashboardBox .col1 h4 {
   font-size: 20px !important;
 }
 
-.dashboardBoxWrapper .dashboardBox .col1 span{font-size: 40px !important; font-weight: 700;}
+.dashboardBoxWrapper .dashboardBox .col1 span {
+  font-size: 40px !important;
+  font-weight: 700;
+}
 
-.dashboardBoxWrapper .dashboardBox .icon svg{font-size: 60px !important; opacity: 0.4;}
+.dashboardBoxWrapper .dashboardBox .icon svg {
+  font-size: 60px !important;
+  opacity: 0.4;
+}
 
-.dashboardBox .info1 p{font-size: 19px; font-weight: 600; color: white;}
+.dashboardBox .info1 p {
+  font-size: 19px;
+  font-weight: 600;
+  color: white;
+}
 .dashboardBox .info1 span {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
-  background-color: transparent !important;;
+  background-color: transparent !important;
   border-radius: 50%;
-
 }
 
 .dashboardBox .info1 span button {
   font-size: 20px !important;
   color: white !important;
 }
-#reactgooglegraph-2 g{
+#reactgooglegraph-2 g {
   color: white !important;
-}  
+}
 
+.card {
+  margin: 20px 0px;
+  border-radius: 10px;
+}
+.lableText {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #403e57 !important;
+  text-transform: uppercase;
+}
 
-.card{margin: 20px 0px; border-radius: 10px;}
-.lableText{font-size: 14px !important; font-weight:600 !important; color: #403e57 !important; text-transform: uppercase;}
-
-.showBy-select{
+.showBy-select {
   height: 40px !important;
   width: 100% !important;
 }
 
-.category-select{
+.category-select {
   height: 40px !important;
   width: 100% !important;
 }
 
-
-
-.title th{
+.title th {
   background-color: rgb(4, 138, 254) !important;
   font-size: 14px !important;
   margin: 0;
-
 }
-#actions{
+#actions {
   padding: 0px !important;
   height: 100% !important;
   justify-content: center !important;
 }
-#actions button{
+#actions button {
   width: 30px !important;
   height: 30px !important;
   margin: 2px !important;
   display: flex;
   padding: 5px !important;
-
 }
 
-#actions button svg{
+#actions button svg {
   font-size: 20px !important;
-
 }
-
 
 .table tbody:first-child {
   margin: 0px !important;
   padding: 0px !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
