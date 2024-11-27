@@ -57,7 +57,6 @@ useEffect(() => {
               <Route path="/product/details" exact={true} element={<ProductDetails />} />
             </Routes>
           </div>
-
         </div>
       </myContext.Provider>
     </BrowserRouter>
