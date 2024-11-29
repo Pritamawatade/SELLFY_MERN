@@ -145,6 +145,7 @@ body.dark .myAcc {
 }
 
 #notification::-webkit-scrollbar-thumb {
+  
   background-color: #00c8ff;
   border-radius: 10px;
 }
