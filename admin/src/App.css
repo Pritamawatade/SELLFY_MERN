@@ -370,6 +370,12 @@ body.dark .right-content .table1 h3 {
   background: #112143 !important;
   color: #fff !important;
 }
+
+
+body.dark .right-content .card {
+  background: #112143 !important;
+  color: #fff !important;
+}
 body.dark .right-content .table1 th,
 body.dark .right-content .table1 td {
   background: #112143 !important;
@@ -501,4 +507,17 @@ body.dark .right-content .table1 ul li .MuiButtonBase-root {
 .table tbody:first-child {
   margin: 0px !important;
   padding: 0px !important;
+}
+.row .col-sm-5 .flex .icon svg {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  color: #fff !important
+}
+
+.colon-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
