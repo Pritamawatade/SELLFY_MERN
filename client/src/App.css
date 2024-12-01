@@ -481,7 +481,8 @@ nav .navPart2 ul li:hover .submenu {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   height: auto;
-  overflow: hidden;
+  /* overflow: hidden; */
+  /* image hide issu */
   position: relative;
   cursor: pointer;
 }
