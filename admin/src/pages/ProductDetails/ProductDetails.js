@@ -63,6 +63,9 @@ const ProductDetails = () => {
                             </Swiper>
                         </div>
 
+                        
+
+
                     </div>
                     <div className="col-md-7">
                         <div className='rightContent py-3 pl-2'><h4>Product Details</h4>
