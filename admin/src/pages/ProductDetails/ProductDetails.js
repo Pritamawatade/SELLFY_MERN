@@ -2,13 +2,8 @@ import { IoIosPricetags } from "react-icons/io";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 
-import { CiHeart } from "react-icons/ci";
-import { MdOutlineCompareArrows } from "react-icons/md";
 
-import ProductZoom from "../../Component/ProductZoom";
-import QuantityBox from "../../Component/QuantityBox/QuantityBox";
 import Button from "@mui/material/Button";
-import RelatedProducts from "./RelatedProducts";
 import { SlSizeFullscreen } from "react-icons/sl";
 import 'swiper/css';
 import { IoIosColorPalette } from "react-icons/io";
@@ -548,8 +543,7 @@ const ProductDetails = () => {
                           Customor Reiview
                         </h4>
                       </div>
-
-                      <div className="progress d-flex align-items-center">
+                      <div className="progress d-flex align-items-center mb-4">
                       <span className="mr-3 text-lg  font-normal bg-white">5 Star</span>
                       <div className="progress w-3/4">
                         <div style={{width:'75%'}} className="progress-bar">
@@ -558,7 +552,7 @@ const ProductDetails = () => {
                       </div>
                     </div>
 
-                      <div className="progress d-flex align-items-center">
+                      <div className="progress d-flex align-items-center mb-4">
                       <span className="mr-3 text-lg  font-normal bg-white">4 Star</span>
                       <div className="progress w-3/4">
                         <div style={{width:'60%'}} className="progress-bar">
@@ -567,7 +561,7 @@ const ProductDetails = () => {
                       </div>
                     </div>
 
-                      <div className="progress d-flex align-items-center">
+                      <div className="progress d-flex align-items-center mb-4">
                       <span className="mr-3 text-lg  font-normal bg-white">3 Star</span>
                       <div className="progress w-3/4">
                         <div style={{width:'50%'}} className="progress-bar">

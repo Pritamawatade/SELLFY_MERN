@@ -6,6 +6,7 @@ import { IoSettings } from "react-icons/io5";
 import { MdNotificationAdd } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { RiDashboardHorizontalLine } from "react-icons/ri";
+
 import { BsCartCheckFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import Button from "@mui/material/Button";
@@ -137,21 +138,21 @@ const Sidebar = () => {
                 whileHover={hoverAnimation}
                 whileTap={{ scale: 0.98 }}
               >
-                <Link to="/">Prroduct list</Link>
+                <Link to="/product">Prroduct list</Link>
               </motion.li>
               <motion.li 
                 variants={itemVariants}
                 whileHover={hoverAnimation}
                 whileTap={{ scale: 0.98 }}
               >
-                <Link to="/">Prroduct view</Link>
+                <Link to="/product/details">Prroduct view</Link>
               </motion.li>
               <motion.li 
                 variants={itemVariants}
                 whileHover={hoverAnimation}
                 whileTap={{ scale: 0.98 }}
               >
-                <Link to="/">Prroduct upload</Link>
+                <Link to="/product/upload">Prroduct upload</Link>
               </motion.li>
             </motion.ul>
           </div>

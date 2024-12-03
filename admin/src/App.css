@@ -522,3 +522,99 @@ body.dark .right-content .table1 ul li .MuiButtonBase-root {
   align-items: center;
   height: 100%;
 }
+
+/* Global dark mode text styles */
+body {
+  color: #000; /* Default text color for light mode */
+}
+
+body.dark {
+  color: #fff; /* Default text color for dark mode */
+}
+
+/* Specific element overrides for dark mode */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark p,
+body.dark span,
+body.dark label,
+body.dark .card,
+body.dark .card-body,
+body.dark .progress span {
+  color: #fff;
+}
+
+/* Keep text white in dark mode for specific components */
+body.dark .table,
+body.dark .table th,
+body.dark .table td {
+  color: #fff;
+}
+
+/* Preserve white background for specific elements that need it */
+body.dark .bg-white {
+  background-color: #fff !important;
+  color: #000 !important; /* Keep text dark on white backgrounds */
+}
+
+/* Progress bar text in dark mode */
+body.dark .progress-bar {
+  color: #fff;
+}
+
+/* Dark mode styles for product details table */
+.table {
+  color: #000; /* Default color for light mode */
+}
+
+body.dark .table {
+  color: #fff; /* White text for dark mode */
+}
+
+body.dark .table th,
+body.dark .table td {
+  color: #fff; /* Ensure both header and data cells are white in dark mode */
+}
+
+/* Notification-style info div */
+.info {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 10px 0;
+  transition: all 0.3s ease;
+  border-left: 4px solid #3498db;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Dark mode styles for info div */
+body.dark .info {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border-left-color: #3498db;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Hover effect */
+.info:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+body.dark .info:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Optional: Add an icon for more notification-like appearance */
+.info::before {
+  content: "ℹ️";
+  margin-right: 10px;
+  font-size: 1.1em;
+}
