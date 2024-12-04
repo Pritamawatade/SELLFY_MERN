@@ -8,7 +8,7 @@ import ProductZoom from "../../Component/ProductZoom";
 import QuantityBox from "../../Component/QuantityBox/QuantityBox";
 import Button from "@mui/material/Button";
 import RelatedProducts from "./RelatedProducts";
-
+// TODOS:// video no 22
 const ProductDetials = () => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeTab, setActiveTab] = useState(0);

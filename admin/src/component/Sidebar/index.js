@@ -242,7 +242,7 @@ const Sidebar = () => {
           whileHover={hoverAnimation}
           whileTap={{ scale: 0.98 }}
         >
-          <Link to="/">
+          <Link to="/login">
             <Button className="dashboard w-100">
               <span className="icon">
                 <IoIosLogIn />
@@ -259,7 +259,7 @@ const Sidebar = () => {
           whileHover={hoverAnimation}
           whileTap={{ scale: 0.98 }}
         >
-          <Link to="/">
+          <Link to="/signup">
             <Button className="dashboard w-100">
               <span className="icon">
                 <FaUserPlus />
