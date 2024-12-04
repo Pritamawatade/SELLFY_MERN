@@ -14,7 +14,10 @@ const myContext = createContext();
 function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
-  const [themeMode, setThemeMode] = useState(true);
+  const [themeMode, setThemeMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark" ? false : true;
+  });
 
   useEffect(() => {
     if (themeMode) {

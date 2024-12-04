@@ -566,7 +566,7 @@ body.dark .progress-bar {
   color: #fff;
 }
 
-/* Dark mode styles for product details table */
+/* Dark mode styles for product details table */ltw1
 .table {
   color: #000; /* Default color for light mode */
 }
@@ -617,4 +617,58 @@ body.dark .info:hover {
   content: "ℹ️";
   margin-right: 10px;
   font-size: 1.1em;
+}
+
+/* Form Control Styles */
+.form-control, .form-select {
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+body.light .form-control, 
+body.light .form-select {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1a202c !important;
+}
+
+body.light .form-select option {
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+}
+
+body.light .header h4 {
+  color: #1a202c !important;
+  font-weight: 600;
+}
+
+body.light .card {
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.header h4 {
+  color: #000000 !important;
+}
+
+body.dark .header h4 {
+  color: #ffffff !important;
+}
+
+
+.publish svg{
+  overflow: hidden;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 30%;
+  left: 40%;
 }
