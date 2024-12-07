@@ -157,6 +157,59 @@ const Sidebar = () => {
             </motion.ul>
           </div>
         </motion.li>
+
+
+
+
+        <motion.li 
+          variants={itemVariants}
+          whileHover={hoverAnimation}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Button
+            className={`w-100 ${activeTab === 6 && isActiveTab ? "active" : ""}`}
+            onClick={() => isOpenSubMenu(6)}
+          >
+            <span className="icon">
+              <FaProductHunt />
+            </span>
+            Category
+            <span className="arrow">
+              <IoIosArrowForward />
+            </span>
+          </Button>
+          <div
+            className={`submenuWrapper ${
+              activeTab === 6 ? "collapsed" : "collapse"
+            }`}
+          >
+            <motion.ul 
+              className="submenu"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link to="/Category/list">Category list</Link>
+              </motion.li>
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link to="/Category/add">Category upload</Link>
+              </motion.li>
+            </motion.ul>
+          </div>
+        </motion.li>
+
+
+
         <motion.li 
           variants={itemVariants}
           whileHover={hoverAnimation}

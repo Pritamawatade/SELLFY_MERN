@@ -35,97 +35,84 @@ router.delete("/:id", async (req, res) => {
   const deleteUser = await Category.findByIdAndDelete(req.params.id);
   if (!deleteUser) {
     console.log("do not find 404");
-
+    
     res.status(404).json({ message: " cetagory not found ", success: false });
   }
   res.status(200).json({ message: "cetagory deleted", success: true });
 });
 
 router.put("/:id", async (req, res) => {
-  const limit = pLimit(2);
+    try {
+        const result = await cloudinary.uploader.upload(req.body.image);
+        
+        if (!result) {
+            return res.status(500).json({
+                message: "Failed to upload image",
+                success: false
+            });
+        }
 
-  const imagesToUpload = req.body.images.map((image) => {
-    return limit(async () => {
-      const result = await cloudinary.uploader.upload(image);
-      console.log("images upload succefully result: " + result);
+        const category = await Category.findByIdAndUpdate(
+            req.params.id,
+            {
+                name: req.body.name,
+                image: result.secure_url,
+                color: req.body.color
+            },
+            { new: true }
+        );
 
-      return result;
-    });
-  });
+        if (!category) {
+            return res.status(404).json({ 
+                message: "Category not found", 
+                success: false 
+            });
+        }
 
-  const uploadStatus = await Promise.all(imagesToUpload);
-
-  console.log(" uploadStatus = " + uploadStatus);
-
-  const imgurl = uploadStatus.map((item) => {
-    return item.secure_url;
-  });
-
-  if (!uploadStatus) {
-    console.log("images cannot upload");
-    return res.status(500).json({
-      error: "images cannot upload",
-      status: false,
-    });
-  }
-  const category = await Category.findByIdAndUpdate(
-    req.params.id,
-    { name: req.body.name, images: imgurl, color: req.body.color },
-    { new: true }
-  );
-  if (!category) {
-    console.log("do not find 404");
-
-    res.status(404).json({ message: " cetagory not found ", success: false });
-  }
-  res.status(200).send(category);
+        res.status(200).json({
+            success: true,
+            data: category
+        });
+    } catch (error) {
+        console.error("Error updating category:", error);
+        res.status(500).json({ 
+            message: error.message, 
+            success: false 
+        });
+    }
 });
 
 router.post("/create", async (req, res) => {
-  const limit = pLimit(2);
+    try {
+        const result = await cloudinary.uploader.upload(req.body.image);
+        
+        if (!result) {
+            return res.status(500).json({
+                message: "Failed to upload image",
+                success: false
+            });
+        }
 
-  const imagesToUpload = req.body.images.map((image) => {
-    return limit(async () => {
-      const result = await cloudinary.uploader.upload(image);
-      console.log("images upload succefully result: " + result);
+        let category = new Category({
+            name: req.body.name,
+            image: result.secure_url,
+            color: req.body.color,
+        });
 
-      return result;
-    });
-  });
+        category = await category.save();
+        console.log("Category successfully created:", category);
 
-  const uploadStatus = await Promise.all(imagesToUpload);
-
-  console.log(" uploadStatus = " + uploadStatus);
-
-  const imgurl = uploadStatus.map((item) => {
-    return item.secure_url;
-  });
-
-  if (!uploadStatus) {
-    console.log("images cannot upload");
-    return res.status(500).json({
-      error: "images cannot upload",
-      status: false,
-    });
-  }
-
-  let category = new Category({
-    name: req.body.name,
-    images: imgurl,
-    color: req.body.color,
-  });
-
-  if (!category) {
-    console.log("category cannot create");
-    res.status(500).json({ error: err, success: false });
-  }
-
-  category = await category.save();
-  console.log("category successfully created" + category);
-
-  res.status(201).json(category);
+        res.status(201).json({
+            success: true,
+            data: category
+        });
+    } catch (error) {
+        console.error("Error creating category:", error);
+        res.status(500).json({ 
+            message: error.message, 
+            success: false 
+        });
+    }
 });
-
-
 
 module.exports = router;
