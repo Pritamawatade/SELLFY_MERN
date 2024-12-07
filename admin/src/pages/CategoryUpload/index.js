@@ -105,8 +105,8 @@ const CategoryUpload = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="header bg-white dark:bg-gray-800 border rounded-xl p-3 shadow-sm">
-                        <h4 className="text-[#000000] dark:text-[#ffffff] font-bold text-xl">Category Upload</h4>
+                    <div className="header  dark:bg-gray-800 border rounded-xl p-3 shadow-sm">
+                        <h3 className="text-[#000000] dark:text-[#ffffff] font-bold text-xl">Category Upload</h3>
                     </div>
                 </motion.div>
 

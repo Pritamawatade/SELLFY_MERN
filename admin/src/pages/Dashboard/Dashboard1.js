@@ -70,7 +70,7 @@ function DashboardBox(props) {
         animate="visible"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="dashboardBox"
+        className="dashboardBox pl-10 pr-16 mr-3"
         style={{
           backgroundImage: `linear-gradient(to right, ${props.color?.[0]}, ${props.color?.[1]})`,
         }}

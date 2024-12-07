@@ -38,7 +38,7 @@ const ProductDetails = () => {
     return (
         <div className="right-content w-100">
             <div className=" p-12">
-                <div className="header bg-white border rounded-xl p-3">
+                <div className="header bg-olive-600 border rounded-xl p-3">
                     <h4>Product View</h4>
                 </div>
             </div>
@@ -69,7 +69,7 @@ const ProductDetails = () => {
                                 <SwiperSlide>
                                     <img src="https://mironcoder-hotash.netlify.app/images/product/single/04.webp" alt="" />
                                 </SwiperSlide>
-                                ...
+                                
                             </Swiper>
                         </div>
 
