@@ -4,16 +4,18 @@ import Dashboard from "./pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import ProductUpload from "./pages/Product-upload";
 import CategoryUpload from "./pages/CategoryUpload/";
 import CategoryList from "./pages/CategoryList";
-
+import LoadingBar from 'react-top-loading-bar';
 
 const myContext = createContext();
+export const LoadingContext = createContext();
+
 function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
@@ -21,6 +23,15 @@ function App() {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark" ? false : true;
   });
+  const loadingRef = useRef(null);
+
+  const startLoading = () => {
+    loadingRef.current.continuousStart();
+  };
+
+  const stopLoading = () => {
+    loadingRef.current.complete();
+  };
 
   useEffect(() => {
     if (themeMode) {
@@ -33,50 +44,50 @@ function App() {
       localStorage.setItem("theme", "dark");
     }
   }, [themeMode]);
-  const values = {
-    isTogglesidebar,
-    setIsToggleSidebar,
-    isHeaderFooterShow,
-    setIsHeaderFooterShow,
-    themeMode,
-    setThemeMode,
-  };
 
   return (
     <BrowserRouter>
-      <myContext.Provider value={values}>
-        {isHeaderFooterShow && <Header />}
-        <div className="d-flex main">
-          {isHeaderFooterShow && (
-            <div
-              className={`sideWrapper ${
-                isTogglesidebar == true ? "toggle" : ""
-              }`}
-            >
-              <Sidebar />
+      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode }}>
+        <LoadingContext.Provider value={{ startLoading, stopLoading }}>
+          <LoadingBar
+            color='#f11946'
+            ref={loadingRef}
+            shadow={true}
+            height={3}
+          />
+          {isHeaderFooterShow && <Header />}
+          <div className="d-flex main">
+            {isHeaderFooterShow && (
+              <div
+                className={`sideWrapper ${
+                  isTogglesidebar == true ? "toggle" : ""
+                }`}
+              >
+                <Sidebar />
+              </div>
+            )}
+            <div className={`content ${isTogglesidebar == true ? "toggle" : ""}`}>
+              <Routes>
+                <Route path="/" exact={true} element={<Dashboard />} />
+                <Route path="/dashboard" exact={true} element={<Dashboard />} />
+                <Route path="/login" exact={true} element={<Login />} />
+                <Route path="/signup" exact={true} element={<SignUp />} />
+                <Route path="/product/upload" exact={true} element={<ProductUpload />} />
+                <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
+                <Route path="/Category/list" exact={true} element={<CategoryList />} />
+                <Route
+                  path="/product/details"
+                  exact={true}
+                  element={<ProductDetails />}
+                />
+              </Routes>
             </div>
-          )}
-          <div className={`content ${isTogglesidebar == true ? "toggle" : ""}`}>
-            <Routes>
-              <Route path="/" exact={true} element={<Dashboard />} />
-              <Route path="/dashboard" exact={true} element={<Dashboard />} />
-              <Route path="/login" exact={true} element={<Login />} />
-              <Route path="/signup" exact={true} element={<SignUp />} />
-              <Route path="/product/upload" exact={true} element={<ProductUpload />} />
-              <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
-              <Route path="/Category/list" exact={true} element={<CategoryList />} />
-              <Route
-                path="/product/details"
-                exact={true}
-                element={<ProductDetails />}
-              />
-            </Routes>
           </div>
-        </div>
-      
+        </LoadingContext.Provider>
       </myContext.Provider>
     </BrowserRouter>
   );
 }
+
 export default App;
 export { myContext };

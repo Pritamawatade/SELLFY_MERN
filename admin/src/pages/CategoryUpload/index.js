@@ -1,12 +1,14 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 import { postData } from '../../utils/api';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LoadingContext } from '../../App';
 
 const CategoryUpload = () => {
+
+    const { startLoading, stopLoading } = useContext(LoadingContext);
 
     const [formFields, setFormFields] = React.useState({
         name: '',
@@ -62,6 +64,7 @@ const CategoryUpload = () => {
         }
 
         try {
+            startLoading();
             console.log("Submitting category data:", formFields);
             const response = await postData("/api/category/create", formFields);
 
@@ -86,7 +89,9 @@ const CategoryUpload = () => {
             }
         } catch (error) {
             console.error('Error adding category:', error);
-            alert('Failed to add category: ' + (error.response?.data?.message || error.message));
+            toast.error('Failed to add category: ' + (error.response?.data?.message || error.message));
+        } finally {
+            stopLoading();
         }
     }
 

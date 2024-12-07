@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { fetchdatafromapi, editdata, deleteCategory } from '../../utils/api';
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
 import { Modal, Box, TextField, Button } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { LoadingContext } from '../../App';
 
 const CategoryList = () => {
     const [categories, setCategories] = useState([]);
@@ -12,18 +15,27 @@ const CategoryList = () => {
         image: '',
         color: ''
     });
+    const { startLoading, stopLoading } = useContext(LoadingContext);
 
     useEffect(() => {
         fetchCategories();
     }, []);
 
     const fetchCategories = async () => {
-        const data = await fetchdatafromapi('/api/category/');
-        if (data) {
-            setCategories(data);
-        }
-        else {
-            console.log("error in category list:", data);
+        startLoading();
+        try {
+            const data = await fetchdatafromapi('/api/category/');
+            if (data) {
+                setCategories(data);
+            }
+            else {
+                console.log("error in category list:", data);
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            toast.error('Failed to fetch categories: ' + (error.response?.data?.message || error.message));
+        } finally {
+            stopLoading();
         }
     };
 
@@ -40,29 +52,44 @@ const CategoryList = () => {
     const handleEdit = async () => {
         try {
             if (selectedCategory) {
+                startLoading();
                 const response = await editdata(`/api/category/${selectedCategory._id}`, editForm);
                 if (response && response.success) {
-                    alert('Category updated successfully');
+                    toast.success('Category updated successfully', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
                     setOpenModal(false);
-                    fetchCategories();
+                    await fetchCategories();
                 } else {
                     alert(response?.message || 'Failed to update category');
                 }
             }
         } catch (error) {
             console.error('Error updating category:', error);
-            alert('Failed to update category: ' + (error.response?.data?.message || error.message));
+            toast.error('Failed to update category: ' + (error.response?.data?.message || error.message));
+        } finally {
+            stopLoading();
         }
     };
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this category?')) {
             try {
+                startLoading();
                 await deleteCategory(`/api/category`, id);
-                fetchCategories();
+                await fetchCategories();
             } catch (error) {
                 console.error('Error deleting category:', error);
-                alert('Failed to delete category');
+                toast.error('Failed to delete category: ' + (error.response?.data?.message || error.message));
+            } finally {
+                stopLoading();
             }
         }
     };
