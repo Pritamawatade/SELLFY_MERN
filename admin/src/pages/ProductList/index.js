@@ -1,17 +1,8 @@
 import { ToastContainer } from 'react-toastify';
-import { Chart } from "react-google-charts";
 import Rating from '@mui/material/Rating';
 
-import DashboardBox from "./Dashboard1";
-import { FaCircleUser } from "react-icons/fa6";
-import { BsCartPlusFill } from "react-icons/bs";
-import { AiFillProduct } from "react-icons/ai";
-import { MdReviews } from "react-icons/md";
-import { IoTimerOutline } from "react-icons/io5";
 import React, { useEffect, useRef } from "react";
-import { HiOutlineDotsVertical } from "react-icons/hi";
 
-import Menu from "@mui/material/Menu";
 import { Button } from "@mui/material";
 
 
@@ -30,11 +21,10 @@ import LoadingBar from "react-top-loading-bar";
 import { toast } from "react-toastify";
 
 
-const Dashboard = () => {
+const ProductList = () => {
   const [showBy, setshowBy] = React.useState("");
   const [showByCategory, setShowByCategory] = React.useState("");
   const [productList, setProducts] = React.useState([]);
-
   const [currentPage, setCurrentPage] = React.useState(1);
   const loadingBar = useRef(null);
 
@@ -46,51 +36,22 @@ const Dashboard = () => {
     setShowByCategory(event.target.value);
   };
 
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
     fetchdatafromapi("/api/products/").then((res) => {
-      setProducts(res || []);
-      console.log(productList)
-      console.log(res)
-      console.log(productList.products)
-    }).catch(error => {
-      console.error("Error fetching products:", error);
-      setProducts([]);
-    });
-
+        setProducts(res || []);
+        console.log(productList)
+        console.log(res)
+        console.log(productList.products)
+      }).catch(error => {
+        console.error("Error fetching products:", error);
+        setProducts([]);
+      });
 
   }, []);
 
-  const options = [
-    "last day",
-    "last week",
-    "last month",
-    "last year",
-    "custom range",
-  ];
-  const ITEM_HEIGHT = 48;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const data = [
-    ["Task", "Hours per Day"],
-    ["Fashion", 9],
-    ["Food", 2],
-    ["Entainment", 2],
-    ["Electorics", 2],
-    ["watched", 7],
-  ];
 
   const boxVariants = {
     hidden: {
@@ -108,43 +69,40 @@ const Dashboard = () => {
     },
   };
 
-  const options1 = {
-    backgroundColor: { fill: "transparent" },
-  };
 
-  const deleteProduct = (id) => {
-    loadingBar.current.continuousStart();
-
-    deleteCategory(`/api/products`, id).then((res) => {
-      fetchdatafromapi("/api/products/").then((res) => {
-        setProducts(res || []);
-        toast.success('Product deleted successfully!');
-        loadingBar.current.complete();
-
-      }).catch(error => {
-        console.error("Error fetching products:", error);
-        setProducts([]);
-      });
-    });
-
-  };
-
+    const deleteProduct = (id) => {
+        loadingBar.current.continuousStart();
+    
+        deleteCategory(`/api/products`, id).then((res) => {
+            fetchdatafromapi("/api/products/").then((res) => {
+                setProducts(res || []);
+                loadingBar.current.complete();
+                toast.success('Product deleted successfully!'); // Ensure this line is here
+            }).catch(error => {
+                console.error("Error fetching products:", error);
+                setProducts([]);
+                loadingBar.current.complete(); // Ensure loading bar completes even on error
+            });
+        }).catch(error => {
+            console.error("Error deleting product:", error);
+            loadingBar.current.complete(); // Ensure loading bar completes on delete error
+        });
+    };
 
 
-  
-  const handleChangePage = (event, value) => {
-    loadingBar.current.continuousStart();
-    fetchdatafromapi(`/api/products/?page=${value}`).then((res) => {
-      setProducts(res || []);
-      loadingBar.current.complete();
-    }).catch(error => {
-      console.error("Error fetching products:", error);
-      setProducts([]);
-      loadingBar.current.complete();
-    });
-  };
 
 
+    const handleChangePage = (event, value) => {
+        loadingBar.current.continuousStart();
+        fetchdatafromapi(`/api/products/?page=${value}`).then((res) => {
+          setProducts(res || []);
+          loadingBar.current.complete();
+        }).catch(error => {
+          console.error("Error fetching products:", error);
+          setProducts([]);
+          loadingBar.current.complete();
+        });
+      };
 
 
 
@@ -152,8 +110,7 @@ const Dashboard = () => {
   return (
 
     <div className="right-content w-100">
-      <LoadingBar color='#f11946' ref={loadingBar} shadow={true} />
-      <ToastContainer 
+         <ToastContainer 
                     position="top-right"
                     autoClose={3000}
                     hideProgressBar={false}
@@ -165,87 +122,7 @@ const Dashboard = () => {
                     pauseOnHover
                     theme="light"
                 />
-      <div className="row">
-        <div className="col-md-8">
-          <div className="dashboardBoxWrapper d-flex  ">
-            <div className="flex">
-              <DashboardBox
-                color={["#20a559", "#46d281"]}
-                icon={<FaCircleUser />}
-              />
-              <DashboardBox
-                color={["#c013e2", "#e060fa"]}
-                icon={<BsCartPlusFill />}
-              />
-            </div>
-            <div className="flex">
-              <DashboardBox
-                color={["#2e7ae6", "#5babf3"]}
-                icon={<AiFillProduct />}
-              />
-              <DashboardBox color={["#5dacf4", "#f2ca27"]} icon={<MdReviews />} />
-            </div>
-          </div>
-        </div>
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="col-md-4"
-        >
-          <div
-            className="box w-100 w-full border-2 rounded-xl"
-            style={{
-              background: "linear-gradient(to bottom, #1a51b7, #296ef5)",
-            }}
-          >
-            <motion.div className="flex items-center justify-end">
-              <h5 className="text-white font-bold p-2 text-xl">Total sales</h5>
-              <Button onClick={handleClick}>
-                <HiOutlineDotsVertical />
-              </Button>
-              <Menu
-                className="border rounded-full"
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                slotProps={{
-                  paper: {
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 4.5,
-                      width: "20ch",
-                    },
-                  },
-                }}
-              >
-                {options.map((option) => (
-                  <MenuItem
-                    key={option}
-                    selected={option === "Pyxis"}
-                    onClick={handleClose}
-                  >
-                    <span className="mr-1">
-                      <IoTimerOutline />
-                    </span>{" "}
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </motion.div>
-            <Chart
-              chartType="PieChart"
-              data={data}
-              options={options1}
-              width={"100%"}
-              height={"400px"}
-            />
-          </div>
-        </motion.div>
-      </div>
-
+      <LoadingBar color='#f11946' ref={loadingBar} shadow={true} />
       <div className="shadow mt-3 border-0 p-3 card table1">
         <h3 className="font-bold text-gray-700">Best Selling Product</h3>
         <div className="row cardFilters mt-3">
@@ -308,7 +185,7 @@ const Dashboard = () => {
               </motion.tr>
             </thead>
             <tbody>
-            {productList?.products?.length !== 0 && productList?.products?.map((product, index) => (
+              {productList?.products?.length !== 0 && productList?.products?.map((product, index) => (
                 <motion.tr
                   key={product._id}
                   initial={{ opacity: 0, x: -100 }}
@@ -375,11 +252,11 @@ const Dashboard = () => {
         <Pagination count={productList?.totalPages} onChange={handleChangePage} color="primary" showFirstButton showLastButton />
 
         <p className="text-gray-400 text-lg font-normal">
-          Showing 1 to 10 of {productList?.totalDocs} entries
+          Showing 1 to 10 of 50 entries
         </p>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default ProductList;

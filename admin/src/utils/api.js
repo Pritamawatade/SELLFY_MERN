@@ -41,3 +41,4 @@ export const deleteCategory = async (url, id) => {
     throw error; // Re-throw the error so it can be caught by the component
   }
 }
+

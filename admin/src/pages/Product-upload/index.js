@@ -10,6 +10,7 @@ import { fetchdatafromapi, postData } from '../../utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
+import { useNavigate } from "react-router-dom";
 
 const ProductUpload = () => {
     const [value, setValue] = React.useState(0);
@@ -19,6 +20,7 @@ const ProductUpload = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCategories = async () => {

@@ -84,6 +84,7 @@ const CategoryList = () => {
             try {
                 startLoading();
                 await deleteCategory(`/api/category`, id);
+                toast.success('Category deleted successfully');
                 await fetchCategories();
             } catch (error) {
                 console.error('Error deleting category:', error);
@@ -129,6 +130,18 @@ const CategoryList = () => {
 
     return (
         <div className="p-4 bg-white dark:bg-gray-800 min-h-screen">
+                 <ToastContainer 
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Category List</h1>
             <div className="overflow-x-auto rounded-lg shadow">
                 <table className="min-w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
