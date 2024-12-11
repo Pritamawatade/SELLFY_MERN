@@ -1,3 +1,4 @@
+import { CiImageOn } from "react-icons/ci";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
@@ -11,11 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
 
 const ProductUpload = () => {
-    const [value, setValue] = React.useState(2);
+    const [value, setValue] = React.useState(0);
     const [selectedImages, setSelectedImages] = useState([]);
     const [featureValue, setFeatureValue] = useState(false);
     const [categoryValue, setCategoryValue] = useState('');
-    const [ratingValue, setRatingValue] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
@@ -56,37 +56,31 @@ const ProductUpload = () => {
     };
 
     const handleFeaturedChange = (e) => {
-        setFeatureValue(e.target.value);
+        setFeatureValue(e.target.value === 'true');
     }
 
     const handleCategoryChange = (e) => {
         setCategoryValue(e.target.value);
     };
 
-    const handleAddImage = () => {
-        if (imageUrl && imageUrl.trim() !== '') {
-            setSelectedImages([...selectedImages, imageUrl.trim()]);
-            setImageUrl(''); 
-        }
-    };
-
-    const handleRatingChange = (newValue) => {
-        setRatingValue(newValue);
-    };
-
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file && selectedImages.length < 4) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImages(prev => [...prev, reader.result]);
-            };
-            reader.readAsDataURL(file);
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+            const newImages = files.map(file => ({
+                file,
+                preview: URL.createObjectURL(file)
+            }));
+            setSelectedImages(prevImages => [...prevImages, ...newImages]);
         }
     };
 
-    const removeImage = (index) => {
-        setSelectedImages(prev => prev.filter((_, i) => i !== index));
+    const handleRemoveImage = (index) => {
+        setSelectedImages(prevImages => {
+            const newImages = [...prevImages];
+            URL.revokeObjectURL(newImages[index].preview);
+            newImages.splice(index, 1);
+            return newImages;
+        });
     };
 
     const handleInputChange = (e) => {
@@ -99,55 +93,63 @@ const ProductUpload = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        // Validate form fields
-        if (!formData.name || !formData.description || !categoryValue || !formData.brand || 
-            !formData.regularPrice || !formData.discountPrice || !formData.stock || !selectedImages.length) {
-            toast.error('Please fill in all required fields and add at least one image');
-            return;
-        }
-        
+        loadingBar.current.continuousStart();
+
         try {
-            loadingBar.current.continuousStart();
+            const formDataToSend = new FormData();
             
-            const productData = {
-                name: formData.name,
-                description: formData.description,
-                category: categoryValue,
-                brand: formData.brand,
-                isFeatured: featureValue === 'True',
-                price: parseFloat(formData.regularPrice),
-                oldPrice: parseFloat(formData.discountPrice),
-                countInStock: parseInt(formData.stock),
-                rating: value,
-                images: selectedImages
-            };
+            // Add basic form fields
+            formDataToSend.append('name', formData.name);
+            formDataToSend.append('description', formData.description);
+            formDataToSend.append('brand', formData.brand);
+            
+            // Add numeric fields with proper conversion
+            formDataToSend.append('price', Number(formData.price) || 0);
+            formDataToSend.append('oldPrice', Number(formData.oldPrice) || 0);
+            formDataToSend.append('countInStock', Number(formData.countInStock) || 0);
+            formDataToSend.append('numReviews', Number(formData.numReviews) || 0);
+            
+            // Add rating from star component (0-5)
+            formDataToSend.append('rating', value || 0);
+            
+            // Add isFeatured as boolean
+            formDataToSend.append('isFeatured', featureValue);
+            formDataToSend.append('category', categoryValue);
 
-            const response = await postData('/api/products/create', productData);
+            // Append images
+            selectedImages.forEach((image, index) => {
+                formDataToSend.append('images', image.file);
+            });
+            
+            const response = await fetch('http://localhost:4000/api/products/create', {
+                method: 'POST',
+                body: formDataToSend
+            });
 
-            if (response) {
-                loadingBar.current.complete();
-                toast.success('Product uploaded successfully!');
-                // Reset form
+            const data = await response.json();
+
+            if (data.success) {
+                toast.success('Product created successfully!');
                 setFormData({
                     name: '',
                     description: '',
                     brand: '',
-                    regularPrice: '',
-                    discountPrice: '',
-                    stock: '',
+                    price: '',
+                    oldPrice: '',
+                    countInStock: '',
+                    numReviews: '0'
                 });
                 setSelectedImages([]);
                 setValue(0);
                 setCategoryValue('');
-                setFeatureValue(false);
             } else {
-                throw new Error('Failed to upload product');
+                toast.error(data.message || 'Failed to create product');
             }
         } catch (error) {
+            console.error('Error creating product:', error);
+            toast.error('Failed to create product');
+        } finally {
             loadingBar.current.complete();
-            console.error('Error uploading product:', error);
-            toast.error('Failed to upload product. Please try again.');
         }
     };
 
@@ -155,9 +157,10 @@ const ProductUpload = () => {
         name: '',
         description: '',
         brand: '',
-        regularPrice: '',
-        discountPrice: '',
-        stock: '',
+        price: '',
+        oldPrice: '',
+        countInStock: '',
+        numReviews: '0'
     });
 
     return (
@@ -251,18 +254,15 @@ const ProductUpload = () => {
                                         </div>
                                         <div>
                                             <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">BRAND</label>
-                                            <select 
-                                                className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            <input
+                                                type="text"
                                                 name="brand"
                                                 value={formData.brand}
                                                 onChange={handleInputChange}
+                                                className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                placeholder="Enter brand"
                                                 required
-                                            >
-                                                <option value="">Select Brand</option>
-                                                <option value="Peter India">Peter India</option>
-                                                <option value="livon">livon</option>
-                                                <option value="Twenty">Twenty</option>
-                                            </select>
+                                            />
                                         </div>
                                     </motion.div>
 
@@ -270,21 +270,21 @@ const ProductUpload = () => {
                                         <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">is Featured</label>
                                         <select 
                                             className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                            value={featureValue}
+                                            value={featureValue.toString()}
                                             onChange={handleFeaturedChange}
                                         >
-                                            <option>True</option>
-                                            <option>False</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
                                         </select>
                                     </motion.div>
 
                                     <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6" variants={itemVariants}>
                                         <div>
-                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">REGULAR PRICE</label>
+                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">PRICE</label>
                                             <input
                                                 type="number"
-                                                name="regularPrice"
-                                                value={formData.regularPrice}
+                                                name="price"
+                                                value={formData.price}
                                                 onChange={handleInputChange}
                                                 className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="0.00"
@@ -292,11 +292,11 @@ const ProductUpload = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">DISCOUNT PRICE</label>
+                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">OLD PRICE</label>
                                             <input
                                                 type="number"
-                                                name="discountPrice"
-                                                value={formData.discountPrice}
+                                                name="oldPrice"
+                                                value={formData.oldPrice}
                                                 onChange={handleInputChange}
                                                 className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="0.00"
@@ -310,8 +310,8 @@ const ProductUpload = () => {
                                             <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">Product stock</label>
                                             <input
                                                 type="number"
-                                                name="stock"
-                                                value={formData.stock}
+                                                name="countInStock"
+                                                value={formData.countInStock}
                                                 onChange={handleInputChange}
                                                 className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                                 placeholder="0"
@@ -319,7 +319,7 @@ const ProductUpload = () => {
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">Rating</label>
+                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">Rating (0-5 Stars)</label>
                                             <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3">
                                                 <Rating
                                                     name="simple-controlled"
@@ -328,31 +328,56 @@ const ProductUpload = () => {
                                                         setValue(newValue);
                                                     }}
                                                     size="large"
+                                                    precision={0.5}
                                                 />
                                             </div>
                                         </div>
                                     </motion.div>
 
                                     <motion.div variants={itemVariants}>
-                                        <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">Product Images</label>
-                                        <div className="flex gap-4">
-                                            <textarea
-                                                className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                                rows="4"
-                                                placeholder="Image URL"
-                                                value={imageUrl}
-                                                onChange={(e) => setImageUrl(e.target.value)}
-                                            ></textarea>
-                                            <button
-                                                onClick={handleAddImage}
-                                                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 h-fit flex items-center gap-2"
-                                                type="button"
-                                            >
-                                                <span className="text-lg">+</span>
-                                                Add
-                                            </button>
-                                        </div>
+                                        <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">Number of Reviews</label>
+                                        <input
+                                            type="number"
+                                            name="numReviews"
+                                            value={formData.numReviews}
+                                            onChange={handleInputChange}
+                                            className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="0"
+                                            min="0"
+                                        />
                                     </motion.div>
+
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <div className="form-group flex items-center w-100 overflow-x-auto">
+                                                {selectedImages.map((image, index) => (
+                                                    <div key={index} className='h-56 w-52 p-3 relative'>
+                                                        <img src={image.preview} alt="" className='w-full h-full object-cover rounded-lg'/>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleRemoveImage(index)}
+                                                            className="absolute top-4 right-4 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                                                        >
+                                                            <FaTimes />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                                <div className='h-56 w-52 p-3 inputimg relative'>
+                                                    <CiImageOn className="text-4xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400"/> 
+                                                    <input 
+                                                        type="file" 
+                                                        accept='image/*' 
+                                                        onChange={handleImageChange} 
+                                                        className='w-full h-full object-cover absolute inset-0 z-10 opacity-0'
+                                                        multiple
+                                                    />
+                                                    <p className="pt-16 absolute inset-0 z-0 top-14 left-1/2 transform -translate-x-1/2 font-bold text-gray-600 dark:text-gray-400 opacity-50">
+                                                        Upload Image
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <motion.div variants={itemVariants} className="mt-8">
                                         <motion.button
@@ -377,15 +402,13 @@ const ProductUpload = () => {
                                         {selectedImages.map((image, index) => (
                                             <div key={index} className="relative group">
                                                 <img 
-                                                    src={image} 
+                                                    src={image.preview} 
                                                     alt="" 
                                                     className="w-full h-24 object-cover rounded-lg border border-gray-200 dark:border-gray-700" 
                                                 />
                                                 <button
-                                                    onClick={() => {
-                                                        const newImages = selectedImages.filter((_, i) => i !== index);
-                                                        setSelectedImages(newImages);
-                                                    }}
+                                                    type="button"
+                                                    onClick={() => handleRemoveImage(index)}
                                                     className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 shadow-md transition-all duration-200 opacity-0 group-hover:opacity-100"
                                                 >
                                                     <FaTimes />

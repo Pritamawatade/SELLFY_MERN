@@ -672,3 +672,9 @@ body.dark .header h4 {
   top: 30%;
   left: 40%;
 }
+
+
+.inputimg svg{
+  font-size: 150px !important;
+  opacity: 0.2;
+}

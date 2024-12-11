@@ -2,9 +2,9 @@ const { Category } = require("../models/category.js");
 const { Product } = require("../models/products.js");
 const express = require("express");
 const router = express.Router();
-
-const pLimit = require("p-limit");
+const upload = require('../middlewares/upload');
 const cloudinary = require("cloudinary").v2;
+const fs = require('fs').promises;
 
 router.get(`/`, async (req, res) => {
   const productList = await Product.find().populate("category");
@@ -26,38 +26,26 @@ router.get('/:id', async (req, res) => {
   res.send(product);
 });
 
-router.post(`/create`, async (req, res) => {
+router.post(`/create`, upload.array('images', 4), async (req, res) => {
   try {
     const category = await Category.findById(req.body.category);
     if (!category) {
       return res.status(404).json({ success: false, message: "Invalid category" });
     }
 
-    const limit = pLimit(2);
-
-    const imagesToUpload = req.body.images.map((image) => {
-      return limit(async () => {
-        const result = await cloudinary.uploader.upload(image);
-        console.log("images upload successfully result: ", result);
+    const uploadPromises = req.files.map(async (file) => {
+      try {
+        const result = await cloudinary.uploader.upload(file.path);
+        await fs.unlink(file.path); // Delete the file after upload
         return result;
-      });
+      } catch (error) {
+        console.error('Error uploading to cloudinary:', error);
+        throw error;
+      }
     });
 
-    const uploadStatus = await Promise.all(imagesToUpload);
-
-    console.log(" uploadStatus = " + uploadStatus);
-
-    const imgurl = uploadStatus.map((item) => {
-      return item.secure_url;
-    });
-
-    if (!uploadStatus) {
-      console.log("images cannot upload");
-      return res.status(500).json({
-        error: "images cannot upload",
-        status: false,
-      });
-    }
+    const uploadStatus = await Promise.all(uploadPromises);
+    const imgurl = uploadStatus.map(item => item.secure_url);
 
     let product = new Product({
       name: req.body.name,
@@ -68,20 +56,21 @@ router.post(`/create`, async (req, res) => {
       oldPrice: req.body.oldPrice,
       category: req.body.category,
       countInStock: req.body.countInStock,
+      rating: req.body.rating,
       numReviews: req.body.numReviews,
-      isFeatured: req.body.isFeatured,
+      isFeatured: req.body.isFeatured === 'true',
     });
 
     product = await product.save();
 
     if (!product) {
-      return res.status(400).json({ error: "Failed to create product", success: false });
+      return res.status(400).json({ success: false, message: "Failed to create product" });
     }
 
-    res.status(201).json(product);
+    res.status(201).json({ success: true, product });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Internal Server Error", success: false });
+    console.error('Error creating product:', err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 

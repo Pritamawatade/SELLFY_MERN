@@ -6,7 +6,7 @@ import { BsCartPlusFill } from "react-icons/bs";
 import { AiFillProduct } from "react-icons/ai";
 import { MdReviews } from "react-icons/md";
 import { IoTimerOutline } from "react-icons/io5";
-import React from "react";
+import React, { useEffect } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import Menu from "@mui/material/Menu";
@@ -29,9 +29,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+  import { fetchdatafromapi } from "../../utils/api";
+  let index = 0;
+
 const Dashboard = () => {
   const [showBy, setshowBy] = React.useState("");
   const [showByCategory, setShowByCategory] = React.useState("");
+  const [products, setProducts] = React.useState([]);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const handleChange = (event) => {
     setshowBy(event.target.value);
@@ -39,6 +44,18 @@ const Dashboard = () => {
   const handleChange1 = (event) => {
     setShowByCategory(event.target.value);
   };
+
+  useEffect(() =>{
+    window.scrollTo(0, 0);
+
+    fetchdatafromapi("/api/products/").then((res) => {
+      setProducts(res || []);
+    }).catch(error => {
+      console.error("Error fetching products:", error);
+      setProducts([]);
+    });
+
+  }, []); 
 
   const options = [
     "last day",
@@ -54,6 +71,9 @@ const Dashboard = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -222,414 +242,65 @@ const Dashboard = () => {
                 <th>CATEGORY</th>
                 <th>BRAND</th>
                 <th>PRICE</th>
+                <th>OLD PRICE</th>
                 <th>STOCK</th>
                 <th>RATING</th>
-                <th>ORDERS</th>
-                <th>SALES</th>
+                <th>FEATURED</th>
+                <th>DATE CREATED</th>
                 <th>ACTIONS</th>
               </motion.tr>
             </thead>
             <tbody>
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16 ">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
+              {products && products.length > 0 ? products.map((product, index) => (
+                <motion.tr
+                  key={product._id}
+                  initial={{ opacity: 0, x: -100 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  <td className="font-bold">{index + 1}</td>
+                  <td>
+                    <div className="flex items-center gap-3 p-2">
+                      <div className="imgWrapper">
+                        <div className="image w-16 h-16 rounded overflow-hidden">
+                          <img
+                            src={product?.images?.[0] || ''}
+                            alt={product?.name || 'Product Image'}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="text font-medium">
+                        {product?.name || 'Unnamed Product'}
                       </div>
                     </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
+                  </td>
+                  <td>{product?.category?.name || 'Uncategorized'}</td>
+                  <td>{product?.brand || 'No Brand'}</td>
+                  <td>${product?.price || 0}</td>
+                  <td>${product?.oldPrice || 0}</td>
+                  <td>{product?.countInStock || 0}</td>
+                  <td>{product?.numReviews || 0}</td>
+                  <td>{product?.isFeatured ? "Yes" : "No"}</td>
+                  <td>{product?.dateCreated ? new Date(product.dateCreated).toLocaleDateString() : 'N/A'}</td>
+                  <td id="actions" className="m-0 p-0">
+                    <span className="m-0 p-0 block">
+                      <Link to="/product/details">
+                        <Button className="mr-1 flex items-center">
+                          <FaEye />
+                        </Button>
+                      </Link>
+                      <Button className="mr-1" color="success">
+                        <MdEdit />
                       </Button>
-                    </Link>
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <z />
+                      <Button color="secondary">
+                        <MdDeleteForever />
                       </Button>
-                    </Link>
-
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
-                      </Button>
-                    </Link>
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
-                      </Button>
-                    </Link>
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
-                      </Button>
-                    </Link>
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
-                      </Button>
-                    </Link>
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
-
-              <motion.tr
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <td className="font-bold">#1</td>
-                <td>
-                  <div className="flex items-center justify-center mb-0">
-                    <div className="imgWrapper">
-                      <div className="image w-16">
-                        <img
-                          src="https://static.scientificamerican.com/sciam/cache/file/1DDFE633-2B85-468D-B28D05ADAE7D1AD8_source.jpg?w=1200"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <div className="text">
-                      Tops and skirt set for Female... Women's exclusive summ
-                    </div>
-                  </div>
-                </td>
-                <td>womans</td>
-                <td>reachman</td>
-                <td>
-                  <span className="line-through text-red-400 text-lg">$21</span>
-                  <br />
-                  <span className="text-green-500 text-xl">$19</span>
-                </td>
-                <td>
-                  {" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
-                </td>
-                <td>5(16)</td>
-                <td>280</td>
-                <td>$23</td>
-                <td id="actions" className="m-0 p-0">
-                  <span className="m-0 p-0 block">
-                    <Link to="/product/details">
-                      <Button className="mr-1 flex items-center">
-                        <FaEye />
-                      </Button>
-                    </Link>
-
-                    <Button className="mr-1" color="success">
-                      <MdEdit />
-                    </Button>
-                    <Button color="secondary">
-                      <MdDeleteForever />
-                    </Button>
-                  </span>
-                </td>
-              </motion.tr>
+                    </span>
+                  </td>
+                </motion.tr>
+              )) : null}
             </tbody>
           </div>
         </div>
