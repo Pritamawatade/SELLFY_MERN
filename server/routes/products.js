@@ -122,6 +122,7 @@ router.put('/:id', upload.array('images'), async (req, res) => {
       return limit(async () => {
         try {
           const result = await cloudinary.uploader.upload(file.path);
+          await fs.unlink(file.path);
           return result;
         } catch (err) {
           console.error('Error uploading image:', err);
