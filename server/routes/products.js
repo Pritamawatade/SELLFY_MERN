@@ -5,6 +5,11 @@ const router = express.Router();
 const upload = require('../middlewares/upload');
 const cloudinary = require("cloudinary").v2;
 const fs = require('fs').promises;
+const pLimit = require('p-limit');
+
+
+
+const limit = pLimit(5);
 
 router.get(`/`, async (req, res) => {
 
@@ -18,7 +23,7 @@ router.get(`/`, async (req, res) => {
     return res.status(404).json({ message: "Page not found" });
   }
 
- 
+
   const productList = await Product.find().populate("category")
     .skip((page - 1) * perpage)
     .limit(perpage)
@@ -107,57 +112,53 @@ router.delete("/:id", async (req, res) => {
   res.status(200).send({ message: "product deleted", success: true });
 });
 
-router.put('/:id', async (req, res) => {
-  const limit = pLimit(2);
+router.put('/:id', upload.array('images'), async (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No images uploaded', success: false });
+    }
 
-  const imagesToUpload = req.body.images.map((image) => {
-    return limit(async () => {
-      const result = await cloudinary.uploader.upload(image);
-      console.log('images upload succefully result: ' + result);
-      return result;
-    })
-  })
+    const imagesToUpload = req.files.map((file) => {
+      return limit(async () => {
+        try {
+          const result = await cloudinary.uploader.upload(file.path);
+          return result;
+        } catch (err) {
+          console.error('Error uploading image:', err);
+          throw err;
+        }
+      });
+    });
 
-  const uploadStatus = await Promise.all(imagesToUpload);
+    const uploadStatus = await Promise.allSettled(imagesToUpload);
 
-  const imgurl = uploadStatus.map((item) => {
-    return item.secure_url;
-  })
+    const imgurl = uploadStatus
+      .filter((result) => result.status === 'fulfilled')
+      .map((result) => result.value.secure_url);
 
-  if (!uploadStatus) {
-    console.log('images cannot upload');
-    return res.status(500).json({
-      error: 'images cannot upload',
-      status: false
-    })
+    if (imgurl.length !== req.files.length) {
+      return res.status(500).json({ error: 'Some images could not be uploaded', success: false });
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        ...req.body,
+        images: imgurl,
+      },
+      { new: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found', success: false });
+    }
+
+    res.status(200).json({ message: 'Product updated', success: true, product });
+  } catch (err) {
+    console.error('Error in update product route:', err);
+    res.status(500).json({ error: 'Internal server error', success: false });
   }
+});
 
-  const product = await Product.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-    description: req.body.description,
-    images: imgurl,
-    brand: req.body.brand,
-    price: req.body.price,
-    oldPrice: req.body.oldPrice,
-    category: req.body.category,
-    countInStock: req.body.countInStock,
-    numReviews: req.body.numReviews,
-    isFeatured: req.body.isFeatured,
-  }, { new: true });
-
-  if (!product) {
-    res.status(404).json({
-      message: 'product not updated',
-      success: false
-    })
-  }
-
-  res.status(200).json({
-    message: 'product updated',
-    success: true,
-    product: product,
-  });
-
-})
 
 module.exports = router;

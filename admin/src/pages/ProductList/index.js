@@ -233,9 +233,11 @@ const ProductList = () => {
                           <FaEye />
                         </Button>
                       </Link>
-                      <Button className="mr-1" color="success">
-                        <MdEdit />
-                      </Button>
+                      <Link to={`/product/edit/${product._id}`}>
+                        <Button className="mr-1" color="success">
+                          <MdEdit />
+                        </Button>
+                     </Link>
                       <Button
                         onClick={() => deleteProduct(product._id)}
                         color="secondary"

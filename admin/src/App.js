@@ -13,6 +13,7 @@ import CategoryUpload from "./pages/CategoryUpload/";
 import CategoryList from "./pages/CategoryList";
 import LoadingBar from 'react-top-loading-bar';
 import ProductList from "./pages/ProductList";
+import ProductEdit from "./pages/ProductEdit";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -74,6 +75,7 @@ function App() {
                 <Route path="/login" exact={true} element={<Login />} />
                 <Route path="/signup" exact={true} element={<SignUp />} />
                 <Route path="/product/upload" exact={true} element={<ProductUpload />} />
+                <Route path="/product/edit/:id" exact={true} element={<ProductEdit />} />
                 <Route path="/product" exact={true} element={<ProductList />} />
                 <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
                 <Route path="/Category/list" exact={true} element={<CategoryList />} />

@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { useParams } from 'react-router-dom';
 
 export const fetchdatafromapi = async (url) => {
   try {
@@ -10,6 +10,14 @@ export const fetchdatafromapi = async (url) => {
   }
 }
 
+export const fetchdatafromapiwithid = async (url) => {
+  try {
+    const { data } = await axios.get(`http://localhost:4000${url}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const postData  = async (url, fromdata) =>{
   console.log(fromdata+"post data");
@@ -22,6 +30,7 @@ export const postData  = async (url, fromdata) =>{
 
 export const editdata = async (url, formdata) => {
   try {
+    console.log(formdata);
     const { data } = await axios.put(`http://localhost:4000${url}`, formdata);
     return data;
   } catch (error) {
