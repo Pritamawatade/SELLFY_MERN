@@ -5,6 +5,7 @@ import { Modal, Box, TextField, Button } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoadingContext } from '../../App';
+import { motion } from 'framer-motion';
 
 const CategoryList = () => {
     const [categories, setCategories] = useState([]);
@@ -13,7 +14,8 @@ const CategoryList = () => {
     const [editForm, setEditForm] = useState({
         name: '',
         image: '',
-        color: ''
+        color: '',
+        subCategory: ''
     });
     const { startLoading, stopLoading } = useContext(LoadingContext);
 
@@ -130,75 +132,89 @@ const CategoryList = () => {
 
     return (
         <div className="p-4 bg-white dark:bg-gray-800 min-h-screen">
-                 <ToastContainer 
-                    position="top-right"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Category List</h1>
             <div className="overflow-x-auto rounded-lg shadow">
-                <table className="min-w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-                    <thead className="bg-gray-50 dark:bg-gray-800">
+                <motion.table
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="min-w-full bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 shadow-xl rounded-lg overflow-hidden"
+                >
+                    <thead className="bg-gradient-to-r from-teal-400 to-blue-500 dark:from-teal-700 dark:to-blue-800">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">UID</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Image</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Color</th>
-                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">UID</th>
+                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Image</th>
+                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Name</th>
+                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Sub Category</th>
+                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Color</th>
+                            <th className="px-6 py-4 text-center text-xs font-bold text-white uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         {categories.map((category, index) => (
-                            <tr key={category._id} className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">#{index + 1}</td>
+                            <motion.tr
+                                key={category._id}
+                                initial={{ opacity: 0, translateY: 10 }}
+                                animate={{ opacity: 1, translateY: 0 }}
+                                transition={{ duration: 0.3, delay: index * 0.1 }}
+                                className="hover:bg-gradient-to-r from-blue-50 to-teal-50 dark:from-gray-700 dark:to-gray-600 hover:shadow-md transition-all"
+                            >
+                                <td className="px-6 py-4 whitespace-nowrap text-gray-800 dark:text-gray-200 font-medium">{index + 1}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <img 
-                                        src={category.image} 
+                                    <img
+                                        src={category.image}
                                         alt={category.name}
-                                        className="w-16 h-16 object-cover rounded shadow-sm"
+                                        className="w-16 h-16 object-cover rounded-full border-2 border-teal-400 dark:border-teal-600 shadow-md hover:scale-105 transform transition-transform"
                                     />
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{category.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-gray-800 dark:text-gray-200 font-medium">{category.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-400 font-medium">{category.subCategory}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div 
-                                        className="w-6 h-6 rounded-full border border-gray-200 dark:border-gray-600 shadow-sm" 
+                                    <div
+                                        className="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 shadow-inner"
                                         style={{ backgroundColor: category.color }}
                                     />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-center">
                                     <button
                                         onClick={() => handleView(category)}
-                                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mx-1 transition-colors"
+                                        className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mx-1 transition-transform transform hover:scale-110"
                                         title="View"
                                     >
                                         <FaEye size={18} />
                                     </button>
                                     <button
-                                        onClick={() => handleView(category)}
-                                        className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 mx-1 transition-colors"
+                                        onClick={() => handleEdit(category)}
+                                        className="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 mx-1 transition-transform transform hover:scale-110"
                                         title="Edit"
                                     >
                                         <FaEdit size={18} />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(category._id)}
-                                        className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 mx-1 transition-colors"
+                                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 mx-1 transition-transform transform hover:scale-110"
                                         title="Delete"
                                     >
                                         <FaTrash size={18} />
                                     </button>
                                 </td>
-                            </tr>
+                            </motion.tr>
                         ))}
                     </tbody>
-                </table>
+                </motion.table>
+
             </div>
 
             <Modal
@@ -229,21 +245,28 @@ const CategoryList = () => {
                             fullWidth
                             label="Name"
                             value={editForm.name}
-                            onChange={(e) => setEditForm({...editForm, name: e.target.value})}
+                            onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                            sx={textFieldStyling}
+                        />
+                        <TextField
+                            fullWidth
+                            label="Sub Category"
+                            value={editForm.subCategory}
+                            onChange={(e) => setEditForm({ ...editForm, subCategory: e.target.value })}
                             sx={textFieldStyling}
                         />
                         <TextField
                             fullWidth
                             label="Image URL"
                             value={editForm.image}
-                            onChange={(e) => setEditForm({...editForm, image: e.target.value})}
+                            onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
                             sx={textFieldStyling}
                         />
                         <TextField
                             fullWidth
                             label="Color Code"
                             value={editForm.color}
-                            onChange={(e) => setEditForm({...editForm, color: e.target.value})}
+                            onChange={(e) => setEditForm({ ...editForm, color: e.target.value })}
                             sx={textFieldStyling}
                         />
                         <div className="flex justify-end space-x-2 mt-4">

@@ -159,102 +159,106 @@ const ProductList = () => {
           </div>
         </div>
 
-        <div className="table-responsive mt-3">
-          <div className="table table-bordered ">
-            <thead className="title">
-              <motion.tr
-                variants={boxVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.95 }}
-                viewport={{ once: true }}
-                className=""
-              >
-                <th>UID</th>
-                <th>PRODUCT</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>PRICE</th>
-                <th>OLD PRICE</th>
-                <th>STOCK</th>
-                <th>RATING</th>
-                <th>FEATURED</th>
-                <th>DATE CREATED</th>
-                <th>ACTIONS</th>
-              </motion.tr>
-            </thead>
-            <tbody>
-              {productList?.products?.length !== 0 && productList?.products?.map((product, index) => (
+       <div className="tableWrapper overflow-visible">
+          <div className="table-responsive mt-3 w-100">
+            <div className="table table-bordered ">
+              <thead className="title">
                 <motion.tr
-                  key={product._id}
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  variants={boxVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.95 }}
+                  viewport={{ once: true }}
+                  className=""
                 >
-                  <td className="font-bold">{index + 1}</td>
-                  <td>
-                    <div className="flex items-center gap-3 p-2">
-                      <div className="imgWrapper">
-                        <div className="image w-16 h-16 rounded overflow-hidden">
-                          <img
-                            src={product?.images?.[0] || ''}
-                            alt={product?.name || 'Product Image'}
-                            className="w-full h-full object-cover"
-                          />
+                  <th>UID</th>
+                  <th>PRODUCT</th>
+                  <th>CATEGORY</th>
+                  <th>SUB CATEGORY</th>
+                  <th>BRAND</th>
+                  <th>PRICE</th>
+                  <th>OLD PRICE</th>
+                  <th>STOCK</th>
+                  <th>RATING</th>
+                  <th>FEATURED</th>
+                  <th>DATE CREATED</th>
+                  <th>ACTIONS</th>
+                </motion.tr>
+              </thead>
+              <tbody>
+                {productList?.products?.length !== 0 && productList?.products?.map((product, index) => (
+                  <motion.tr
+                    key={product._id}
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  >
+                    <td className="font-bold">{index + 1}</td>
+                    <td>
+                      <div className="flex items-center gap-3 p-2">
+                        <div className="imgWrapper">
+                          <div className="image w-16 h-16 rounded overflow-hidden">
+                            <img
+                              src={product?.images?.[0] || ''}
+                              alt={product?.name || 'Product Image'}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                        <div className="text font-medium">
+                          {`${product?.name?.split(" ").slice(0, 5).join(" ") || "Unnamed Product"}${product?.name?.split(" ").length > 5 ? " ..." : ""}`}
                         </div>
                       </div>
-                      <div className="text font-medium">
-                        {`${product?.name?.split(" ").slice(0, 5).join(" ") || "Unnamed Product"}${product?.name?.split(" ").length > 5 ? " ..." : ""}`}
-                      </div>
-                    </div>
-                  </td>
-                  <td>{product?.category?.name || 'Uncategorized'}</td>
-                  <td>{product?.brand || 'No Brand'}</td>
-                  <td>${product?.price || 0}</td>
-                  <td>${product?.oldPrice || 0}</td>
-                  <td>{product?.countInStock || 0}</td>
-                  <td> 
-                    <Rating
-                      name="read-only"
-                      value={product?.numReviews || 0}
-                      size="large"
-                      precision={0.5}
-                      readOnly
-                       />
-                  </td>
-                  <td>{product?.isFeatured ? "Yes" : "No"}</td>
-                  <td>{product?.dateCreated ? new Date(product.dateCreated).toLocaleDateString() : 'N/A'}</td>
-                  <td id="actions" className="m-0 p-0">
-                    <span className="m-0 p-0 block">
-                      <Link to="/product/details">
-                        <Button className="mr-1 flex items-center">
-                          <FaEye />
+                    </td>
+                    <td>{product?.category?.name || 'Uncategorized'}</td>
+                    <td>{product?.category?.subCategory || 'Uncategorized'}</td>
+                    <td>{product?.brand || 'No Brand'}</td>
+                    <td>${product?.price || 0}</td>
+                    <td>${product?.oldPrice || 0}</td>
+                    <td>{product?.countInStock || 0}</td>
+                    <td> 
+                      <Rating
+                        name="read-only"
+                        value={product?.numReviews || 0}
+                        size="large"
+                        precision={0.5}
+                        readOnly
+                         />
+                    </td>
+                    <td>{product?.isFeatured ? "Yes" : "No"}</td>
+                    <td>{product?.dateCreated ? new Date(product.dateCreated).toLocaleDateString() : 'N/A'}</td>
+                    <td id="actions" className="m-0 p-0">
+                      <span className="m-0 p-0 block">
+                        <Link to="/product/details">
+                          <Button className="mr-1 flex items-center">
+                            <FaEye />
+                          </Button>
+                        </Link>
+                        <Link to={`/product/edit/${product._id}`}>
+                          <Button className="mr-1" color="success">
+                            <MdEdit />
+                          </Button>
+                       </Link>
+                        <Button
+                          onClick={() => deleteProduct(product._id)}
+                          color="secondary"
+                        >
+                          <MdDeleteForever />
                         </Button>
-                      </Link>
-                      <Link to={`/product/edit/${product._id}`}>
-                        <Button className="mr-1" color="success">
-                          <MdEdit />
-                        </Button>
-                     </Link>
-                      <Button
-                        onClick={() => deleteProduct(product._id)}
-                        color="secondary"
-                      >
-                        <MdDeleteForever />
-                      </Button>
-                    </span>
-                  </td>
-                </motion.tr>
-              ))}
-            </tbody>
+                      </span>
+                    </td>
+                  </motion.tr>
+                ))}
+              </tbody>
+            </div>
           </div>
-        </div>
+       </div>
         <Pagination count={productList?.totalPages} onChange={handleChangePage} color="primary" showFirstButton showLastButton />
 
         <p className="text-gray-400 text-lg font-normal">
-          Showing 1 to 10 of 50 entries
+          Showing {productList?.page}  of {productList?.totalPages} pages
         </p>
       </div>
     </div>

@@ -17,7 +17,7 @@ const ProductUpload = () => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [featureValue, setFeatureValue] = useState(false);
     const [categoryValue, setCategoryValue] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [subCategoryValue, setSubCategoryValue] = useState('');
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
     const navigate = useNavigate();
@@ -63,6 +63,10 @@ const ProductUpload = () => {
 
     const handleCategoryChange = (e) => {
         setCategoryValue(e.target.value);
+    };
+
+    const handleSubCategoryChange = (e) => {
+        setSubCategoryValue(e.target.value);
     };
 
     const handleImageChange = (e) => {
@@ -117,6 +121,7 @@ const ProductUpload = () => {
             // Add isFeatured as boolean
             formDataToSend.append('isFeatured', featureValue);
             formDataToSend.append('category', categoryValue);
+            formDataToSend.append('subCategory', subCategoryValue);
 
             // Append images
             selectedImages.forEach((image, index) => {
@@ -250,6 +255,22 @@ const ProductUpload = () => {
                                                 {categories.map((category) => (
                                                     <option key={category._id} value={category._id}>
                                                         {category.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider"> SUBCATEGORY</label>
+                                            <select 
+                                                className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                value={subCategoryValue}
+                                                onChange={handleSubCategoryChange}
+                                            >
+                                                <option value="">Select Subcategory</option>
+                                                {categories.map((category) => (
+                                                    <option key={category._id} value={category._id}>
+                                                        {category.subCategory}
                                                     </option>
                                                 ))}
                                             </select>

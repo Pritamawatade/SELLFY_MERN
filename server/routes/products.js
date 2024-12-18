@@ -83,6 +83,7 @@ router.post(`/create`, upload.array('images', 4), async (req, res) => {
       price: req.body.price,
       oldPrice: req.body.oldPrice,
       category: req.body.category,
+      subCategory: req.body.subCategory,
       countInStock: req.body.countInStock,
       rating: req.body.rating,
       numReviews: req.body.numReviews,

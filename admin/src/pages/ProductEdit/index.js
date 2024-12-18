@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 import { useState, useEffect, useRef } from 'react';
-import { editdata, fetchdatafromapi, fetchdatafromapiwithid, postData } from '../../utils/api';
+import {  fetchdatafromapi, fetchdatafromapiwithid} from '../../utils/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
@@ -17,6 +17,7 @@ const ProductEdit = () => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [featureValue, setFeatureValue] = useState(false);
     const [categoryValue, setCategoryValue] = useState('');
+    const [subCategoryValue, setSubCategoryValue] = useState('');
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
 
@@ -50,6 +51,7 @@ const ProductEdit = () => {
             setValue(res.rating);
             setFeatureValue(res.isFeatured);
             setCategoryValue(res.category);
+            setSubCategoryValue(res.subCategory);
         }).catch(error => {
             console.error("Error fetching product:", error);
         });
@@ -83,6 +85,10 @@ const ProductEdit = () => {
 
     const handleCategoryChange = (e) => {
         setCategoryValue(e.target.value);
+    };
+
+    const handleSubCategoryChange = (e) => {
+        setSubCategoryValue(e.target.value);
     };
 
     const handleImageChange = (e) => {
@@ -137,6 +143,7 @@ const ProductEdit = () => {
             // Add isFeatured as boolean
             formDataToSend.append('isFeatured', featureValue);
             formDataToSend.append('category', categoryValue);
+            formDataToSend.append('subCategory', subCategoryValue);
 
             // Append images
 
@@ -263,6 +270,22 @@ const ProductEdit = () => {
                                                 {categories.map((category) => (
                                                     <option key={category._id} value={category._id}>
                                                         {category.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">SUB CATEGORY</label>
+                                            <select 
+                                                className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                value={subCategoryValue}
+                                                onChange={handleSubCategoryChange}
+                                            >
+                                                <option value="">Select Category</option>
+                                                {categories.map((category) => (
+                                                    <option key={category._id} value={category._id}>
+                                                        {category.subCategory}
                                                     </option>
                                                 ))}
                                             </select>

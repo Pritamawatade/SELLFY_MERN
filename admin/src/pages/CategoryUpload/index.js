@@ -12,6 +12,7 @@ const CategoryUpload = () => {
 
     const [formFields, setFormFields] = React.useState({
         name: '',
+        subCategory: '',
         image: '',
         color: ''
     })
@@ -148,6 +149,17 @@ const CategoryUpload = () => {
                                             onChange={inputChange}
                                             name='name'
                                             value={formFields.name}
+                                        />
+                                    </motion.div>
+                                    <motion.div className="form-group mb-4" variants={itemVariants}>
+                                        <label className="text-gray-700 dark:text-gray-300 mb-2 font-bold">Sub Category Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control bg-[#f0f0f0] dark:bg-gray-700 dark:text-white border-0 rounded mb-4 w-full"
+                                            placeholder="Enter sub category name"
+                                            onChange={inputChange}
+                                            name='subCategory'
+                                            value={formFields.subCategory}
                                         />
                                     </motion.div>
 
