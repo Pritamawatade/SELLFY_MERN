@@ -16,9 +16,11 @@ app.use(bodyParser.json())
 
 const categoryRoutes = require('./routes/categories')
 const productRoutes = require('./routes/products')
+const subCatRoutes = require('./routes/SubCat')
 
 app.use(`/api/category`, categoryRoutes)
 app.use(`/api/products`, productRoutes)
+app.use(`/api/subcategory`, subCatRoutes)
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -31,6 +33,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 .catch((error) => {
     console.error('Error connecting to MongoDB:', error.message)
 })
+
 
 
 

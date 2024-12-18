@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
 import { useNavigate } from "react-router-dom";
+import { myContext } from "../../App";
 
 const ProductUpload = () => {
     const [value, setValue] = React.useState(0);
@@ -21,19 +22,11 @@ const ProductUpload = () => {
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
     const navigate = useNavigate();
+    const context = React.useContext(myContext);
+
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const data = await fetchdatafromapi('/api/category');
-                if (data) {
-                    setCategories(data);
-                }
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            }
-        };
-        fetchCategories();
+        setCategories(context.categories);
     }, []);
 
     const containerVariants = {

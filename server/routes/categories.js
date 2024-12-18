@@ -4,7 +4,6 @@ const express = require("express");
 
 const router = express.Router();
 
-const pLimit = require("p-limit");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({

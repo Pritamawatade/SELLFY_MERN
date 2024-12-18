@@ -11,6 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from 'react-top-loading-bar';
 import { useNavigate, useParams } from "react-router-dom";
+import { myContext } from "../../App";
+
 
 const ProductEdit = () => {
     const [value, setValue] = React.useState(0);
@@ -20,6 +22,7 @@ const ProductEdit = () => {
     const [subCategoryValue, setSubCategoryValue] = useState('');
     const [categories, setCategories] = useState([]);
     const loadingBar = useRef(null);
+    const context = React.useContext(myContext);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -33,17 +36,8 @@ const ProductEdit = () => {
 
     const {id} = useParams();
     useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const data = await fetchdatafromapi('/api/category');
-                if (data) {
-                    setCategories(data);
-                }
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            }
-        };
-        fetchCategories();
+
+        setCategories(context.categories);
 
         fetchdatafromapiwithid(`/api/products/${id}`).then((res) => {
             setFormData(res);

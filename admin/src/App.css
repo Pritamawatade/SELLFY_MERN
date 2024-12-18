@@ -547,6 +547,9 @@ body.dark .card-body,
 body.dark .progress span {
   color: #fff;
 }
+body.dark html,body.dark {
+background-color: #112143 !important;
+}
 
 /* Keep text white in dark mode for specific components */
 body.dark .table,

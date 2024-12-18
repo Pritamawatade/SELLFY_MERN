@@ -14,6 +14,8 @@ import CategoryList from "./pages/CategoryList";
 import LoadingBar from 'react-top-loading-bar';
 import ProductList from "./pages/ProductList";
 import ProductEdit from "./pages/ProductEdit";
+import { fetchdatafromapi } from "./utils/api";
+import AddSubCategory from "./pages/SubCategory/SubCatUpload";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -21,6 +23,8 @@ export const LoadingContext = createContext();
 function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
+  const [categories, setCategories] = useState([]);
+
   const [themeMode, setThemeMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark" ? false : true;
@@ -36,6 +40,17 @@ function App() {
   };
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+          const data = await fetchdatafromapi('/api/category');
+          if (data) {
+              setCategories(data);
+          }
+      } catch (error) {
+          console.error('Error fetching categories:', error);
+      }
+  };
+      fetchCategories();
     if (themeMode) {
       document.body.classList.remove("dark");
       document.body.classList.add("light");
@@ -49,7 +64,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode }}>
+      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode, categories }}>
         <LoadingContext.Provider value={{ startLoading, stopLoading }}>
           <LoadingBar
             color='#f11946'
@@ -78,6 +93,7 @@ function App() {
                 <Route path="/product/edit/:id" exact={true} element={<ProductEdit />} />
                 <Route path="/product" exact={true} element={<ProductList />} />
                 <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
+                <Route path="/subCategory/add" exact={true} element={<AddSubCategory />} />
                 <Route path="/Category/list" exact={true} element={<CategoryList />} />
                 <Route
                   path="/product/details"

@@ -1,3 +1,4 @@
+import { MdCategory } from "react-icons/md";
 import { motion } from "framer-motion";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { FaUserPlus } from "react-icons/fa";
@@ -171,7 +172,7 @@ const Sidebar = () => {
             onClick={() => isOpenSubMenu(6)}
           >
             <span className="icon">
-              <FaProductHunt />
+              <MdCategory />
             </span>
             Category
             <span className="arrow">
