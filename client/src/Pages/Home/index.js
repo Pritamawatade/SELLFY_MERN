@@ -6,7 +6,7 @@ import banner2 from "../../assets/images/banner2.png";
 import banner3 from "../../assets/images/banner3.png";
 import banner4 from "../../assets/images/banner4.png";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,15 +18,26 @@ import ProductItem from "../../Component/ProductItem/index.js";
 import HomeCat from "../../Component/HomeCat/index.js";
 import coupon from "../../assets/images/coupon.jpg";
 import { IoMailOutline } from "react-icons/io5";
-
+import {fetchdatafromapi} from  '../../utils/api.js'
+import { mycontext } from "../../App.js";
 
 const Home = () => {
+  const context = useContext(mycontext);
+  const [categories, setCategories] = React.useState([]);
+  const fetchcategories = async () => {
+    const data = await fetchdatafromapi('/api/category/');
+    setCategories(data);
+  }
+  useEffect(()=>{
+   fetchcategories(); 
+   context.setIsHeaderFooterShow(true);
+  },[])
   return (
     <>
       <HomeBanner />
 
       {/* // home catagory Component */}
-      <HomeCat />
+      <HomeCat categories={categories} />
 
       <section className="homeProducts">
         <div className="container">

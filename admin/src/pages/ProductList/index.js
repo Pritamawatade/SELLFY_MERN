@@ -213,7 +213,7 @@ const ProductList = () => {
                       </div>
                     </td>
                     <td>{product?.category?.name || 'Uncategorized'}</td>
-                    <td>{product?.category?.subCategory || 'Uncategorized'}</td>
+                    <td>{product?.subCategory?.subCategory || 'Uncategorized'}</td>
                     <td>{product?.brand || 'No Brand'}</td>
                     <td>${product?.price || 0}</td>
                     <td>${product?.oldPrice || 0}</td>

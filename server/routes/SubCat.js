@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(`/` , async (req, res) =>{
 try {
     
-        const SubCatList = await SubCat.find();
+        const SubCatList = await SubCat.find().populate('category');
         if(!SubCatList){
             res.status(500).json({success:false});
         }
@@ -27,7 +27,10 @@ router.post("/create", async (req, res) => {
            
         });
 
+
         subCat = await subCat.save();
+        console.log("SubCat successfully created:", subCat.category);
+        
         console.log("SubCat successfully created:", subCat);
 
         res.status(201).json({

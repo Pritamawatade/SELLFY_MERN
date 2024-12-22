@@ -24,6 +24,7 @@ const AddSubCategory = () => {
 
     useEffect(() => {
         setCategories(context.categories);
+        
     }, []);
 
     const containerVariants = {

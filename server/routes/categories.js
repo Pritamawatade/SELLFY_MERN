@@ -55,7 +55,6 @@ router.put("/:id", async (req, res) => {
             req.params.id,
             {
                 name: req.body.name,
-                subCategory: req.body.subCategory,
                 image: result.secure_url,
                 color: req.body.color
             },
@@ -95,7 +94,6 @@ router.post("/create", async (req, res) => {
 
         let category = new Category({
             name: req.body.name,
-            subCategory: req.body.subCategory,
             image: result.secure_url,
             color: req.body.color,
         });

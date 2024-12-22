@@ -1,5 +1,6 @@
 const { Category } = require("../models/category.js");
 const { Product } = require("../models/products.js");
+const { SubCat } = require("../models/SubCat.js");
 const express = require("express");
 const router = express.Router();
 const upload = require('../middlewares/upload');
@@ -24,7 +25,7 @@ router.get(`/`, async (req, res) => {
   }
 
 
-  const productList = await Product.find().populate("category")
+  const productList = await Product.find().populate("category subCategory")
     .skip((page - 1) * perpage)
     .limit(perpage)
     .exec();

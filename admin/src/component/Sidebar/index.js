@@ -212,6 +212,13 @@ const Sidebar = () => {
               >
                 <Link to="/subCategory/add">Sub Category upload</Link>
               </motion.li>
+              <motion.li 
+                variants={itemVariants}
+                whileHover={hoverAnimation}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link to="/subCategory/list">Sub Category list</Link>
+              </motion.li>
             </motion.ul>
           </div>
         </motion.li>

@@ -16,6 +16,7 @@ import ProductList from "./pages/ProductList";
 import ProductEdit from "./pages/ProductEdit";
 import { fetchdatafromapi } from "./utils/api";
 import AddSubCategory from "./pages/SubCategory/SubCatUpload";
+import SubCatList from "./pages/SubCategory/SubCatList";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -24,6 +25,7 @@ function App() {
   const [isTogglesidebar, setIsToggleSidebar] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const [themeMode, setThemeMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -39,18 +41,37 @@ function App() {
     loadingRef.current.complete();
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-          const data = await fetchdatafromapi('/api/category');
-          if (data) {
-              setCategories(data);
-          }
-      } catch (error) {
-          console.error('Error fetching categories:', error);
+  
+  const fetchsubCategories = async () => {
+    try {
+        const data = await fetchdatafromapi('/api/subcategory/');
+        if (data) {
+          setSubCategories(data);
+          console.log(subCategories);
+        }
+    } catch (error) {
+        console.error('Error fetching subcategories:', error);
+    }
+};
+const fetchCategories = async () => {
+  try {
+      const data = await fetchdatafromapi('/api/category');
+      if (data) {
+          setCategories(data);
+          console.log(categories);
       }
-  };
+  } catch (error) {
+      console.error('Error fetching categories:', error);
+  }
+};
+
+  useEffect(() => {
       fetchCategories();
+      fetchsubCategories();
+ 
+  }, []);
+
+  useEffect(() => {
     if (themeMode) {
       document.body.classList.remove("dark");
       document.body.classList.add("light");
@@ -61,10 +82,11 @@ function App() {
       localStorage.setItem("theme", "dark");
     }
   }, [themeMode]);
+  
 
   return (
     <BrowserRouter>
-      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode, categories }}>
+      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode, categories,subCategories }}>
         <LoadingContext.Provider value={{ startLoading, stopLoading }}>
           <LoadingBar
             color='#f11946'
@@ -94,6 +116,7 @@ function App() {
                 <Route path="/product" exact={true} element={<ProductList />} />
                 <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
                 <Route path="/subCategory/add" exact={true} element={<AddSubCategory />} />
+                <Route path="/subCategory/list" exact={true} element={<SubCatList />} />
                 <Route path="/Category/list" exact={true} element={<CategoryList />} />
                 <Route
                   path="/product/details"

@@ -15,7 +15,6 @@ const CategoryList = () => {
         name: '',
         image: '',
         color: '',
-        subCategory: ''
     });
     const { startLoading, stopLoading } = useContext(LoadingContext);
 
@@ -28,7 +27,7 @@ const CategoryList = () => {
         try {
             const data = await fetchdatafromapi('/api/category/');
             if (data) {
-                setCategories(data);
+                setCategories(data);    
             }
             else {
                 console.log("error in category list:", data);
@@ -157,7 +156,6 @@ const CategoryList = () => {
                             <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">UID</th>
                             <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Image</th>
                             <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Name</th>
-                            <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Sub Category</th>
                             <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">Color</th>
                             <th className="px-6 py-4 text-center text-xs font-bold text-white uppercase tracking-wider">Actions</th>
                         </tr>
@@ -180,7 +178,6 @@ const CategoryList = () => {
                                     />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-gray-800 dark:text-gray-200 font-medium">{category.name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-400 font-medium">{category.subCategory}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div
                                         className="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-500 shadow-inner"
@@ -193,15 +190,10 @@ const CategoryList = () => {
                                         className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mx-1 transition-transform transform hover:scale-110"
                                         title="View"
                                     >
-                                        <FaEye size={18} />
+                                                                               <FaEdit size={18} />
+
                                     </button>
-                                    <button
-                                        onClick={() => handleEdit(category)}
-                                        className="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 mx-1 transition-transform transform hover:scale-110"
-                                        title="Edit"
-                                    >
-                                        <FaEdit size={18} />
-                                    </button>
+                                  
                                     <button
                                         onClick={() => handleDelete(category._id)}
                                         className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 mx-1 transition-transform transform hover:scale-110"
@@ -248,13 +240,7 @@ const CategoryList = () => {
                             onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                             sx={textFieldStyling}
                         />
-                        <TextField
-                            fullWidth
-                            label="Sub Category"
-                            value={editForm.subCategory}
-                            onChange={(e) => setEditForm({ ...editForm, subCategory: e.target.value })}
-                            sx={textFieldStyling}
-                        />
+                        
                         <TextField
                             fullWidth
                             label="Image URL"
