@@ -11,6 +11,12 @@ import { useNavigate } from "react-router-dom";
 import { myContext } from "../../App.js";
 
 const ProductUpload = () => {
+  let audio;
+  try {
+     audio = new Audio(require('../../asset/audio/woosh.mp3'));
+  } catch (error) {
+    console.error("Failed to load audio:", error);
+  }
   const [value, setValue] = React.useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [featureValue, setFeatureValue] = useState(false);
@@ -23,17 +29,29 @@ const ProductUpload = () => {
   const navigate = useNavigate();
   const context = React.useContext(myContext);
 
-  const handleratingchange = (e) => {
-    const value = Number(e.target.value); // Convert to a number directly
-    setRating(isNaN(value) ? 0 : Number(value)); // Handle NaN gracefully
-    console.log('rating', rating);
-    console.log(typeof rating);
-    
-    
-  };
-  
-  useEffect(() => {
+  const [discount, setDiscount] = useState("");
+  const [productRAMS, setProductRAMS] = useState("");
+  const [productSIZE, setProductSIZE] = useState("");
+  const [productWEIGHT, setProductWEIGHT] = useState("");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    brand: "",
+    price: "",
+    oldPrice: "",
+    countInStock: "",
+    numReviews: "0",
+    rating: "",
+    discount: "",
+    productRAMS: "",
+    productSIZE: "",
+    productWEIGHT: "",
+  });
+
+ 
+
+  useEffect(() => {
     // making local api calls
     // const fetchsubCategories = async () => {
     //   try {
@@ -49,21 +67,20 @@ const ProductUpload = () => {
     //   }
     // };
 
-    
     // const fetchCategories = async () => {
-      //   try {
-        //     const data = await fetchdatafromapi("/api/category");
-        //     if (data) {
+    //   try {
+    //     const data = await fetchdatafromapi("/api/category");
+    //     if (data) {
     //       setCategories(data);
     //       console.log("cat = " + categories);
     //     }
     //   } catch (error) {
-      //     console.error("Error fetching categories:", error);
-      //   }
-      // };
-      
-      setSubCategories(context.subCategories);
-      setCategories(context.categories);
+    //     console.error("Error fetching categories:", error);
+    //   }
+    // };
+
+    setSubCategories(context.subCategories);
+    setCategories(context.categories);
     // fetchCategories();
     // fetchsubCategories();
   }, []);
@@ -101,6 +118,21 @@ const ProductUpload = () => {
     setSubCategoryValue(e.target.value);
   };
 
+  const handleproductramchange = (e) => {
+    setProductRAMS(e.target.value);
+  };
+
+  const handleproductsizechange = (e) => {
+    setProductSIZE(e.target.value);
+  };
+
+  const handleproductweightchange = (e) => {
+    setProductWEIGHT(e.target.value);
+  };
+
+  const handlediscountchange = (e) => {
+    setDiscount(e.target.value);
+  };
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     if (files.length > 0) {
@@ -133,86 +165,115 @@ const ProductUpload = () => {
     e.preventDefault();
     if (!formData.name) {
       toast.error("Product name is required");
+      audio.play();
+      
       return;
     }
     if (!formData.description) {
       toast.error("Product description is required");
+      audio.play();
       return;
     }
     if (!formData.brand) {
       toast.error("Product brand is required");
+      audio.play();
       return;
     }
     if (!formData.price) {
       toast.error("Product price is required");
+      audio.play();
       return;
     }
     if (!formData.oldPrice) {
       toast.error("Product old price is required");
+      audio.play();
       return;
     }
     if (!formData.countInStock) {
       toast.error("Product stock count is required");
+      audio.play();
       return;
     }
     if (!formData.rating) {
       toast.error("Product rating is required");
+      audio.play();
       return;
     }
     if (!formData.numReviews) {
       toast.error("Number of reviews is required");
+      audio.play();
       return;
     }
-    if (!categoryValue) {
+    if (categoryValue == "") {
       toast.error("Product category is required");
+      audio.play();
       return;
     }
-    if (!subCategoryValue) {
+    if (subCategoryValue == "") {
       toast.error("Product subcategory is required");
+      audio.play();
       return;
     }
-
+    
+    if (!productRAMS) {
+      toast.error("Product RAM is required");
+      audio.play();
+      return;
+    }
+    if (!productSIZE) {
+      toast.error("Product Size is required");
+      audio.play();
+      return;
+    }
+    if (!productWEIGHT) {
+      toast.error("Product Weight is required");
+      audio.play();
+      return;
+    }
+    if (!discount) {
+      toast.error("Product discount is required");
+      audio.play();
+      return;
+    }
+    if (selectedImages.length === 0) {
+      toast.error("Product images are required");
+      audio.play();
+      return
+    }
+    
+    
     try {
-    loadingBar.current.continuousStart();
-
+      loadingBar.current.continuousStart();
+      
       const formDataToSend = new FormData();
-
+      
       // Add basic form fields
       formDataToSend.append("name", formData.name);
       formDataToSend.append("description", formData.description);
       formDataToSend.append("brand", formData.brand);
-
+      
       // Add numeric fields with proper conversion
       formDataToSend.append("price", Number(formData.price) || 0);
       formDataToSend.append("oldPrice", Number(formData.oldPrice) || 0);
       formDataToSend.append("countInStock", Number(formData.countInStock) || 0);
       formDataToSend.append("numReviews", Number(formData.numReviews) || 0);
       formDataToSend.append("rating", Number(formData.rating) || 0);
-
-      console.log('rating', formDataToSend.get('rating'));
-      console.log(typeof formDataToSend.get('rating'));
-      console.log('rating', rating);
-      console.log(typeof rating);
-      console.log('rating', value);
-      console.log(formData.rating);
-
+      formDataToSend.append("discount", Number(discount) || 0);
+      
       // Add rating from star component (0-5)
-
+      
       // Add isFeatured as boolean
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
-     
-      
-
-      
-
-
+      formDataToSend.append("productRAMS", productRAMS);
+      formDataToSend.append("productSIZE", productSIZE);
+      formDataToSend.append("productWEIGHT", productWEIGHT);
       // Append images
       selectedImages.forEach((image, index) => {
         formDataToSend.append("images", image.file);
       });
-
+      
       const response = await fetch(
         "http://localhost:4000/api/products/create",
         {
@@ -222,9 +283,10 @@ const ProductUpload = () => {
       );
 
       const data = await response.json();
-
+      
       if (data.success) {
         toast.success("Product created successfully!");
+        audio.play();
         setFormData({
           name: "",
           description: "",
@@ -234,16 +296,21 @@ const ProductUpload = () => {
           countInStock: "",
           numReviews: "0",
           rating: "",
-
+          discount: "",
         });
         setSelectedImages([]);
         setValue(0);
         setCategoryValue("");
         setSubCategoryValue("");
         setRating(0);
-       
+        setDiscount("");
+        setProductRAMS("");
+        setProductSIZE("");
+        setProductWEIGHT("");
+        
       } else {
         toast.error(data.message || "Failed to create product");
+        audio.play();
       }
     } catch (error) {
       console.error("Error creating product:", error);
@@ -253,20 +320,8 @@ const ProductUpload = () => {
       setTimeout(() => {
         navigate("/product");
       }, 3000);
-      
     }
   };
-
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    brand: "",
-    price: "",
-    oldPrice: "",
-    countInStock: "",
-    numReviews: "0",
-    rating: "",
-  });
 
   return (
     <>
@@ -326,7 +381,6 @@ const ProductUpload = () => {
                       onChange={handleInputChange}
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="Enter product title"
-                      
                     />
                   </motion.div>
 
@@ -341,7 +395,6 @@ const ProductUpload = () => {
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       rows="4"
                       placeholder="Enter product description"
-                      
                     ></textarea>
                   </motion.div>
 
@@ -396,7 +449,6 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter brand"
-                        
                       />
                     </div>
                   </motion.div>
@@ -430,7 +482,6 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        
                       />
                     </div>
                     <div>
@@ -444,7 +495,6 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        
                       />
                     </div>
                   </motion.div>
@@ -464,7 +514,6 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0"
-                        
                       />
                     </div>
                     <div>
@@ -472,10 +521,89 @@ const ProductUpload = () => {
                         Rating (0-5 Stars)
                       </label>
                       <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg ">
-                       <input className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" type="number" 
-                       onChange={handleInputChange} name="rating"
-                       value={formData.rating} />
+                        <input
+                          className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          type="number"
+                          onChange={handleInputChange}
+                          name="rating"
+                          value={formData.rating}
+                        />
                       </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    variants={itemVariants}
+                  >
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Discount
+                      </label>
+                      <input
+                        type="number"
+                        name="discount"
+                        value={discount}
+                        onChange={handlediscountchange}
+                        className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Ram
+                      </label>
+                      <select
+                        className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        value={productRAMS}
+                        onChange={handleproductramchange}
+                      >
+                        <option value="">Select RAM</option>
+
+                        <option value="4 GB">4 GB</option>
+                        <option value="8 GB">8 GB</option>
+                        <option value="16 GB">16 GB</option>
+                      </select>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    variants={itemVariants}
+                  >
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Weight
+                      </label>
+                      <select
+                        className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        value={productWEIGHT}
+                        onChange={handleproductweightchange}
+                      >
+                        <option value="">Select Weight</option>
+
+                        <option value="500GM">500 GM</option>
+                        <option value="1KG">1 KG</option>
+                        <option value="2KG">2 KG</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Size
+                      </label>
+                      <select
+                      className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      value={productSIZE}
+                      onChange={handleproductsizechange}
+                    >
+                        <option value="">Select size</option>
+
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">Xl</option>
+                      <option value="XXL">XXl</option>
+                    </select>
                     </div>
                   </motion.div>
 

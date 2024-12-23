@@ -45,6 +45,22 @@ const productSchema = mongoose.Schema({
         type:Number,
         default:0,
     },
+    discount:{
+        type:Number,
+        required:true
+    },
+    productRAMS:{
+        type:String,
+        
+    },
+    productSIZE:{
+        type:String,
+        
+    },
+    productWEIGHT:{
+        type:String,
+    },
+
     numReviews:{
         type:Number,
         default:0,

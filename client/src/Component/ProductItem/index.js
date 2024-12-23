@@ -43,7 +43,7 @@ const ProductItem = (props) => {
             className="badge badge-primary"
             style={{ position: "absolute", top: "10px", left: "10px" }}
           >
-            28%
+            {props?.product?.discount || 23}%
           </span>
           <div
             className="actions"

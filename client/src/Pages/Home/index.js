@@ -117,7 +117,7 @@ const Home = () => {
                 newProducts?.products?.length > 0 && newProducts?.products.map((product, index) => (
                     <ProductItem key={product._id} product={product} />
                   ))
-                }
+                } 
               </div>
 
               <div className="d-flex mt-4 mb-4 bannerSec">

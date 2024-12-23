@@ -1,8 +1,6 @@
 import { CiImageOn } from "react-icons/ci";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
-import Typography from "@mui/material/Typography";
+
 import { motion } from "framer-motion";
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
@@ -24,7 +22,12 @@ const ProductEdit = () => {
   const [rating, setRating] = useState(0);
   const loadingBar = useRef(null);
   const context = React.useContext(myContext);
-    const navigate = useNavigate();
+
+  const [discount, setDiscount] = useState("");
+  const [productRAMS, setProductRAMS] = useState("");
+  const [productSIZE, setProductSIZE] = useState("");
+  const [productWEIGHT, setProductWEIGHT] = useState("");
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,6 +38,10 @@ const ProductEdit = () => {
     countInStock: "",
     numReviews: "0",
     rating: "",
+    discount: "",
+    productRAMS: "",
+    productSIZE: "",
+    productWEIGHT: "",
   });
 
   const { id } = useParams();
@@ -50,6 +57,11 @@ const ProductEdit = () => {
         setFeatureValue(res.isFeatured);
         setCategoryValue(res.category);
         setSubCategoryValue(res.subCategory);
+        setDiscount(res.discount);
+        setProductRAMS(res.productRAMS);
+        setProductSIZE(res.productSIZE);
+        setProductWEIGHT(res.productWEIGHT);
+
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -88,8 +100,20 @@ const ProductEdit = () => {
   const handleSubCategoryChange = (e) => {
     setSubCategoryValue(e.target.value);
   };
-  const handlerating = (e) => {
-    setRating(e.target.value);
+
+  const handleproductramchange = (e) => {
+    setProductRAMS(e.target.value);
+  };
+
+  const handleproductsizechange = (e) => {
+    setProductSIZE(e.target.value);
+  };
+
+  const handleproductweightchange = (e) => {
+    setProductWEIGHT(e.target.value);
+  };
+  const handlediscountratechange = (e) => {
+    setDiscount(e.target.value);
   };
 
   const handleImageChange = (e) => {
@@ -123,48 +147,67 @@ const ProductEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-        if (!formData.name) {
-          toast.error("Product name is required");
-          return;
-        }
-        if (!formData.description) {
-          toast.error("Product description is required");
-          return;
-        }
-        if (!formData.brand) {
-          toast.error("Product brand is required");
-          return;
-        }
-        if (!formData.price) {
-          toast.error("Product price is required");
-          return;
-        }
-        if (!formData.oldPrice) {
-          toast.error("Product old price is required");
-          return;
-        }
-        if (!formData.countInStock) {
-          toast.error("Product stock count is required");
-          return;
-        }
-        if (!formData.rating) {
-          toast.error("Product rating is required");
-          return;
-        }
-        if (!formData.numReviews) {
-          toast.error("Number of reviews is required");
-          return;
-        }
-        if (!categoryValue) {
-          toast.error("Product category is required");
-          return;
-        }
-        if (!subCategoryValue) {
-          toast.error("Product subcategory is required");
-          return;
-        }
-    
-    
+    if (!formData.name) {
+      toast.error("Product name is required");
+      return;
+    }
+    if (!formData.description) {
+      toast.error("Product description is required");
+      return;
+    }
+    if (!formData.brand) {
+      toast.error("Product brand is required");
+      return;
+    }
+    if (!formData.price) {
+      toast.error("Product price is required");
+      return;
+    }
+    if (!formData.oldPrice) {
+      toast.error("Product old price is required");
+      return;
+    }
+    if (!formData.countInStock) {
+      toast.error("Product stock count is required");
+      return;
+    }
+    if (!formData.rating) {
+      toast.error("Product rating is required");
+      return;
+    }
+    if (!formData.numReviews) {
+      toast.error("Number of reviews is required");
+      return;
+    }
+    if (!categoryValue) {
+      toast.error("Product category is required");
+      return;
+    }
+    if (!subCategoryValue) {
+      toast.error("Product subcategory is required");
+      return;
+    }
+    if (!productRAMS) {
+      toast.error("Product RAM is required");
+      return;
+    }
+    if (!productSIZE) {
+      toast.error("Product Size is required");
+      return;
+    }
+    if (!productWEIGHT) {
+      toast.error("Product Weight is required");
+      return;
+    }
+    if (!discount) {
+      toast.error("Product discount is required");
+      return;
+    }
+    if (selectedImages.length === 0) {
+      toast.error("Product images are required");
+      return
+    }
+
     try {
       loadingBar.current.continuousStart();
       const formDataToSend = new FormData();
@@ -187,7 +230,10 @@ const ProductEdit = () => {
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
-
+      formDataToSend.append("productRAMS", productRAMS);
+      formDataToSend.append("productSIZE", productSIZE);
+      formDataToSend.append("productWEIGHT", productWEIGHT);
+      formDataToSend.append("discount", discount);
 
       // Append images
 
@@ -219,7 +265,10 @@ const ProductEdit = () => {
         setSubCategoryValue("");
         setFeatureValue(false);
         setRating(0);
-      
+        setDiscount("");
+        setProductRAMS("");
+        setProductSIZE("");
+        setProductWEIGHT("");
       } else {
         toast.error(data?.message || "Failed to update1");
       }
@@ -228,9 +277,9 @@ const ProductEdit = () => {
       toast.error("Failed update product");
     } finally {
       loadingBar.current.complete();
-    setTimeout(() => {
-      // navigate("/product");
-    }, 3000);
+      setTimeout(() => {
+        // navigate("/product");
+      }, 3000);
     }
   };
 
@@ -292,7 +341,6 @@ const ProductEdit = () => {
                       onChange={handleInputChange}
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="Enter product title"
-                      
                     />
                   </motion.div>
 
@@ -307,7 +355,6 @@ const ProductEdit = () => {
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       rows="4"
                       placeholder="Enter product description"
-                      
                     ></textarea>
                   </motion.div>
 
@@ -433,10 +480,87 @@ const ProductEdit = () => {
                         Rating (0-5 Stars)
                       </label>
                       <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3">
-                      <input className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" type="number" 
-                       onChange={handleInputChange} name="rating"
-                       value={formData.rating} />
+                        <input
+                          className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                          type="number"
+                          onChange={handleInputChange}
+                          name="rating"
+                          value={formData.rating}
+                        />
                       </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    variants={itemVariants}
+                  >
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Discount
+                      </label>
+                      <input
+                        type="number"
+                        name="discount"
+                        value={discount}
+                        onChange={handlediscountratechange}
+                        className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Ram
+                      </label>
+                      <select
+                        className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        value={productRAMS}
+                        onChange={handleproductramchange}
+                      >
+                        <option value="">Select Ram</option>
+
+                        <option value="4 GB">4 GB</option>
+                        <option value="8 GB">8 GB</option>
+                        <option value="16 GB">16 GB</option>
+                      </select>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    variants={itemVariants}
+                  >
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Weight
+                      </label>
+                      <select
+                        className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        value={productWEIGHT}
+                        onChange={handleproductweightchange}
+                      >
+                        <option value="">Select Weight</option>
+                        <option value="500GM">500 GM</option>
+                        <option value="1KG">1 KG</option>
+                        <option value="2KG">2 KG</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
+                        Product Size
+                      </label>
+                      <select
+                        className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                        value={productSIZE}
+                        onChange={handleproductsizechange}
+                      >
+                        <option value="">Select Size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">Xl</option>
+                        <option value="XXL">XXl</option>
+                      </select>
                     </div>
                   </motion.div>
 
