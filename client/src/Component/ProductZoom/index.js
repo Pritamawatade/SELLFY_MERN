@@ -35,7 +35,7 @@ const ProductZoom = () => {
                   <div className="item">
                     <InnerImageZoom
                       zoomType="hover"
-                      zoomScale={1.5}
+                      zoomScale={9}
                       src={`https://klbtheme.com/bacola/wp-content/uploads/2021/04/product-image-62-346x310.jpg`}
                     />
                   </div>
@@ -54,7 +54,7 @@ const ProductZoom = () => {
                     <InnerImageZoom
                       zoomType="hover"
                       zoomScale={1.5}
-                      src={`https://klbtheme.com/bacola/wp-content/uploads/2021/04/product-image-62-346x310.jpg`}
+                      src={`https://klbtheme.com/bacola/wp-content/uploads/2021/04/product-image3-35.jpg`}
                     />
                   </div>
                </SwiperSlide>

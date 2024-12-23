@@ -12,11 +12,22 @@ const pLimit = require('p-limit');
 
 const limit = pLimit(5);
 
+router.get(`/featured`, async (req, res) => {
+
+  const productList = await Product.find({ isFeatured: true });
+  if (!productList) {
+    res.status(404).json({ message: false });
+  }
+  res.status(200).json(productList);
+
+
+});
 router.get(`/`, async (req, res) => {
 
 
+  
   const page = parseInt(req.query.page) || 1;
-  const perpage = parseInt(req.query.perpage) || 4;
+  const perpage = parseInt(req.query.perpage) || 6;
   const totalPosts = await Product.countDocuments();
   const totalPages = Math.ceil(totalPosts / perpage);
 

@@ -21,6 +21,7 @@ const ProductEdit = () => {
   const [subcategories, setSubCategories] = useState([]);
   const [subCategoryValue, setSubCategoryValue] = useState("");
   const [categories, setCategories] = useState([]);
+  const [rating, setRating] = useState(0);
   const loadingBar = useRef(null);
   const context = React.useContext(myContext);
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ const ProductEdit = () => {
     oldPrice: "",
     countInStock: "",
     numReviews: "0",
+    rating: "",
   });
 
   const { id } = useParams();
@@ -86,6 +88,9 @@ const ProductEdit = () => {
   const handleSubCategoryChange = (e) => {
     setSubCategoryValue(e.target.value);
   };
+  const handlerating = (e) => {
+    setRating(e.target.value);
+  };
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -117,9 +122,51 @@ const ProductEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loadingBar.current.continuousStart();
 
+        if (!formData.name) {
+          toast.error("Product name is required");
+          return;
+        }
+        if (!formData.description) {
+          toast.error("Product description is required");
+          return;
+        }
+        if (!formData.brand) {
+          toast.error("Product brand is required");
+          return;
+        }
+        if (!formData.price) {
+          toast.error("Product price is required");
+          return;
+        }
+        if (!formData.oldPrice) {
+          toast.error("Product old price is required");
+          return;
+        }
+        if (!formData.countInStock) {
+          toast.error("Product stock count is required");
+          return;
+        }
+        if (!formData.rating) {
+          toast.error("Product rating is required");
+          return;
+        }
+        if (!formData.numReviews) {
+          toast.error("Number of reviews is required");
+          return;
+        }
+        if (!categoryValue) {
+          toast.error("Product category is required");
+          return;
+        }
+        if (!subCategoryValue) {
+          toast.error("Product subcategory is required");
+          return;
+        }
+    
+    
     try {
+      loadingBar.current.continuousStart();
       const formDataToSend = new FormData();
 
       // Add basic form fields
@@ -132,14 +179,15 @@ const ProductEdit = () => {
       formDataToSend.append("oldPrice", Number(formData.oldPrice) || 0);
       formDataToSend.append("countInStock", Number(formData.countInStock) || 0);
       formDataToSend.append("numReviews", Number(formData.numReviews) || 0);
+      formDataToSend.append("rating", Number(formData.rating) || 0);
 
       // Add rating from star component (0-5)
-      formDataToSend.append("rating", value || 0);
 
       // Add isFeatured as boolean
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
+
 
       // Append images
 
@@ -170,6 +218,7 @@ const ProductEdit = () => {
         setCategoryValue("");
         setSubCategoryValue("");
         setFeatureValue(false);
+        setRating(0);
       
       } else {
         toast.error(data?.message || "Failed to update1");
@@ -180,7 +229,7 @@ const ProductEdit = () => {
     } finally {
       loadingBar.current.complete();
     setTimeout(() => {
-      navigate("/product");
+      // navigate("/product");
     }, 3000);
     }
   };
@@ -243,7 +292,7 @@ const ProductEdit = () => {
                       onChange={handleInputChange}
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="Enter product title"
-                      required
+                      
                     />
                   </motion.div>
 
@@ -258,7 +307,7 @@ const ProductEdit = () => {
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       rows="4"
                       placeholder="Enter product description"
-                      required
+                      
                     ></textarea>
                   </motion.div>
 
@@ -312,7 +361,6 @@ const ProductEdit = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter brand"
-                        required
                       />
                     </div>
                   </motion.div>
@@ -346,7 +394,6 @@ const ProductEdit = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        required
                       />
                     </div>
                     <div>
@@ -360,7 +407,6 @@ const ProductEdit = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        required
                       />
                     </div>
                   </motion.div>
@@ -380,7 +426,6 @@ const ProductEdit = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0"
-                        required
                       />
                     </div>
                     <div>
@@ -388,15 +433,9 @@ const ProductEdit = () => {
                         Rating (0-5 Stars)
                       </label>
                       <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3">
-                        <Rating
-                          name="simple-controlled"
-                          value={value}
-                          onChange={(event, newValue) => {
-                            setValue(newValue);
-                          }}
-                          size="large"
-                          precision={0.5}
-                        />
+                      <input className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" type="number" 
+                       onChange={handleInputChange} name="rating"
+                       value={formData.rating} />
                       </div>
                     </div>
                   </motion.div>

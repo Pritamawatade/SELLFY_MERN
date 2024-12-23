@@ -18,10 +18,20 @@ const ProductUpload = () => {
   const [subCategoryValue, setSubCategoryValue] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [rating, setRating] = useState();
   const loadingBar = useRef(null);
   const navigate = useNavigate();
   const context = React.useContext(myContext);
 
+  const handleratingchange = (e) => {
+    const value = Number(e.target.value); // Convert to a number directly
+    setRating(isNaN(value) ? 0 : Number(value)); // Handle NaN gracefully
+    console.log('rating', rating);
+    console.log(typeof rating);
+    
+    
+  };
+  
   useEffect(() => {
 
     // making local api calls
@@ -121,9 +131,50 @@ const ProductUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loadingBar.current.continuousStart();
+    if (!formData.name) {
+      toast.error("Product name is required");
+      return;
+    }
+    if (!formData.description) {
+      toast.error("Product description is required");
+      return;
+    }
+    if (!formData.brand) {
+      toast.error("Product brand is required");
+      return;
+    }
+    if (!formData.price) {
+      toast.error("Product price is required");
+      return;
+    }
+    if (!formData.oldPrice) {
+      toast.error("Product old price is required");
+      return;
+    }
+    if (!formData.countInStock) {
+      toast.error("Product stock count is required");
+      return;
+    }
+    if (!formData.rating) {
+      toast.error("Product rating is required");
+      return;
+    }
+    if (!formData.numReviews) {
+      toast.error("Number of reviews is required");
+      return;
+    }
+    if (!categoryValue) {
+      toast.error("Product category is required");
+      return;
+    }
+    if (!subCategoryValue) {
+      toast.error("Product subcategory is required");
+      return;
+    }
 
     try {
+    loadingBar.current.continuousStart();
+
       const formDataToSend = new FormData();
 
       // Add basic form fields
@@ -136,14 +187,26 @@ const ProductUpload = () => {
       formDataToSend.append("oldPrice", Number(formData.oldPrice) || 0);
       formDataToSend.append("countInStock", Number(formData.countInStock) || 0);
       formDataToSend.append("numReviews", Number(formData.numReviews) || 0);
+      formDataToSend.append("rating", Number(formData.rating) || 0);
+
+      console.log('rating', formDataToSend.get('rating'));
+      console.log(typeof formDataToSend.get('rating'));
+      console.log('rating', rating);
+      console.log(typeof rating);
+      console.log('rating', value);
+      console.log(formData.rating);
 
       // Add rating from star component (0-5)
-      formDataToSend.append("rating", value || 0);
 
       // Add isFeatured as boolean
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
+     
+      
+
+      
+
 
       // Append images
       selectedImages.forEach((image, index) => {
@@ -170,11 +233,14 @@ const ProductUpload = () => {
           oldPrice: "",
           countInStock: "",
           numReviews: "0",
+          rating: "",
+
         });
         setSelectedImages([]);
         setValue(0);
         setCategoryValue("");
         setSubCategoryValue("");
+        setRating(0);
        
       } else {
         toast.error(data.message || "Failed to create product");
@@ -199,6 +265,7 @@ const ProductUpload = () => {
     oldPrice: "",
     countInStock: "",
     numReviews: "0",
+    rating: "",
   });
 
   return (
@@ -259,7 +326,7 @@ const ProductUpload = () => {
                       onChange={handleInputChange}
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="Enter product title"
-                      required
+                      
                     />
                   </motion.div>
 
@@ -274,7 +341,7 @@ const ProductUpload = () => {
                       className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       rows="4"
                       placeholder="Enter product description"
-                      required
+                      
                     ></textarea>
                   </motion.div>
 
@@ -329,7 +396,7 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter brand"
-                        required
+                        
                       />
                     </div>
                   </motion.div>
@@ -363,7 +430,7 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        required
+                        
                       />
                     </div>
                     <div>
@@ -377,7 +444,7 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0.00"
-                        required
+                        
                       />
                     </div>
                   </motion.div>
@@ -397,23 +464,17 @@ const ProductUpload = () => {
                         onChange={handleInputChange}
                         className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         placeholder="0"
-                        required
+                        
                       />
                     </div>
                     <div>
                       <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
                         Rating (0-5 Stars)
                       </label>
-                      <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3">
-                        <Rating
-                          name="simple-controlled"
-                          value={value}
-                          onChange={(event, newValue) => {
-                            setValue(newValue);
-                          }}
-                          size="large"
-                          precision={0.5}
-                        />
+                      <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg ">
+                       <input className="form-control bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" type="number" 
+                       onChange={handleInputChange} name="rating"
+                       value={formData.rating} />
                       </div>
                     </div>
                   </motion.div>

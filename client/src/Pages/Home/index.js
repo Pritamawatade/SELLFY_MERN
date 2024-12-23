@@ -18,20 +18,35 @@ import ProductItem from "../../Component/ProductItem/index.js";
 import HomeCat from "../../Component/HomeCat/index.js";
 import coupon from "../../assets/images/coupon.jpg";
 import { IoMailOutline } from "react-icons/io5";
-import {fetchdatafromapi} from  '../../utils/api.js'
+import { fetchdatafromapi } from "../../utils/api.js";
 import { mycontext } from "../../App.js";
 
 const Home = () => {
   const context = useContext(mycontext);
+  const [featuredProducts, setFeaturedProducts] = React.useState([]);
+  const [newProducts, setNewProducts] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const fetchcategories = async () => {
-    const data = await fetchdatafromapi('/api/category/');
+    const data = await fetchdatafromapi("/api/category/");
     setCategories(data);
-  }
-  useEffect(()=>{
-   fetchcategories(); 
-   context.setIsHeaderFooterShow(true);
-  },[])
+  };
+  const fetchProducts = async () => {
+    const data = await fetchdatafromapi("/api/products/");
+    console.log("data", data);
+
+    setNewProducts(data);
+  };
+
+  useEffect(() => {
+    fetchcategories();
+    fetchdatafromapi(`/api/products/featured/`).then((res) => {
+      setFeaturedProducts(res);
+      fetchProducts();
+    });
+  }, []);
+  useEffect(() => {
+    context.setIsHeaderFooterShow(true);
+  }, []);
   return (
     <>
       <HomeBanner />
@@ -55,7 +70,7 @@ const Home = () => {
             <div className="col-md-9 productRow">
               <div className="d-flex align-items-center">
                 <div className="info w-75">
-                  <h3 className="mb-0 hd">BEST SELLERS</h3>
+                  <h3 className="mb-0 hd">Featured Products</h3>
                   <p className="text-light1 text-sml mb-0">
                     Do not miss the current offer till this month end
                   </p>
@@ -75,29 +90,12 @@ const Home = () => {
                     modules={[Navigation]}
                     className="mySwiper"
                   >
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
+                    {featuredProducts.length > 0 &&
+                      featuredProducts.map((product, index) => (
+                        <SwiperSlide key={product._id}>
+                          <ProductItem product={product} />
+                        </SwiperSlide>
+                      ))}
                   </Swiper>
                 </div>
               </div>
@@ -115,14 +113,11 @@ const Home = () => {
               </div>
 
               <div className="product_row productRow2 w-100 mt-4 d-flex">
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
+                {
+                newProducts?.products?.length > 0 && newProducts?.products.map((product, index) => (
+                    <ProductItem key={product._id} product={product} />
+                  ))
+                }
               </div>
 
               <div className="d-flex mt-4 mb-4 bannerSec">
@@ -142,38 +137,30 @@ const Home = () => {
         <div className="container">
           <div className="row ">
             <div className="col-md-6">
-                <p>$20 discount for your first order</p>
-                <h3>Join our newsletter and get...</h3>
-                <p className="text-sml newsdesc">Join our email subscription now to get updates <br /> on promotions and coupons.</p>
+              <p>$20 discount for your first order</p>
+              <h3>Join our newsletter and get...</h3>
+              <p className="text-sml newsdesc">
+                Join our email subscription now to get updates <br /> on
+                promotions and coupons.
+              </p>
 
-
-                <form>
-                  <IoMailOutline />
-                  <input type="email" name="email" id=""  placeholder="Enter your email"/>
-                  <button>Subscribe</button>
-                </form>
-
-
+              <form>
+                <IoMailOutline />
+                <input
+                  type="email"
+                  name="email"
+                  id=""
+                  placeholder="Enter your email"
+                />
+                <button>Subscribe</button>
+              </form>
             </div>
             <div className="col-md-6">
-              <img src={coupon}  alt="" />
+              <img src={coupon} alt="" />
             </div>
           </div>
         </div>
       </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </>
   );
 };

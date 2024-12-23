@@ -59,9 +59,12 @@ const AddSubCategory = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        loadingBar.current.continuousStart();
-    
+        if(!categoryValue || !subCategoryValue) {
+            return toast.error('Please fill all the fields');
+        }
+        
         try {
+            loadingBar.current.continuousStart();
             const response = await fetch('http://localhost:4000/api/subCategory/create', {
                 method: 'POST',
                 headers: { 

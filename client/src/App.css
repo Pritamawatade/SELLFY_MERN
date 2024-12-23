@@ -532,6 +532,7 @@ nav .navPart2 ul li:hover .submenu {
   transition: all 0.5s ease;
 
 }
+
 .productItem .actions button{
   display: flex !important;
   justify-content: center !important;

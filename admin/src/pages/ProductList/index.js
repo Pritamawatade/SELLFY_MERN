@@ -221,7 +221,7 @@ const ProductList = () => {
                     <td> 
                       <Rating
                         name="read-only"
-                        value={product?.numReviews || 0}
+                        value={product?.rating || 3}
                         size="large"
                         precision={0.5}
                         readOnly
