@@ -574,7 +574,13 @@ body.dark .card,
 body.dark .card-body,
 body.dark .progress span {
   color: #fff;
+  /* background-color: #112143; */
 }
+body.dark .subcatlist{
+  color: #fff;
+  background-color: #112143 !important;
+}
+
 body.dark html,body.dark {
 background-color: #112143 !important;
 }

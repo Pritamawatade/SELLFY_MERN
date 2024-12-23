@@ -144,7 +144,7 @@ const SubCatList = () => {
   };
 
   return (
-    <div className="p-4 bg-white dark:bg-gray-800 min-h-screen">
+    <div className="p-4  dark:bg-gray-800 min-h-screen subcatlist">
       <ToastContainer
         position="top-right"
         autoClose={3000}

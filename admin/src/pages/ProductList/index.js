@@ -117,7 +117,7 @@ const ProductList = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
       <LoadingBar color="#f11946" ref={loadingBar} shadow={true} />
       <div className="shadow mt-3 border-0 p-3 card table1">
@@ -164,7 +164,6 @@ const ProductList = () => {
                   variants={boxVariants}
                   initial="hidden"
                   animate="visible"
-                  whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.95 }}
                   viewport={{ once: true }}
                   className=""
@@ -188,24 +187,30 @@ const ProductList = () => {
                   productList?.products?.map((product, index) => (
                     <motion.tr
                       key={product._id}
+                      className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors rounded-lg"
                       initial={{ opacity: 0, x: -100 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, amount: 0.3 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                     >
-                      <td className="font-bold">{index + 1}</td>
-                      <td>
-                        <div className="flex items-center gap-3 p-2">
-                          <div className="imgWrapper">
-                            <div className="image w-16 h-16 rounded overflow-hidden">
-                              <img
-                                src={product?.images?.[0] || ""}
-                                alt={product?.name || "Product Image"}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
+                      {/* Index Column */}
+                      <td className="font-bold text-center border-b border-gray-200 dark:border-gray-700 p-4">
+                        {index + 1}
+                      </td>
+
+                      {/* Product Name and Image */}
+                      <td className="border-b border-gray-200 dark:border-gray-700 p-4">
+                        <div className="flex items-center gap-4">
+                          <div className="w-16 h-16 overflow-hidden rounded-xl shadow-md">
+                            <motion.img
+                              src={product?.images?.[0] || ""}
+                              alt={product?.name || "Product Image"}
+                              className="w-full h-full object-cover"
+                              whileHover={{ scale: 1.1 }}
+                              transition={{ duration: 0.3 }}
+                            />
                           </div>
-                          <div className="text font-medium">
+                          <div className="text-lg font-semibold text-gray-700 dark:text-gray-300">
                             {`${
                               product?.name?.split(" ").slice(0, 5).join(" ") ||
                               "Unnamed Product"
@@ -215,61 +220,94 @@ const ProductList = () => {
                           </div>
                         </div>
                       </td>
-                      <td>{product?.category?.name || "Uncategorized"}</td>
-                      <td>
+
+                      {/* Category */}
+                      <td className="text-center text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 p-4">
+                        {product?.category?.name || "Uncategorized"}
+                      </td>
+
+                      {/* SubCategory */}
+                      <td className="text-center text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 p-4">
                         {product?.subCategory?.subCategory || "Uncategorized"}
                       </td>
-                      <td>{product?.brand || "No Brand"}</td>
-                      <td>${product?.price || 0}</td>
-                      <td>${product?.oldPrice || 0}</td>
-                      <td>{product?.countInStock || 0}</td>
-                      <td>
+
+                      {/* Brand */}
+                      <td className="text-center text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 p-4">
+                        {product?.brand || "No Brand"}
+                      </td>
+
+                      {/* Price */}
+                      <td className="text-center text-gray-600 dark:text-gray-300 font-semibold border-b border-gray-200 dark:border-gray-700 p-4">
+                        ${product?.price || 0}
+                      </td>
+
+                      {/* Old Price */}
+                      <td className="text-center text-gray-500 line-through dark:text-gray-500 border-b border-gray-200 dark:border-gray-700 p-4">
+                        ${product?.oldPrice || 0}
+                      </td>
+
+                      {/* Stock */}
+                      <td className="text-center text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700 p-4">
+                        {product?.countInStock || 0}
+                      </td>
+
+                      {/* Rating */}
+                      <td className="text-center border-b border-gray-200 dark:border-gray-700 p-4">
                         <Rating
                           name="read-only"
                           value={product?.rating || 3}
-                          size="large"
+                          size="medium"
                           precision={0.5}
                           readOnly
                         />
                       </td>
-                      <td>{product?.isFeatured ? "Yes" : "No"}</td>
-                      <td>
+
+                      {/* Featured */}
+                      <td className="text-center text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 p-4">
+                        {product?.isFeatured ? "Yes" : "No"}
+                      </td>
+
+                      {/* Date Created */}
+                      <td className="text-center text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 p-4">
                         {product?.dateCreated
                           ? new Date(product.dateCreated).toLocaleDateString()
                           : "N/A"}
                       </td>
-                      <td id="actions" className="m-0 p-0">
-                        <span className="m-0 p-0 block">
-                          <Link to="/product/details">
-                            <motion.button
-                              className="mr-2 p-2 flex items-center justify-center bg-blue-500 text-white rounded-lg shadow-lg"
-                              variants={buttonVariants}
-                              whileHover="hover"
-                              whileTap="tap"
-                            >
-                              <FaEye size={24} />
-                            </motion.button>
-                          </Link>
-                          <Link to={`/product/edit/${product._id}`}>
-                            <motion.button
-                              className="mr-2 p-2 flex items-center justify-center bg-green-500 text-white rounded-lg shadow-lg"
-                              variants={buttonVariants}
-                              whileHover="hover"
-                              whileTap="tap"
-                            >
-                              <MdEdit size={24} />
-                            </motion.button>
-                          </Link>
+
+                      {/* Actions */}
+                      <td
+                        id="actions"
+                        className="flex justify-center gap-2 border-b border-gray-200 dark:border-gray-700 p-4"
+                      >
+                        <Link to="/product/details">
                           <motion.button
-                            onClick={() => deleteProduct(product._id)}
-                            className="p-2 flex items-center justify-center bg-red-500 text-white rounded-lg shadow-lg"
+                            className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-md flex items-center justify-center"
                             variants={buttonVariants}
                             whileHover="hover"
                             whileTap="tap"
                           >
-                            <MdDeleteForever size={24} />
+                            <FaEye size={20} />
                           </motion.button>
-                        </span>
+                        </Link>
+                        <Link to={`/product/edit/${product._id}`}>
+                          <motion.button
+                            className="p-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-md flex items-center justify-center"
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                          >
+                            <MdEdit size={20} />
+                          </motion.button>
+                        </Link>
+                        <motion.button
+                          onClick={() => deleteProduct(product._id)}
+                          className="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow-md flex items-center justify-center"
+                          variants={buttonVariants}
+                          whileHover="hover"
+                          whileTap="tap"
+                        >
+                          <MdDeleteForever size={20} />
+                        </motion.button>
                       </td>
                     </motion.tr>
                   ))}

@@ -17,6 +17,7 @@ import ProductEdit from "./pages/ProductEdit";
 import { fetchdatafromapi } from "./utils/api";
 import AddSubCategory from "./pages/SubCategory/SubCatUpload";
 import SubCatList from "./pages/SubCategory/SubCatList";
+import { ToastContainer } from "react-toastify";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -86,6 +87,19 @@ const fetchCategories = async () => {
 
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        
+      />
       <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode, categories,subCategories }}>
         <LoadingContext.Provider value={{ startLoading, stopLoading }}>
           <LoadingBar
