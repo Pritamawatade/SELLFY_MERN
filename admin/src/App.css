@@ -493,6 +493,34 @@ body.dark .right-content .table1 ul li .MuiButtonBase-root {
   height: 100% !important;
   justify-content: center !important;
 }
+
+
+.tableWrapper{
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #00c8ff #f0f0f0;
+
+  
+}
+.tableWrapper ::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper ::-webkit-scrollbar-thumb {
+  background-color: #ff2a00;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.tableWrapper ::-webkit-scrollbar-thumb:hover {
+  background-color: #bf2000;
+}
+
+.tableWrapper ::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
 #actions button {
   width: 30px !important;
   height: 30px !important;
