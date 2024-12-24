@@ -50,15 +50,19 @@ const productSchema = mongoose.Schema({
         required:true
     },
     productRAMS:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'productRAM',
+
         
     },
     productSIZE:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'productSIZE',
         
     },
     productWEIGHT:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'productWEIGHT',
     },
 
     numReviews:{
