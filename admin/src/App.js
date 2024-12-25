@@ -18,6 +18,7 @@ import { fetchdatafromapi } from "./utils/api";
 import AddSubCategory from "./pages/Categories/SubCatUpload";
 import SubCatList from "./pages/Categories/SubCatList";
 import { ToastContainer } from "react-toastify";
+import AddProductRAM from "./pages/products/AddProductRAM";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -48,7 +49,6 @@ function App() {
         const data = await fetchdatafromapi('/api/subcategory/');
         if (data) {
           setSubCategories(data);
-          console.log(subCategories);
         }
     } catch (error) {
         console.error('Error fetching subcategories:', error);
@@ -59,7 +59,6 @@ const fetchCategories = async () => {
       const data = await fetchdatafromapi('/api/category');
       if (data) {
           setCategories(data);
-          console.log(categories);
       }
   } catch (error) {
       console.error('Error fetching categories:', error);
@@ -128,6 +127,7 @@ const fetchCategories = async () => {
                 <Route path="/product/upload" exact={true} element={<ProductUpload />} />
                 <Route path="/product/edit/:id" exact={true} element={<ProductEdit />} />
                 <Route path="/product" exact={true} element={<ProductList />} />
+                <Route path="/product/RAMupload" exact={true} element={<AddProductRAM />} />
                 <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
                 <Route path="/subCategory/add" exact={true} element={<AddSubCategory />} />
                 <Route path="/subCategory/list" exact={true} element={<SubCatList />} />

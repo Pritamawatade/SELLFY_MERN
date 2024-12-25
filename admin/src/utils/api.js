@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 export const fetchdatafromapi = async (url) => {
   try {
     const { data } = await axios.get("http://localhost:4000" + url);
+    
     return data;
   } catch (error) {
     console.log(error);

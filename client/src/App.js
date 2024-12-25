@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./Pages/Home/index.js";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Component/Header/Header";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -19,57 +19,55 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isOpenProuctModal, setIsOpenProductModal] = useState(false);
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
-  const [isLogIn, setIsLogIn] = useState(false);  
-
+  const [isLogIn, setIsLogIn] = useState(false);
 
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
-  },[])
-
+  }, []);
 
   const getCountryList = async (url) => {
     const response = await axios.get(url).then((res) => {
       setCountryList(res.data.data);
-    })
-  }
+    });
+  };
 
   const values = {
     countryList,
     selectedCountry,
     setSelectedCountry,
-    isOpenProuctModal, 
+    isOpenProuctModal,
     setIsOpenProductModal,
     isHeaderFooterShow,
     setIsHeaderFooterShow,
     isLogIn,
     setIsLogIn,
-  }
-  return <>
-  <BrowserRouter>
-  <mycontext.Provider value={values}>
-  {
-      isHeaderFooterShow && <Header />
-    }
-  
-    <Routes>
-      <Route path="/" exact={true} element={<Home />} />
-      <Route path="/cat/:id" exact={true} element={<Listing />} />
-      <Route path="/product/:id" exact={true} element={<ProductDetials />} />
-      <Route path="/cart" exact={true} element={<Cart />} />
-      <Route path="/SignIn" exact={true} element={<SignIn />} />
-      <Route path="/Signup" exact={true} element={<SignUp />} />
-    </Routes>
-    {
-      isHeaderFooterShow &&  <Footer/>
-    }
+  };
+  return (
+    <>
+      <BrowserRouter>
+        <mycontext.Provider value={values}>
+          {isHeaderFooterShow && <Header />}
 
-    {isOpenProuctModal && <ProductModal />}
+          <Routes>
+            <Route path="/" exact={true} element={<Home />} />
+            <Route path="/cat/:id" exact={true} element={<Listing />} />
+            <Route
+              path="/product/:id"
+              exact={true}
+              element={<ProductDetials />}
+            />
+            <Route path="/cart" exact={true} element={<Cart />} />
+            <Route path="/SignIn" exact={true} element={<SignIn />} />
+            <Route path="/Signup" exact={true} element={<SignUp />} />
+          </Routes>
+          {isHeaderFooterShow && <Footer />}
 
-  
-  </mycontext.Provider>
-  </BrowserRouter>
-  </>
+          {isOpenProuctModal && <ProductModal />}
+        </mycontext.Provider>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
-export {mycontext};
+export { mycontext };

@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
 import { useNavigate } from "react-router-dom";
 import { myContext } from "../../App.js";
+import { fetchdatafromapi } from "../../utils/api.js";
 
 const ProductUpload = () => {
   let audio;
@@ -17,7 +18,6 @@ const ProductUpload = () => {
   } catch (error) {
     console.error("Failed to load audio:", error);
   }
-  const [value, setValue] = React.useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [featureValue, setFeatureValue] = useState(false);
   const [categoryValue, setCategoryValue] = useState([]);
@@ -30,7 +30,8 @@ const ProductUpload = () => {
   const context = React.useContext(myContext);
 
   const [discount, setDiscount] = useState("");
-  const [productRAMS, setProductRAMS] = useState("");
+  const [productRAMS, setProductRAMS] = useState([]);
+  const [productRAMS2, setProductRAMS2] = useState([]);
   const [productSIZE, setProductSIZE] = useState("");
   const [productWEIGHT, setProductWEIGHT] = useState("");
 
@@ -44,45 +45,30 @@ const ProductUpload = () => {
     numReviews: "0",
     rating: "",
     discount: "",
-    productRAMS: "",
-    productSIZE: "",
-    productWEIGHT: "",
+    productRAMS: [],
+    productSIZE: [],
+    productWEIGHT: [],
   });
 
- 
+ const fetchProductRAM = async () => {
+  try{
+    fetchdatafromapi('/api/productRAM').then(data =>{
+      setProductRAMS2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
 
   useEffect(() => {
-    // making local api calls
-    // const fetchsubCategories = async () => {
-    //   try {
-    //     const data = await fetchdatafromapi("/api/subcategory");
-    //     if (data) {
-    //         setSubCategories(data);
-    //       console.log("SUB = ", subCategories);
-    //       console.log("context = ",context.categories)
-    //       console.log("context s = ",context.subCategories)
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching subcategories:", error);
-    //   }
-    // };
 
-    // const fetchCategories = async () => {
-    //   try {
-    //     const data = await fetchdatafromapi("/api/category");
-    //     if (data) {
-    //       setCategories(data);
-    //       console.log("cat = " + categories);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching categories:", error);
-    //   }
-    // };
-
+    fetchProductRAM();    
     setSubCategories(context.subCategories);
     setCategories(context.categories);
-    // fetchCategories();
-    // fetchsubCategories();
+  
   }, []);
 
   const containerVariants = {
@@ -299,7 +285,6 @@ const ProductUpload = () => {
           discount: "",
         });
         setSelectedImages([]);
-        setValue(0);
         setCategoryValue("");
         setSubCategoryValue("");
         setRating(0);
@@ -560,9 +545,13 @@ const ProductUpload = () => {
                       >
                         <option value="">Select RAM</option>
 
-                        <option value="4 GB">4 GB</option>
-                        <option value="8 GB">8 GB</option>
-                        <option value="16 GB">16 GB</option>
+                        {
+                            productRAMS2?.length >0 && productRAMS2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productRAM}
+                                </option>
+                            ))
+                        }
                       </select>
                     </div>
                   </motion.div>

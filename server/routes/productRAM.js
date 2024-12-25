@@ -22,7 +22,7 @@ router.post(`/create`, async(req, res) =>{
     if(!productRAMModel){
         return res.status(500).send('The productRAM cannot be created');
     }
-    res.send(productRAMModel);
+    res.status(201).json({ success: true, productRAMModel });
 })
 
 
