@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const productSIZESchema = mongoose.Schema({
-    productSIZE:{
+    productSize:{
         type:String,
         
     }});
 
 
-exports.productSIZE = mongoose.model('productSIZE', productSIZESchema);
+exports.ProductSize = mongoose.model('ProductSize', productSIZESchema);

@@ -28,6 +28,48 @@ const ProductEdit = () => {
   const [productSIZE, setProductSIZE] = useState("");
   const [productWEIGHT, setProductWEIGHT] = useState("");
   const navigate = useNavigate();
+const [productRAMS2, setProductRAMS2] = useState([]);
+  const [productSIZE2, setProductSIZE2] = useState([]);
+  const [productWEIGHT2, setProductWEIGHT2] = useState([]);
+
+
+ const fetchProductRAM = async () => {
+  try{
+    fetchdatafromapi('/api/productRAM').then(data =>{
+      setProductRAMS2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
+ const fetchProductSIZE = async () => {
+  try{
+    fetchdatafromapi('/api/productSIZE').then(data =>{
+      setProductSIZE2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
+ const fetchProductWEIGHT = async () => {
+  try{
+    fetchdatafromapi('/api/productWEIGHT').then(data =>{
+      setProductWEIGHT2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -48,6 +90,10 @@ const ProductEdit = () => {
   useEffect(() => {
     setCategories(context.categories);
     setSubCategories(context.subCategories);
+
+    fetchProductRAM();
+    fetchProductSIZE();
+    fetchProductWEIGHT();
 
     fetchdatafromapiwithid(`/api/products/${id}`)
       .then((res) => {
@@ -187,18 +233,18 @@ const ProductEdit = () => {
       toast.error("Product subcategory is required");
       return;
     }
-    if (!productRAMS) {
-      toast.error("Product RAM is required");
-      return;
-    }
-    if (!productSIZE) {
-      toast.error("Product Size is required");
-      return;
-    }
-    if (!productWEIGHT) {
-      toast.error("Product Weight is required");
-      return;
-    }
+    // if (!productRAMS) {
+    //   toast.error("Product RAM is required");
+    //   return;
+    // }
+    // if (!productSIZE) {
+    //   toast.error("Product Size is required");
+    //   return;
+    // }
+    // if (!productWEIGHT) {
+    //   toast.error("Product Weight is required");
+    //   return;
+    // }
     if (!discount) {
       toast.error("Product discount is required");
       return;
@@ -518,10 +564,13 @@ const ProductEdit = () => {
                         onChange={handleproductramchange}
                       >
                         <option value="">Select Ram</option>
-
-                        <option value="4 GB">4 GB</option>
-                        <option value="8 GB">8 GB</option>
-                        <option value="16 GB">16 GB</option>
+   {
+                            productRAMS2?.length >0 && productRAMS2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productRAM}
+                                </option>
+                            ))
+                        }
                       </select>
                     </div>
                   </motion.div>
@@ -540,9 +589,14 @@ const ProductEdit = () => {
                         onChange={handleproductweightchange}
                       >
                         <option value="">Select Weight</option>
-                        <option value="500GM">500 GM</option>
-                        <option value="1KG">1 KG</option>
-                        <option value="2KG">2 KG</option>
+                     
+                        {
+                            productWEIGHT2?.length >0 && productWEIGHT2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productWeight}
+                                </option>
+                            ))
+                        }
                       </select>
                     </div>
                     <div>
@@ -555,11 +609,14 @@ const ProductEdit = () => {
                         onChange={handleproductsizechange}
                       >
                         <option value="">Select Size</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">Xl</option>
-                        <option value="XXL">XXl</option>
+                        
+                        {
+                            productSIZE2?.length >0 && productSIZE2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productSize}
+                                </option>
+                            ))
+                        }
                       </select>
                     </div>
                   </motion.div>

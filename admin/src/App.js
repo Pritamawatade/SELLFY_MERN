@@ -19,6 +19,8 @@ import AddSubCategory from "./pages/Categories/SubCatUpload";
 import SubCatList from "./pages/Categories/SubCatList";
 import { ToastContainer } from "react-toastify";
 import AddProductRAM from "./pages/products/AddProductRAM";
+import AddProductWIGHT from "./pages/products/AddProductWeight";
+import AddProductSIZE from "./pages/products/AddProductSIZE";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -128,6 +130,8 @@ const fetchCategories = async () => {
                 <Route path="/product/edit/:id" exact={true} element={<ProductEdit />} />
                 <Route path="/product" exact={true} element={<ProductList />} />
                 <Route path="/product/RAMupload" exact={true} element={<AddProductRAM />} />
+                <Route path="/product/WEIGHTupload" exact={true} element={<AddProductWIGHT />} />
+                <Route path="/product/SIZEupload" exact={true} element={<AddProductSIZE />} />
                 <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
                 <Route path="/subCategory/add" exact={true} element={<AddSubCategory />} />
                 <Route path="/subCategory/list" exact={true} element={<SubCatList />} />

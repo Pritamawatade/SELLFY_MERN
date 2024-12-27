@@ -31,9 +31,11 @@ const ProductUpload = () => {
 
   const [discount, setDiscount] = useState("");
   const [productRAMS, setProductRAMS] = useState([]);
-  const [productRAMS2, setProductRAMS2] = useState([]);
   const [productSIZE, setProductSIZE] = useState("");
   const [productWEIGHT, setProductWEIGHT] = useState("");
+  const [productRAMS2, setProductRAMS2] = useState([]);
+  const [productSIZE2, setProductSIZE2] = useState([]);
+  const [productWEIGHT2, setProductWEIGHT2] = useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -62,10 +64,36 @@ const ProductUpload = () => {
     console.error('Error fetching product RAM:', error);
   }
 }
+ const fetchProductSIZE = async () => {
+  try{
+    fetchdatafromapi('/api/productSIZE').then(data =>{
+      setProductSIZE2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
+ const fetchProductWEIGHT = async () => {
+  try{
+    fetchdatafromapi('/api/productWEIGHT').then(data =>{
+      setProductWEIGHT2(data);
+      
+    })
+
+  }
+  catch (error) {
+    console.error('Error fetching product RAM:', error);
+  }
+}
 
   useEffect(() => {
 
     fetchProductRAM();    
+    fetchProductSIZE();
+    fetchProductWEIGHT();
     setSubCategories(context.subCategories);
     setCategories(context.categories);
   
@@ -201,21 +229,21 @@ const ProductUpload = () => {
       return;
     }
     
-    if (!productRAMS) {
-      toast.error("Product RAM is required");
-      audio.play();
-      return;
-    }
-    if (!productSIZE) {
-      toast.error("Product Size is required");
-      audio.play();
-      return;
-    }
-    if (!productWEIGHT) {
-      toast.error("Product Weight is required");
-      audio.play();
-      return;
-    }
+    // if (!productRAMS) {
+    //   toast.error("Product RAM is required");
+    //   audio.play();
+    //   return;
+    // }
+    // if (!productSIZE) {
+    //   toast.error("Product Size is required");
+    //   audio.play();
+    //   return;
+    // }
+    // if (!productWEIGHT) {
+    //   toast.error("Product Weight is required");
+    //   audio.play();
+    //   return;
+    // }
     if (!discount) {
       toast.error("Product discount is required");
       audio.play();
@@ -571,9 +599,14 @@ const ProductUpload = () => {
                       >
                         <option value="">Select Weight</option>
 
-                        <option value="500GM">500 GM</option>
-                        <option value="1KG">1 KG</option>
-                        <option value="2KG">2 KG</option>
+                     
+                        {
+                            productWEIGHT2?.length >0 && productWEIGHT2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productWeight}
+                                </option>
+                            ))
+                        }
                       </select>
                     </div>
                     <div>
@@ -587,11 +620,13 @@ const ProductUpload = () => {
                     >
                         <option value="">Select size</option>
 
-                      <option value="S">S</option>
-                      <option value="M">M</option>
-                      <option value="L">L</option>
-                      <option value="XL">Xl</option>
-                      <option value="XXL">XXl</option>
+                        {
+                            productSIZE2?.length >0 && productSIZE2?.map((ram, index) => (
+                                <option key={index} value={ram._id}>
+                                    {ram.productSize}
+                                </option>
+                            ))
+                        }
                     </select>
                     </div>
                   </motion.div>

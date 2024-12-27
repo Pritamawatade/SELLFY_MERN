@@ -8,12 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
 import { deleteCategory, fetchdatafromapi } from "../../utils/api";
 import { LoadingContext } from "../../App";
-
 import { useContext } from "react";
 
-const AddProductRAM = () => {
-  const [productRAM, setProductRAM] = useState([]);
-  const [productRAMs, setProductRAMs] = useState([]);
+const AddProductSIZE = () => {
+  const [productSIZE, setProductSIZE] = useState([]);
+  const [productSIZEs, setProductSIZEs] = useState([]);
   const { startLoading, stopLoading } = useContext(LoadingContext);
   
   const loadingBar = useRef(null);
@@ -41,16 +40,16 @@ const AddProductRAM = () => {
 
 
   const handleDelete = async (id) => {
-      if (window.confirm("Are you sure you want to delete this RAM?")) {
+      if (window.confirm("Are you sure you want to delete this SIZE?")) {
         try {
           startLoading();
-          await deleteCategory(`/api/productRAM`, id);
-          toast.success("RAM deleted successfully");
-          await fetchProductRAM();
+          await deleteCategory(`/api/productSIZE`, id);
+          toast.success("SIZE deleted successfully");
+          await fetchProductSIZE();
         } catch (error) {
-          console.error("Error deleting RAM:", error);
+          console.error("Error deleting SIZE:", error);
           toast.error(
-            "Failed to delete RAM: " +
+            "Failed to delete SIZE: " +
               (error.response?.data?.message || error.message)
           );
         } finally {
@@ -59,42 +58,42 @@ const AddProductRAM = () => {
       }
     };
 
-  const handleRAMChnage = (e) => {
-    setProductRAM(e.target.value);
+  const handleSIZEChnage = (e) => {
+    setProductSIZE(e.target.value);
   };
 
-  const fetchProductRAM = async () => {
+  const fetchProductSIZE = async () => {
     try {
-      const res = fetchdatafromapi("/api/productRAM").then((data) => {
-        setProductRAMs(data);
-        console.log(productRAMs);
+      const res = fetchdatafromapi("/api/productSIZE").then((data) => {
+        setProductSIZEs(data);
+        console.log(productSIZEs);
       });
     } catch (error) {
-      console.error("Error fetching product RAM:", error);
+      console.error("Error fetching product SIZE:", error);
     }
   };
   useEffect(() => {
     
-    fetchProductRAM();
+    fetchProductSIZE();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!productRAM) {
+    if (!productSIZE) {
       return toast.error("Please fill all the fields");
     }
 
     try {
       loadingBar.current.continuousStart();
       const response = await fetch(
-        "http://localhost:4000/api/productRAM/create",
+        "http://localhost:4000/api/productSIZE/create",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            productRAM: productRAM,
+            ProductSize: productSIZE,
           }),
         }
       );
@@ -102,14 +101,14 @@ const AddProductRAM = () => {
       const data = await response.json();
 
       if (data.success) {
-        toast.success("RAM added successfully!");
-        await fetchProductRAM();
+        toast.success("SIZE added successfully!");
+        await fetchProductSIZE();
       } else {
-        toast.error(data.message || "Failed to add ram else");
+        toast.error(data.message || "Failed to add SIZE else");
       }
     } catch (error) {
-      console.error("Error add ram", error);
-      toast.error("Failed to add ram");
+      console.error("Error add SIZE", error);
+      toast.error("Failed to add SIZE");
     } finally {
       loadingBar.current.complete();
     }
@@ -140,7 +139,7 @@ const AddProductRAM = () => {
           <div className="header bg-gradient-to-r from-blue-600 to-blue-800 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6 shadow-lg">
             <h3 className="text-[#ffffff] font-bold text-2xl md:text-3xl flex items-center gap-3">
               <FaCloudUploadAlt className="text-3xl" />
-              Add Product RAM
+              Add Product SIZE
             </h3>
           </div>
         </motion.div>
@@ -169,15 +168,15 @@ const AddProductRAM = () => {
                     <div>
                       <label className="text-gray-700 dark:text-gray-300 mb-2 font-semibold text-sm uppercase tracking-wider">
                         {" "}
-                        Proudct RAM
+                        Proudct SIZE
                       </label>
                       <input
                         type="text"
-                        value={productRAM}
-                        onChange={handleRAMChnage}
+                        value={productSIZE}
+                        onChange={handleSIZEChnage}
                         className="form-input bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                        placeholder="Enter product RAM"
-                        name="productRAM"
+                        placeholder="Enter product SIZE"
+                        name="ProductSize"
                       />
                     </div>
                   </motion.div>
@@ -193,7 +192,7 @@ const AddProductRAM = () => {
               className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white py-4 rounded-lg flex items-center justify-center gap-3 transition-all duration-200 text-lg font-semibold shadow-lg hover:shadow-xl"
             >
               <FaCloudUploadAlt className="text-2xl" />
-              Add Product RAM
+              Add Product SIZE
             </motion.button>
           </motion.div>
         </form>
@@ -212,7 +211,7 @@ const AddProductRAM = () => {
                     Index
                   </th>
                   <th className="px-6 py-3 border-b-2 border-gray-300 dark:border-gray-700 text-left leading-4 text-blue-500 dark:text-blue-300 tracking-wider">
-                    Product RAM
+                    Product SIZE
                   </th>
                   <th className="px-6 py-3 border-b-2 border-gray-300 dark:border-gray-700 text-left leading-4 text-blue-500 dark:text-blue-300 tracking-wider">
                     Actions
@@ -220,8 +219,8 @@ const AddProductRAM = () => {
                 </tr>
               </thead>
               <tbody>
-                {productRAMs.length > 0 &&
-                  productRAMs?.map((ram, index) => (
+                {productSIZEs.length > 0 &&
+                  productSIZEs?.map((SIZE, index) => (
                     <motion.tr
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -233,14 +232,14 @@ const AddProductRAM = () => {
                         {index + 1}
                       </td>
                       <td className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                        {ram?.productRAM}
+                        {SIZE?.productSize}
                       </td>
                       <td className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
                         
 
                         {/* Delete Button */}
                         <motion.button
-                          onClick={() => handleDelete(ram._id)}
+                          onClick={() => handleDelete(SIZE._id)}
                           className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 mx-1"
                           title="Delete"
                           whileHover={{
@@ -268,4 +267,4 @@ const AddProductRAM = () => {
   );
 };
 
-export default AddProductRAM;
+export default AddProductSIZE;
