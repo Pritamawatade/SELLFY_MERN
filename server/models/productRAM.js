@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const productRAMSchema = mongoose.Schema({
-    productRAM:{
+    productRAM:[{
         type:String,
-    }
+    }]
 });
 
 

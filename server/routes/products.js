@@ -41,7 +41,6 @@ router.get(`/`, async (req, res) => {
     .limit(perpage)
     .exec();
 
-
   if (!productList) {
     res.status(404).json({ message: false });
   }

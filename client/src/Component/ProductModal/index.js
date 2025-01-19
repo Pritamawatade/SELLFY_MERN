@@ -16,7 +16,7 @@ import { mycontext } from "../../App";
 import ProductZoom from "../ProductZoom";
 
 
-const ProductModal = () => {
+const ProductModal = (props) => {
  
   const context = useContext(mycontext);
 
@@ -28,19 +28,20 @@ const ProductModal = () => {
         open={context.isOpenProuctModal}
         onClose={() => context.setIsOpenProductModal(false)}
       >
+                                                  {/* //TODO vid 37 29 min */}
         <Button className="close_">
           <IoCloseSharp onClick={() => context.setIsOpenProductModal(false)} />
         </Button>
-        <h4 className="mb-1">All Natural Italian-Style Chicken Meatballs</h4>
+        <h4 className="mb-1 mr-6">{props?.data?.name }</h4>
         <div className="d-flex align-items-center">
           <div className="d-flex align-items-center mr-4">
             <span>Brands: </span>
-            <span className="ml-2">Welch's</span>
+            <span className="ml-2">{props?.data?.brand}</span>
           </div>
 
           <Rating
             name="read-only"
-            value={5}
+            value={props?.data?.rating}
             readOnly
             size="small"
             precision={0.5}
@@ -49,21 +50,19 @@ const ProductModal = () => {
         <hr />
         <div className="row mt-2 productDetailModal">
           <div className="col-md-5">
-          <ProductZoom />
+          <ProductZoom images={props?.data?.images}/>
 
           </div>
           <div className="col-md-7">
             <div className="d-flex info align-item-center">
-              <span className="oldPrice">$9.35</span>
-              <span className="netPrice text-danger bolder mb-3">$7.35</span>
+              <span className="oldPrice">₹{props?.data?.oldPrice}</span>
+              <span className="netPrice text-danger bolder mb-3">₹{props?.data?.price}</span>
             </div>
             <span className="bg-green-100 text-green-600 p-1 px-1 mt-9 border-3 rounded-full text-sm block">
               IN STOCK
             </span>
             <p className="mt-3">
-              Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus
-              malesuada tincidunt. Class aptent taciti sociosqu ad litora
-              torquent
+              {props?.data?.description}
             </p>
 
             <div className="d-flex align-items-center mt-3">

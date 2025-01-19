@@ -7,8 +7,14 @@ import { mycontext } from "../../App";
 
 const ProductItem = (props) => {
   const context = useContext(mycontext);
-  const viewProductDetails = () => {
-    context.setIsOpenProductModal(true);
+  const viewProductDetails = (id) => {
+    console.log("viewProductDetails", id);
+    
+    context.setIsOpenProductModal({
+      id: id,
+      isOpen: true,
+
+    });
   };
 
   const closeProductModal = () => {
@@ -49,7 +55,7 @@ const ProductItem = (props) => {
             className="actions"
             style={{ position: "absolute", bottom: "10px", right: "10px" }}
           > 
-            <Button onClick={() => viewProductDetails()}>
+            <Button onClick={() => viewProductDetails(props?.product?._id)}>
               <SlSizeFullscreen />
             </Button>
             <Button>

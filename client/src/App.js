@@ -12,18 +12,35 @@ import ProductDetials from "./Pages/ProductDetails/index.js";
 import Cart from "./Pages/Cart/index.js";
 import SignIn from "./Pages/SignIn/index.js";
 import SignUp from "./Pages/SignUp/index.js";
+import { fetchdatafromapi, fetchdatafromapiwithid } from "./utils/api.js";
 const mycontext = createContext();
 
 function App() {
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [isOpenProuctModal, setIsOpenProductModal] = useState(false);
+  const [isOpenProuctModal, setIsOpenProductModal] = useState({
+    id: "",
+    isOpen: false,
+  });
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [isLogIn, setIsLogIn] = useState(false);
+  const [productdata, setProductData] = useState([]);
 
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
   }, []);
+
+  useEffect(() => {
+    if(isOpenProuctModal.isOpen == true){
+      fetchdatafromapiwithid(`/api/products/${isOpenProuctModal.id}`).then((res) => {
+      
+        setProductData(res);
+  
+        
+      })
+    }
+    
+  }, [isOpenProuctModal]);
 
   const getCountryList = async (url) => {
     const response = await axios.get(url).then((res) => {
@@ -62,7 +79,7 @@ function App() {
           </Routes>
           {isHeaderFooterShow && <Footer />}
 
-          {isOpenProuctModal && <ProductModal />}
+          {isOpenProuctModal.isOpen ==true  && <ProductModal data={productdata}/>}
         </mycontext.Provider>
       </BrowserRouter>
     </>

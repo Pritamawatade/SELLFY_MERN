@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const productWeightSchema = new mongoose.Schema({
-  productWeight: {
+  productWeight: [{
     type: String,
-  },
+  }],
 });
 
 exports.ProductWeight = mongoose.model("ProductWeight", productWeightSchema);

@@ -26,6 +26,8 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = React.useState([]);
   const [newProducts, setNewProducts] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
+  const [productData, setProductData] = React.useState([]);
+  const [electronics, setElectronics] = React.useState([]);
   const fetchcategories = async () => {
     const data = await fetchdatafromapi("/api/category/");
     setCategories(data);
@@ -43,6 +45,14 @@ const Home = () => {
       setFeaturedProducts(res);
       fetchProducts();
     });
+
+    fetchdatafromapi(`api/products?perPage=8`).then((res) => {
+      setProductData(res);
+    });
+    fetchdatafromapi(`api/products?perPage=8&catName=Electronics`).then((res) => {
+      setElectronics(res);
+    });
+
   }, []);
   useEffect(() => {
     context.setIsHeaderFooterShow(true);
@@ -114,10 +124,10 @@ const Home = () => {
 
               <div className="product_row productRow2 w-100 mt-4 d-flex">
                 {
-                newProducts?.products?.length > 0 && newProducts?.products.map((product, index) => (
+                  newProducts?.products?.length > 0 && newProducts?.products.map((product, index) => (
                     <ProductItem key={product._id} product={product} />
                   ))
-                } 
+                }
               </div>
 
               <div className="d-flex mt-4 mb-4 bannerSec">
