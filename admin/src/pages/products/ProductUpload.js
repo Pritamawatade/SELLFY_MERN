@@ -126,6 +126,7 @@ const ProductUpload = () => {
 
   const handleCategoryChange = (e) => {
     setCategoryValue(e.target.value);
+    
   };
 
   const handleSubCategoryChange = (e) => {

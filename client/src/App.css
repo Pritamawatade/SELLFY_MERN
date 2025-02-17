@@ -512,7 +512,7 @@ nav .navPart2 ul li:hover .submenu {
  .info .netPrice {
   font-size: 16px !important;
   font-weight: bold !important;
-  text-decoration: line-through !important;
+  /* text-decoration: line-through !important; */
   margin-left: 10px;
 }
 

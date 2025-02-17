@@ -94,6 +94,7 @@ router.post(`/create`, upload.array('images', 4), async (req, res) => {
       price: req.body.price,
       oldPrice: req.body.oldPrice,
       category: req.body.category,
+      catName:req.body.category,
       discount: req.body.discount,
       productRAMS: req.body.productRAMS,
       productSIZE: req.body.productSIZE,
@@ -161,6 +162,7 @@ router.put('/:id', upload.array('images'), async (req, res) => {
       req.params.id,
       {
         ...req.body,
+        catName:req.body.category,
         images: imgurl,
       },
       { new: true }

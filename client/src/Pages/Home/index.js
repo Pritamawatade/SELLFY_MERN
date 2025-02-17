@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-
 import HomeBanner from "../../Component/Header/HomeBanner/HomeBanner.js";
 import banner1 from "../../assets/images/banner1.png";
 import banner2 from "../../assets/images/banner2.png";
@@ -90,8 +89,8 @@ const Home = () => {
                 </Button>
               </div>
 
-              <div className="product_row w-100 mt-4">
-                <div className="container">
+              <div className="product_row w-100 mt-4 ">
+                <div className="container w-100 ">
                   <Swiper
                     slidesPerView={4}
                     spaceBetween={0}
@@ -122,12 +121,27 @@ const Home = () => {
                 </Button>
               </div>
 
-              <div className="product_row productRow2 w-100 mt-4 d-flex">
-                {
-                  newProducts?.products?.length > 0 && newProducts?.products.map((product, index) => (
-                    <ProductItem key={product._id} product={product} />
-                  ))
-                }
+              <div className="product_row  w-100 mt-4 ">
+                <div className="container">
+
+                  <Swiper
+                    slidesPerView={4}
+                    spaceBetween={0}
+                    navigation={true}
+                    slidesPerGroup={1}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                  >
+                    {
+                      newProducts?.products?.length >= 0 &&
+                      newProducts?.products?.map((product, index) => (
+                        <SwiperSlide key={product._id}>
+                          <ProductItem product={product} />
+                        </SwiperSlide>
+                      ))
+                    }
+                  </Swiper>
+                </div>
               </div>
 
               <div className="d-flex mt-4 mb-4 bannerSec">
