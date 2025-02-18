@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsFillGridFill } from "react-icons/bs";
@@ -13,19 +13,28 @@ import { Link } from "react-router-dom";
 import rightbanner from "../../assets/images/rightbanner.png";
 import ProductItem from "../../Component/ProductItem";
 import Pagination from '@mui/material/Pagination';
-
+import { useParams } from "react-router-dom";
+import { fetchdatafromapi } from "../../utils/api";
 
 
 function Listing() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [productView, setProductView] = React.useState("four");
+  const [productData, setProductData] = useState([]);
   const open = Boolean(anchorEl);
+  const {id} = useParams();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  useEffect(()=>{
+    fetchdatafromapi(`/api/products?subCatId=${id}`).then((res) => {
+      console.log(res);
+      setProductData(res.products);
+    })
+  },[id])
   return (
     <>
       <section className="product_listing_page">

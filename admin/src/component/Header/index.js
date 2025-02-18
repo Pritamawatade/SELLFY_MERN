@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MdMenuOpen } from "react-icons/md";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import SearchBox from "../SearchBox";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -45,6 +45,49 @@ const Header = () => {
   const handleCloseNotificationDrop = () => {
     setisOpenNotificationDrop(false);
   };
+
+
+  const handleShortcut = (event) => {
+    if (event.ctrlKey && event.key == "b") {
+      event.preventDefault();
+      context.setIsToggleSidebar((prev) => !prev); // Toggle sidebar
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleShortcut);
+    return () => {
+      window.removeEventListener("keydown", handleShortcut);
+    };
+  }, []);
+
+
+
+  const handleShortcutDark = (event) => {
+    if (event.ctrlKey && event.key === "d") {
+      event.preventDefault();
+      context.setThemeMode((prev) => !prev); // Toggle theme
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleShortcutDark);
+    return () => {
+      window.removeEventListener("keydown", handleShortcutDark);
+    };
+  }, []);
+
+
+
+
+
+
+
+
+
 
   return (
     <header className="d-flex align-items-center">

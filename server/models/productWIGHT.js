@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const productWeightSchema = new mongoose.Schema({
   productWeight: [{
     type: String,
+
   }],
 });
 

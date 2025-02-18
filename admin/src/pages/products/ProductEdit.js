@@ -84,7 +84,18 @@ const [productRAMS2, setProductRAMS2] = useState([]);
     productRAMS: "",
     productSIZE: "",
     productWEIGHT: "",
+    catName:"",
+    subCatId:"",
   });
+
+  const selectCat = (cat) =>{
+    formData.catName = cat;
+    console.log(cat);
+    
+
+      // alert(formData.catName)
+
+  }
 
   const { id } = useParams();
   useEffect(() => {
@@ -145,6 +156,7 @@ const [productRAMS2, setProductRAMS2] = useState([]);
 
   const handleSubCategoryChange = (e) => {
     setSubCategoryValue(e.target.value);
+    formData.subCatId = e.target.value;
   };
 
   const handleproductramchange = (e) => {
@@ -269,6 +281,9 @@ const [productRAMS2, setProductRAMS2] = useState([]);
       formDataToSend.append("countInStock", Number(formData.countInStock) || 0);
       formDataToSend.append("numReviews", Number(formData.numReviews) || 0);
       formDataToSend.append("rating", Number(formData.rating) || 0);
+      formDataToSend.append("catName", formData.catName || 0);
+      formDataToSend.append("subCatId", formData.subCatId || 0);
+
 
       // Add rating from star component (0-5)
 
@@ -276,10 +291,14 @@ const [productRAMS2, setProductRAMS2] = useState([]);
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
-      formDataToSend.append("productRAMS", productRAMS);
-      formDataToSend.append("productSIZE", productSIZE);
-      formDataToSend.append("productWEIGHT", productWEIGHT);
+   
       formDataToSend.append("discount", discount);
+      if(productRAMS)
+        formDataToSend.append("productRAMS", productRAMS);
+      if(productSIZE)
+        formDataToSend.append("productSIZE", productSIZE);
+      if(productWEIGHT)
+        formDataToSend.append("productWEIGHT", productWEIGHT);
 
       // Append images
 
@@ -415,12 +434,22 @@ const [productRAMS2, setProductRAMS2] = useState([]);
                       <select
                         className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         value={categoryValue}
-                        onChange={handleCategoryChange}
+                        onChange={(e) => {
+                          handleCategoryChange(e);
+                          const selectedCategory = categories.find(category => category._id === e.target.value);
+                          if (selectedCategory) {
+                            selectCat(selectedCategory.name);
+                          }
+                        }}
+                        
                       >
                         <option value="">Select Category</option>
                         {categories.map((category) => (
-                          <option key={category._id} value={category._id}>
+                          <option key={category._id} value={category._id}
+                          >
+                            
                             {category.name}
+                            
                           </option>
                         ))}
                       </select>

@@ -11,6 +11,7 @@ import { mycontext } from "../../App";
 
 const Header = () => {
   const context = useContext(mycontext);
+  
   return (
     <>
       <div className="headerwrapper">

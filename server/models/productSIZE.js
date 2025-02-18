@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const productSIZESchema = mongoose.Schema({
     productSize: [{
-        type: String
+        type: String,
     }]
 });
 

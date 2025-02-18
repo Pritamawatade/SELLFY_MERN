@@ -35,11 +35,27 @@ router.get(`/`, async (req, res) => {
     return res.status(404).json({ message: "Page not found" });
   }
 
-
-  const productList = await Product.find().populate("category subCategory")
+ let productList = [];
+  if(req.query.catName !== undefined){
+    productList = await Product.find({catName:req.query.catName})
+  }else{
+    productList = await Product.find().populate("category subCategory")
     .skip((page - 1) * perpage)
     .limit(perpage)
     .exec();
+  }
+
+  if(req.query.subCatId !== undefined){
+    productList = await Product.find({subCatId:req.query.subCatId})
+  }else{
+    productList = await Product.find().populate("category subCategory")
+    .skip((page - 1) * perpage)
+    .limit(perpage)
+    .exec();
+  } 
+
+  //TODO: video 38 18 min
+
 
   if (!productList) {
     res.status(404).json({ message: false });
@@ -51,7 +67,7 @@ router.get(`/`, async (req, res) => {
     "page": page
   });
 
-  res.send(productList);
+  // res.send(productList);
 
 });
 
@@ -86,23 +102,20 @@ router.post(`/create`, upload.array('images', 4), async (req, res) => {
     const uploadStatus = await Promise.all(uploadPromises);
     const imgurl = uploadStatus.map(item => item.secure_url);
 
+    // if(!req.body.productSIZE){
+    //   req.body.productSIZE = null;
+    // }
+    // if(!req.body.productWEIGHT){
+    //   req.body.productSIZE = null;
+    // }
+    // if(!req.body.productRAMS){
+    //   req.body.productSIZE = null;
+    // }
+    console.log(req.body);
+
     let product = new Product({
-      name: req.body.name,
-      description: req.body.description,
+      ...req.body,
       images: imgurl,
-      brand: req.body.brand,
-      price: req.body.price,
-      oldPrice: req.body.oldPrice,
-      category: req.body.category,
-      catName:req.body.category,
-      discount: req.body.discount,
-      productRAMS: req.body.productRAMS,
-      productSIZE: req.body.productSIZE,
-      productWEIGHT: req.body.productWEIGHT,
-      subCategory: req.body.subCategory,
-      countInStock: req.body.countInStock,
-      rating: req.body.rating,
-      numReviews: req.body.numReviews,
       isFeatured: req.body.isFeatured === 'true',
     });
 
@@ -158,11 +171,14 @@ router.put('/:id', upload.array('images'), async (req, res) => {
       return res.status(500).json({ error: 'Some images could not be uploaded', success: false });
     }
 
+    console.log(req.body);
+    
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       {
         ...req.body,
-        catName:req.body.category,
+    
+        catName:req.body.catName,
         images: imgurl,
       },
       { new: true }

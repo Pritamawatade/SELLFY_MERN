@@ -16,6 +16,8 @@ import { fetchdatafromapi, fetchdatafromapiwithid } from "./utils/api.js";
 const mycontext = createContext();
 
 function App() {
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setsubCategories] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isOpenProuctModal, setIsOpenProductModal] = useState({
@@ -29,6 +31,21 @@ function App() {
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
   }, []);
+
+ 
+  useEffect(()=>{
+    const data = fetchdatafromapi("/api/category/").then((res) => {
+      setCategories(res);
+      
+    });
+   
+    
+    const data1 = fetchdatafromapi("/api/subcategory/").then((res) => {
+      setsubCategories(res);
+      
+    });
+
+  },[])
 
   useEffect(() => {
     if(isOpenProuctModal.isOpen == true){
@@ -58,6 +75,8 @@ function App() {
     setIsHeaderFooterShow,
     isLogIn,
     setIsLogIn,
+    categories,
+    subcategories
   };
   return (
     <>
@@ -67,7 +86,7 @@ function App() {
 
           <Routes>
             <Route path="/" exact={true} element={<Home />} />
-            <Route path="/cat/:id" exact={true} element={<Listing />} />
+            <Route path="/subCat/:id" exact={true} element={<Listing />} />
             <Route
               path="/product/:id"
               exact={true}

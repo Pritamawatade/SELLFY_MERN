@@ -19,6 +19,9 @@ import coupon from "../../assets/images/coupon.jpg";
 import { IoMailOutline } from "react-icons/io5";
 import { fetchdatafromapi } from "../../utils/api.js";
 import { mycontext } from "../../App.js";
+import Box from "@mui/material/Box";
+import Tabs, { tabsClasses } from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 const Home = () => {
   const context = useContext(mycontext);
@@ -27,6 +30,28 @@ const Home = () => {
   const [categories, setCategories] = React.useState([]);
   const [productData, setProductData] = React.useState([]);
   const [electronics, setElectronics] = React.useState([]);
+  const [value, setValue] = React.useState(0);
+  const [selectedCategory, setSelectedCategory] = React.useState("Fashion");
+
+  const handleSelectedCat = (catName) => {
+    const data = fetchdatafromapi(
+      `/api/products?perPage=8&catName=${catName}`
+    ).then((res) => {
+      setSelectedCategory(res);
+      console.log("data = ", res);
+      console.log("data pro = ", res.products);
+      console.log("cat = ", selectedCategory?.products);
+    });
+  };
+
+  useEffect(() => {
+    handleSelectedCat("Electronics");
+  }, []);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const fetchcategories = async () => {
     const data = await fetchdatafromapi("/api/category/");
     setCategories(data);
@@ -48,10 +73,11 @@ const Home = () => {
     fetchdatafromapi(`api/products?perPage=8`).then((res) => {
       setProductData(res);
     });
-    fetchdatafromapi(`api/products?perPage=8&catName=Electronics`).then((res) => {
-      setElectronics(res);
-    });
-
+    fetchdatafromapi(`api/products?perPage=8&catName=Electronics`).then(
+      (res) => {
+        setElectronics(res);
+      }
+    );
   }, []);
   useEffect(() => {
     context.setIsHeaderFooterShow(true);
@@ -77,6 +103,58 @@ const Home = () => {
               </div>
             </div>
             <div className="col-md-9 productRow">
+
+
+              
+            <div className="d-flex align-items-center">
+                <div className="info w-75">
+                  <h3 className="mb-0 hd">SELECT CATEGORY</h3>
+                  <p className="text-light1 text-sml mb-0">
+                    Do not miss the current offer till this month end
+                  </p>
+                </div>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  variant="scrollable"
+                  scrollButtons
+                  aria-label="visible arrows tabs example"
+                  sx={{
+                    [`& .${tabsClasses.scrollButtons}`]: {
+                      "&.Mui-disabled": { opacity: 0.3 },
+                    },
+                  }}
+                >
+                  {categories?.length >= 0 &&
+                    categories.map((cat, index) => (
+                      <Tab
+                        label={cat.name}
+                        key={index}
+                        onClick={() => handleSelectedCat(cat.name)}
+                      />
+                    ))}
+                </Tabs>
+              </div>
+
+              <div className="product_row w-100 mt-4 ">
+                <div className="container w-100 ">
+                  <Swiper
+                    slidesPerView={4}
+                    spaceBetween={0}
+                    navigation={true}
+                    slidesPerGroup={1}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                  >
+                    {selectedCategory?.products?.length >= 0 &&
+                      selectedCategory?.products?.map((product, index) => (
+                        <SwiperSlide key={product._id}>
+                          <ProductItem product={product} />
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+              </div>
               <div className="d-flex align-items-center">
                 <div className="info w-75">
                   <h3 className="mb-0 hd">Featured Products</h3>
@@ -123,7 +201,6 @@ const Home = () => {
 
               <div className="product_row  w-100 mt-4 ">
                 <div className="container">
-
                   <Swiper
                     slidesPerView={4}
                     spaceBetween={0}
@@ -132,14 +209,12 @@ const Home = () => {
                     modules={[Navigation]}
                     className="mySwiper"
                   >
-                    {
-                      newProducts?.products?.length >= 0 &&
+                    {newProducts?.products?.length >= 0 &&
                       newProducts?.products?.map((product, index) => (
                         <SwiperSlide key={product._id}>
                           <ProductItem product={product} />
                         </SwiperSlide>
-                      ))
-                    }
+                      ))}
                   </Swiper>
                 </div>
               </div>
@@ -152,6 +227,8 @@ const Home = () => {
                   <img src={banner4} alt="" className="cursor w-100" />
                 </div>
               </div>
+
+
             </div>
           </div>
         </div>

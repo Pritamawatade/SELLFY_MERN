@@ -31,8 +31,8 @@ const ProductUpload = () => {
 
   const [discount, setDiscount] = useState("");
   const [productRAMS, setProductRAMS] = useState([]);
-  const [productSIZE, setProductSIZE] = useState("");
-  const [productWEIGHT, setProductWEIGHT] = useState("");
+  const [productSIZE, setProductSIZE] = useState([]);
+  const [productWEIGHT, setProductWEIGHT] = useState([]);
   const [productRAMS2, setProductRAMS2] = useState([]);
   const [productSIZE2, setProductSIZE2] = useState([]);
   const [productWEIGHT2, setProductWEIGHT2] = useState([]);
@@ -45,12 +45,20 @@ const ProductUpload = () => {
     oldPrice: "",
     countInStock: "",
     numReviews: "0",
+    catName:"",
     rating: "",
     discount: "",
-    productRAMS: [],
-    productSIZE: [],
-    productWEIGHT: [],
+    subCatId:""
   });
+
+    const selectCat = (cat) =>{
+      formData.catName = cat;
+      console.log(cat);
+      
+
+        // alert(formData.catName)
+
+    }
 
  const fetchProductRAM = async () => {
   try{
@@ -131,6 +139,7 @@ const ProductUpload = () => {
 
   const handleSubCategoryChange = (e) => {
     setSubCategoryValue(e.target.value);
+    formData.subCatId = e.target.value;
   };
 
   const handleproductramchange = (e) => {
@@ -229,6 +238,8 @@ const ProductUpload = () => {
       audio.play();
       return;
     }
+
+
     
     // if (!productRAMS) {
     //   toast.error("Product RAM is required");
@@ -245,11 +256,11 @@ const ProductUpload = () => {
     //   audio.play();
     //   return;
     // }
-    if (!discount) {
-      toast.error("Product discount is required");
-      audio.play();
-      return;
-    }
+    // if (!discount) {
+    //   toast.error("Product discount is required");
+    //   audio.play();
+    //   return;
+    // }
     if (selectedImages.length === 0) {
       toast.error("Product images are required");
       audio.play();
@@ -274,6 +285,9 @@ const ProductUpload = () => {
       formDataToSend.append("numReviews", Number(formData.numReviews) || 0);
       formDataToSend.append("rating", Number(formData.rating) || 0);
       formDataToSend.append("discount", Number(discount) || 0);
+      formDataToSend.append("catName", formData.catName);
+      formDataToSend.append("subCatId", formData.subCatId);
+      console.log(formData.subCatId)
       
       // Add rating from star component (0-5)
       
@@ -281,9 +295,18 @@ const ProductUpload = () => {
       formDataToSend.append("isFeatured", featureValue);
       formDataToSend.append("category", categoryValue);
       formDataToSend.append("subCategory", subCategoryValue);
-      formDataToSend.append("productRAMS", productRAMS);
-      formDataToSend.append("productSIZE", productSIZE);
-      formDataToSend.append("productWEIGHT", productWEIGHT);
+      if(productRAMS != ""){
+
+        formDataToSend.append("productRAMS", productRAMS);
+      }
+      if(productSIZE != ""){
+
+        formDataToSend.append("productSIZE", productSIZE);
+      }
+      if(productWEIGHT != ""){
+
+        formDataToSend.append("productWEIGHT", productWEIGHT);
+      }
       // Append images
       selectedImages.forEach((image, index) => {
         formDataToSend.append("images", image.file);
@@ -312,6 +335,7 @@ const ProductUpload = () => {
           numReviews: "0",
           rating: "",
           discount: "",
+          catName:""
         });
         setSelectedImages([]);
         setCategoryValue("");
@@ -331,9 +355,9 @@ const ProductUpload = () => {
       toast.error("Failed to create product");
     } finally {
       loadingBar.current.complete();
-      setTimeout(() => {
-        navigate("/product");
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/product");
+      // }, 3000);
     }
   };
 
@@ -423,11 +447,18 @@ const ProductUpload = () => {
                       <select
                         className="form-select bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                         value={categoryValue}
-                        onChange={handleCategoryChange}
+                        onChange={(e) => {
+                          handleCategoryChange(e);
+                          const selectedCategory = categories.find(category => category._id === e.target.value);
+                          if (selectedCategory) {
+                            selectCat(selectedCategory.name);
+                          }
+                        }}
                       >
                         <option value="">Select Category</option>
                         {categories.map((category) => (
-                          <option key={category._id} value={category._id}>
+                          <option key={category._id} value={category._id}
+                          >
                             {category.name}
                           </option>
                         ))}

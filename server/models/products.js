@@ -41,6 +41,9 @@ const productSchema = mongoose.Schema({
         ref:'SubCat',
         required:true,
     },
+    subCatId:{
+        type:String,
+    },
     countInStock:{
         type:Number,
         required:true,
@@ -56,17 +59,16 @@ const productSchema = mongoose.Schema({
     productRAMS:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'productRAM',
-
         
     },
     productSIZE:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'productSIZE',
-        
     },
     productWEIGHT:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'productWEIGHT',
+
     },
 
     numReviews:{
