@@ -35,7 +35,7 @@ const Home = () => {
 
   const handleSelectedCat = (catName) => {
     const data = fetchdatafromapi(
-      `/api/products?perPage=8&catName=${catName}`
+      `/api/products?catName=${catName}`
     ).then((res) => {
       setSelectedCategory(res);
       console.log("data = ", res);
@@ -45,7 +45,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    handleSelectedCat("Electronics");
+    handleSelectedCat("Fashion");
   }, []);
 
   const handleChange = (event, newValue) => {
@@ -73,7 +73,7 @@ const Home = () => {
     fetchdatafromapi(`api/products?perPage=8`).then((res) => {
       setProductData(res);
     });
-    fetchdatafromapi(`api/products?perPage=8&catName=Electronics`).then(
+    fetchdatafromapi(`api/products?catName=Electronics`).then(
       (res) => {
         setElectronics(res);
       }

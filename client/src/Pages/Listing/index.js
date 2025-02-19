@@ -21,6 +21,7 @@ function Listing() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [productView, setProductView] = React.useState("four");
   const [productData, setProductData] = useState([]);
+  const [subCatId, setSubCatId] = useState();
   const open = Boolean(anchorEl);
   const {id} = useParams();
   const handleClick = (event) => {
@@ -33,14 +34,37 @@ function Listing() {
     fetchdatafromapi(`/api/products?subCatId=${id}`).then((res) => {
       console.log(res);
       setProductData(res.products);
+      setSubCatId(id);
     })
   },[id])
+
+
+  const filterData = (id) =>{
+    fetchdatafromapi(`/api/products?subCatId=${id}`).then((res) => {
+      console.log(res);
+      setProductData(res.products);
+    })
+  }
+
+  const filterByPrice = (price,subCatId)=>{
+    fetchdatafromapi(`/api/products?minPrice=${price[0]}&maxPrice=${price[1]}&subCatId=${subCatId}`).then((res) => {
+      setProductData(res.products);
+    })
+  }
+  const filterByRating = (rating) =>{
+    alert(rating)
+    fetchdatafromapi(`/api/products?subCatId=${subCatId}&rating=${rating}`).then((res) => {
+
+      console.log(res);
+      setProductData(res.products);
+    })
+  }
   return (
     <>
       <section className="product_listing_page">
         <div className="container">
           <div className="product_listing d-flex">
-            <Sidebar />
+            <Sidebar filterData={filterData} filterByPrice={filterByPrice} filterByRating={filterByRating}/>
 
             <div className="content_right">
               <Link to="/productdetail">
@@ -99,24 +123,12 @@ function Listing() {
               </div>
 
               <div className="productListing">
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
-                  <ProductItem itemView={productView} />
+                {
+                  productData.length >= 0 && productData.map((product, index) => (
+                    <ProductItem product={product} itemView={productView} key={index} />
+                  ))
+                }
+               
               </div>
 
                   <div className="d-flex align-items-center justify-center  mt-5">

@@ -53,9 +53,7 @@ const Dashboard = () => {
     fetchdatafromapi("/api/products/")
       .then((res) => {
         setProducts(res || []);
-        console.log(productList);
-        console.log(res);
-        console.log(productList.products);
+    
       })
       .catch((error) => {
         console.error("Error fetching products:", error);

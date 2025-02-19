@@ -90,7 +90,6 @@ const [productRAMS2, setProductRAMS2] = useState([]);
 
   const selectCat = (cat) =>{
     formData.catName = cat;
-    console.log(cat);
     
 
       // alert(formData.catName)
@@ -109,7 +108,6 @@ const [productRAMS2, setProductRAMS2] = useState([]);
     fetchdatafromapiwithid(`/api/products/${id}`)
       .then((res) => {
         setFormData(res);
-        console.log(res);
         setValue(res.rating);
         setFeatureValue(res.isFeatured);
         setCategoryValue(res.category);
@@ -343,7 +341,7 @@ const [productRAMS2, setProductRAMS2] = useState([]);
     } finally {
       loadingBar.current.complete();
       setTimeout(() => {
-        // navigate("/product");
+        navigate("/product");
       }, 3000);
     }
   };

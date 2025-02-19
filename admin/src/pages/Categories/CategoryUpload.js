@@ -65,7 +65,6 @@ const CategoryUpload = () => {
 
         try {
             startLoading();
-            console.log("Submitting category data:", formFields);
             const response = await postData("/api/category/create", formFields);
 
             if (response && response.success) {

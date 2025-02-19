@@ -67,7 +67,6 @@ const AddProductRAM = () => {
     try {
       const res = fetchdatafromapi("/api/productRAM").then((data) => {
         setProductRAMs(data);
-        console.log(productRAMs);
       });
     } catch (error) {
       console.error("Error fetching product RAM:", error);

@@ -287,7 +287,6 @@ const ProductUpload = () => {
       formDataToSend.append("discount", Number(discount) || 0);
       formDataToSend.append("catName", formData.catName);
       formDataToSend.append("subCatId", formData.subCatId);
-      console.log(formData.subCatId)
       
       // Add rating from star component (0-5)
       
@@ -355,9 +354,9 @@ const ProductUpload = () => {
       toast.error("Failed to create product");
     } finally {
       loadingBar.current.complete();
-      // setTimeout(() => {
-      //   navigate("/product");
-      // }, 3000);
+      setTimeout(() => {
+        navigate("/product");
+      }, 3000);
     }
   };
 
