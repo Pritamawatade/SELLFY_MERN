@@ -19,7 +19,6 @@ import coupon from "../../assets/images/coupon.jpg";
 import { IoMailOutline } from "react-icons/io5";
 import { fetchdatafromapi } from "../../utils/api.js";
 import { mycontext } from "../../App.js";
-import Box from "@mui/material/Box";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 

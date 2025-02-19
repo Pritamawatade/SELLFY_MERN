@@ -114,7 +114,7 @@ const fetchCategories = async () => {
             {isHeaderFooterShow && (
               <div
                 className={`sideWrapper ${
-                  isTogglesidebar == true ? "toggle" : ""
+                  isTogglesidebar === true ? "toggle" : ""
                 }`}
               >
                 <Sidebar />

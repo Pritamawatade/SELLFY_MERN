@@ -54,9 +54,6 @@ const Header = () => {
     }
   };
 
-
-
-
   useEffect(() => {
     window.addEventListener("keydown", handleShortcut);
     return () => {
@@ -79,15 +76,6 @@ const Header = () => {
       window.removeEventListener("keydown", handleShortcutDark);
     };
   }, []);
-
-
-
-
-
-
-
-
-
 
   return (
     <header className="d-flex align-items-center">

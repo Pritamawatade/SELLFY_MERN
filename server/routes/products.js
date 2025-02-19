@@ -108,7 +108,7 @@ router.get(`/`, async (req, res) => {
   //   .exec();
   // }
 
-  //TODO: video 38 18 min
+  //TODO: video 39 begin
 
   if (!productList) {
     res.status(404).json({ message: false });

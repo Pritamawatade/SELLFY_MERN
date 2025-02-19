@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 export const fetchdatafromapi = async (url) => {
   try {

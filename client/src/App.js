@@ -34,13 +34,13 @@ function App() {
 
  
   useEffect(()=>{
-    const data = fetchdatafromapi("/api/category/").then((res) => {
+    fetchdatafromapi("/api/category/").then((res) => {
       setCategories(res);
       
     });
    
     
-    const data1 = fetchdatafromapi("/api/subcategory/").then((res) => {
+    fetchdatafromapi("/api/subcategory/").then((res) => {
       setsubCategories(res);
       
     });
@@ -48,7 +48,7 @@ function App() {
   },[])
 
   useEffect(() => {
-    if(isOpenProuctModal.isOpen == true){
+    if(isOpenProuctModal.isOpen === true){
       fetchdatafromapiwithid(`/api/products/${isOpenProuctModal.id}`).then((res) => {
       
         setProductData(res);
@@ -60,7 +60,7 @@ function App() {
   }, [isOpenProuctModal]);
 
   const getCountryList = async (url) => {
-    const response = await axios.get(url).then((res) => {
+    await axios.get(url).then((res) => {
       setCountryList(res.data.data);
     });
   };
@@ -98,7 +98,7 @@ function App() {
           </Routes>
           {isHeaderFooterShow && <Footer />}
 
-          {isOpenProuctModal.isOpen ==true  && <ProductModal data={productdata}/>}
+          {isOpenProuctModal.isOpen ===true  && <ProductModal data={productdata}/>}
         </mycontext.Provider>
       </BrowserRouter>
     </>
