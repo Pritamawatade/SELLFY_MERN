@@ -21,6 +21,7 @@ const productRAMRoutes = require('./routes/productRAM')
 const productWIGHTRoutes = require('./routes/productWeight')
 const productSIZERoutes = require('./routes/productSize')
 
+
 app.use(`/api/category`, categoryRoutes)
 app.use(`/api/products`, productRoutes)
 app.use(`/api/subcategory`, subCatRoutes)

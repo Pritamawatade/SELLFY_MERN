@@ -36,3 +36,5 @@ try {
     
 }
 });
+
+module.exports = router;
