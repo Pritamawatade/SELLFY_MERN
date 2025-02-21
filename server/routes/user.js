@@ -93,6 +93,7 @@ router.get("/:id", async (req, res) => {
   return res.status(200).json({
     user,
     message: "user fetched successfully",
+    
   });
 });
 
