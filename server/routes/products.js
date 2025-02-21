@@ -7,6 +7,7 @@ const upload = require("../middlewares/upload");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs").promises;
 const pLimit = require("p-limit");
+const { RelatedProducts, RecentlyViewd } = require("../models/recentlyViewd.js");
 
 const limit = pLimit(5);
 
@@ -108,7 +109,7 @@ router.get(`/`, async (req, res) => {
   //   .exec();
   // }
 
-  //TODO: video 39 begin
+  //TODO: video 39 28 min 
 
   if (!productList) {
     res.status(404).json({ message: false });
@@ -123,70 +124,158 @@ router.get(`/`, async (req, res) => {
   // res.send(productList);
 });
 
-router.get("/:id", async (req, res) => {
-  const product = await Product.findById(req.params.id);
-
-  if (!product) {
-    res.status(404).json({ message: "product not found" });
-  }
-
-  res.send(product);
-});
-
-router.post(`/create`, upload.array("images", 4), async (req, res) => {
+router.get(`/recentlyviewd`, async (req, res) => {
   try {
-    const category = await Category.findById(req.body.category);
-    if (!category) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Invalid category" });
+    const productList = await RecentlyViewd.find();
+    
+    if (!productList || productList.length === 0) {
+      return res.status(404).json({ message: "No products found" }); // ✅ Stops further execution
     }
 
-    const uploadPromises = req.files.map(async (file) => {
-      try {
-        const result = await cloudinary.uploader.upload(file.path);
-        await fs.unlink(file.path); // Delete the file after upload
-        return result;
-      } catch (error) {
-        console.error("Error uploading to cloudinary:", error);
-        throw error;
-      }
-    });
+    return res.status(200).json(productList); // ✅ Sends only one response
+  } catch (error) {
+    console.error("Error fetching recently viewed:", error);
+    return res.status(500).json({ message: "Server error", error }); // ✅ Stops execution
+  }
+});
 
-    const uploadStatus = await Promise.all(uploadPromises);
-    const imgurl = uploadStatus.map((item) => item.secure_url);
+router.post(`/recentlyviewd`, async (req, res) =>{
+  const duplicateProducts = await RecentlyViewd.find({prodId:req.body._id});
+  if(duplicateProducts.length === 0){
+    const {
+      name,
+      description,
+      images,
+      brand,
+      price,
+      oldPrice,
+      catName,
+      category,
+      subCategory,
+      subCatId,
+      countInStock,
+      rating,
+      discount,
+      productRAMS,
+      productSIZE,
+      productWEIGHT,
+      numReviews,
+  } = req.body;
 
-    // if(!req.body.productSIZE){
-    //   req.body.productSIZE = null;
-    // }
-    // if(!req.body.productWEIGHT){
-    //   req.body.productSIZE = null;
-    // }
-    // if(!req.body.productRAMS){
-    //   req.body.productSIZE = null;
-    // }
-    console.log(req.body);
+  let products =  new RecentlyViewd({
+    prodId:req.body._id,
+    name,
+    description,
+    images,
+    brand,
+    price,
+    oldPrice,
+    catName,
+    category,
+    subCategory,
+    subCatId,
+    countInStock,
+    rating,
+    discount,
+    productRAMS,
+    productSIZE,
+    productWEIGHT,
+    numReviews,
+    isFeatured: req.body.isFeatured === "true",
+  })
 
-    let product = new Product({
-      ...req.body,
-      images: imgurl,
-      isFeatured: req.body.isFeatured === "true",
-    });
-
-    product = await product.save();
+    products =  await products.save();
+  
+    if(!products){
+      return res.status(400).json({success:false, message:"Failed to create product"})
+    }
+  
+    return  res.status(201).json({success:true, products})
+  }
+  else{
+    return res.status(200).json({success:true, message:"Product already exists"})
+  }
+  
+}) 
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
 
     if (!product) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Failed to create product" });
+      return res.status(404).json({ message: "Product not found" }); // ✅ Stops execution
     }
 
-    res.status(201).json({ success: true, product });
-  } catch (err) {
-    console.error("Error creating product:", err);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    return res.json(product); // ✅ Sends only one response
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return res.status(500).json({ message: "Server error", error });
   }
 });
+
+
+router.post(`/recentlyviewd`, async (req, res) => {
+  try {
+    const duplicateProducts = await RecentlyViewd.find({ _id: req.body._id });
+
+    if (duplicateProducts.length > 0) { // ✅ Fix: Check `.length` instead of `!duplicateProducts`
+      return res.status(200).json({ success: true, message: "Product already exists" }); // ✅ Sends response properly
+    }
+    const {
+      name,
+      description,
+      images,
+      brand,
+      price,
+      oldPrice,
+      catName,
+      category,
+      subCategory,
+      subCatId,
+      countInStock,
+      rating,
+      discount,
+      productRAMS,
+      productSIZE,
+      productWEIGHT,
+      numReviews,
+  } = req.body;
+
+
+  let product =  new RecentlyViewd({
+    name,
+    description,
+    images,
+    brand,
+    price,
+    oldPrice,
+    catName,
+    category,
+    subCategory,
+    subCatId,
+    countInStock,
+    rating,
+    discount,
+    productRAMS,
+    productSIZE,
+    productWEIGHT,
+    numReviews,
+    isFeatured: req.body.isFeatured === "true",
+  })
+
+
+    const savedProduct = await product.save();
+
+    if (!savedProduct) {
+      return res.status(400).json({ success: false, message: "Failed to create product" }); // ✅ Stops execution
+    }
+
+    return res.status(201).json({ success: true, product: savedProduct }); // ✅ Sends only one response
+  } catch (error) {
+    console.error("Error adding to recently viewed:", error);
+    return res.status(500).json({ success: false, message: "Server error", error });
+  }
+});
+
 
 router.delete("/:id", async (req, res) => {
   const deleteProduct = await Product.findByIdAndDelete(req.params.id);

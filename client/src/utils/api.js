@@ -19,9 +19,8 @@ export const fetchdatafromapiwithid = async (url) => {
 }
 
 export const postData  = async (url, fromdata) =>{
-  console.log(fromdata+"post data");
    const response = await axios.post("http://localhost:4000" + url, fromdata).then((res) => {
-      return res.data
+      return res
    })
    return response
 }

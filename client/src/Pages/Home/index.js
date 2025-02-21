@@ -60,6 +60,7 @@ const Home = () => {
     console.log("data", data);
 
     setNewProducts(data);
+    
   };
 
   useEffect(() => {
@@ -165,6 +166,7 @@ const Home = () => {
                   View All <IoIosArrowRoundForward />
                 </Button>
               </div>
+
 
               <div className="product_row w-100 mt-4 ">
                 <div className="container w-100 ">

@@ -69,7 +69,7 @@ const Navigation = () => {
                     //   </Link>
                     // </li>
 
-                    <li className="list-inline-item">
+                    <li key={index} className="list-inline-item">
                 
                     <Link to={`/subCat/${category._id}`}>
                       <Button>{category.subCategory}</Button>

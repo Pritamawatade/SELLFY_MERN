@@ -4,6 +4,7 @@ import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { SlSizeFullscreen } from "react-icons/sl";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const ProductItem = (props) => {
   const context = useContext(mycontext);
@@ -23,8 +24,9 @@ const ProductItem = (props) => {
   const discount = ((props?.product?.oldPrice - props?.product?.price) / props?.product?.oldPrice * 100).toFixed(0);
 //  <div className={`item  productItem ${props?.itemView || ""}`}>
   return (
-    <div className={`group item relative productItem rounded-lg ${props?.itemView || ""} bg-white shadow-sm transition-all duration-300 hover:shadow-xl`}>
+    <div style={{"margin":"5px"}} className={`group item relative productItem rounded-lg ${props?.itemView || ""} bg-white shadow-sm transition-all duration-300 hover:shadow-xl m-2`}>
       {/* Image Container */}
+      <Link to={`/product/${props?.view === 'recent' ? props?.product?.prodId : props?.product?._id}`}>
       <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg bg-gray-100">
         <img
           src={props?.product?.images[0]}
@@ -74,6 +76,7 @@ const ProductItem = (props) => {
           </Button>
         </div>
       </div>
+      </Link>
 
       {/* Product Info */}
       <div className="p-4">

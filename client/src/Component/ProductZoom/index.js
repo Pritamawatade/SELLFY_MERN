@@ -28,7 +28,7 @@ const ProductZoom = (props) => {
                 slidesPerGroup={1}
                 modules={[Navigation]}
 
-                className="zoomSliderBig"
+                className="zoomSliderBig" 
                 ref={zoomSliderBig}
               >
                 {

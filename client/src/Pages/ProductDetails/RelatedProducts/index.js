@@ -36,29 +36,16 @@ const RelatedProducts = (props) =>{
                     modules={[Navigation]}
                     className="mySwiper"
                   >
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
+                   {
+                    props?.product?.length >=  0 && props?.product?.map((products, item) =>{
+                      return (
+                        <SwiperSlide key={item}>
+                          <ProductItem product={products} view={props.view}/>
+                        </SwiperSlide>
+                      )
+                    })
+                   }
 
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
-
-                    <SwiperSlide>
-                      <ProductItem />
-                    </SwiperSlide>
                   </Swiper>
                 </div>
               </div>
