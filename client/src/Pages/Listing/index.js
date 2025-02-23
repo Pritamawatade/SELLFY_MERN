@@ -33,7 +33,7 @@ function Listing() {
   useEffect(()=>{
     fetchdatafromapi(`/api/products?subCatId=${id}`).then((res) => {
       console.log(res);
-      setProductData(res.products);
+      setProductData(res?.products);
       setSubCatId(id);
     })
   },[id])
@@ -42,13 +42,13 @@ function Listing() {
   const filterData = (id) =>{
     fetchdatafromapi(`/api/products?subCatId=${id}`).then((res) => {
       console.log(res);
-      setProductData(res.products);
+      setProductData(res?.products);
     })
   }
 
   const filterByPrice = (price,subCatId)=>{
     fetchdatafromapi(`/api/products?minPrice=${price[0]}&maxPrice=${price[1]}&subCatId=${subCatId}`).then((res) => {
-      setProductData(res.products);
+      setProductData(res?.products);
     })
   }
   const filterByRating = (rating) =>{
@@ -56,7 +56,7 @@ function Listing() {
     fetchdatafromapi(`/api/products?subCatId=${subCatId}&rating=${rating}`).then((res) => {
 
       console.log(res);
-      setProductData(res.products);
+      setProductData(res?.products);
     })
   }
   return (

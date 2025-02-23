@@ -65,11 +65,10 @@ const ProductDetials = () => {
                       name="read-only"
                       value={productData?.rating}
                       readOnly
-                      precision={0.5}
                       size="small"
                       className=""
                     />
-                    <span className="text-slate-400 ml-1">1 Review</span>
+                    <span className="text-slate-400 ml-1">{productData?.numReviews} Review</span>
                   </li>
                 </ul>
 

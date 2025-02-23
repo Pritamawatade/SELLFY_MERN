@@ -178,7 +178,7 @@ const Home = () => {
                     modules={[Navigation]}
                     className="mySwiper"
                   >
-                    {featuredProducts.length > 0 &&
+                    {featuredProducts?.length > 0 &&
                       featuredProducts.map((product, index) => (
                         <SwiperSlide key={product._id}>
                           <ProductItem product={product} />

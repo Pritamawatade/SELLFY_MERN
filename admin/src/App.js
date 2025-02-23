@@ -11,7 +11,7 @@ import ProductDetails from "./pages/products/ProductDetails";
 import ProductUpload from "./pages/products/ProductUpload";
 import CategoryUpload from "./pages/Categories/CategoryUpload";
 import CategoryList from "./pages/Categories/CategoryList";
-import LoadingBar from 'react-top-loading-bar';
+import LoadingBar from "react-top-loading-bar";
 import ProductList from "./pages/products";
 import ProductEdit from "./pages/products/ProductEdit";
 import { fetchdatafromapi } from "./utils/api";
@@ -30,7 +30,13 @@ function App() {
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
 
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    id:""
+  });
   const [themeMode, setThemeMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark" ? false : true;
@@ -45,32 +51,30 @@ function App() {
     loadingRef.current.complete();
   };
 
-  
   const fetchsubCategories = async () => {
     try {
-        const data = await fetchdatafromapi('/api/subcategory/');
-        if (data) {
-          setSubCategories(data);
-        }
-    } catch (error) {
-        console.error('Error fetching subcategories:', error);
-    }
-};
-const fetchCategories = async () => {
-  try {
-      const data = await fetchdatafromapi('/api/category');
+      const data = await fetchdatafromapi("/api/subcategory/");
       if (data) {
-          setCategories(data);
+        setSubCategories(data);
       }
-  } catch (error) {
-      console.error('Error fetching categories:', error);
-  }
-};
+    } catch (error) {
+      console.error("Error fetching subcategories:", error);
+    }
+  };
+  const fetchCategories = async () => {
+    try {
+      const data = await fetchdatafromapi("/api/category");
+      if (data) {
+        setCategories(data);
+      }
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   useEffect(() => {
-      fetchCategories();
-      fetchsubCategories();
- 
+    fetchCategories();
+    fetchsubCategories();
   }, []);
 
   useEffect(() => {
@@ -84,7 +88,19 @@ const fetchCategories = async () => {
       localStorage.setItem("theme", "dark");
     }
   }, [themeMode]);
-  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token !== null && token !== "" &&   token !== undefined) {
+      setIsLogin(true);
+      const user = JSON.parse(localStorage.getItem("user"))
+
+      setUser(user)
+    }else{
+      setIsLogin(false);
+    }
+  }, [isLogin]);
 
   return (
     <BrowserRouter>
@@ -99,12 +115,26 @@ const fetchCategories = async () => {
         draggable
         pauseOnHover
         theme="dark"
-        
-      />
-      <myContext.Provider value={{ isTogglesidebar, setIsToggleSidebar, isHeaderFooterShow, setIsHeaderFooterShow, themeMode, setThemeMode, categories,subCategories }}>
+      ></ToastContainer>
+      <myContext.Provider
+        value={{
+          isTogglesidebar,
+          setIsToggleSidebar,
+          isHeaderFooterShow,
+          setIsHeaderFooterShow,
+          themeMode,
+          setThemeMode,
+          categories,
+          subCategories,
+          user,
+          setUser,
+          isLogin,
+          setIsLogin
+        }}
+      >
         <LoadingContext.Provider value={{ startLoading, stopLoading }}>
           <LoadingBar
-            color='#f11946'
+            color="#f11946"
             ref={loadingRef}
             shadow={true}
             height={3}
@@ -120,22 +150,60 @@ const fetchCategories = async () => {
                 <Sidebar />
               </div>
             )}
-            <div className={`content ${isTogglesidebar == true ? "toggle" : ""}`}>
+            <div
+              className={`content ${isTogglesidebar == true ? "toggle" : ""}`}
+            >
               <Routes>
                 <Route path="/" exact={true} element={<Dashboard />} />
                 <Route path="/dashboard" exact={true} element={<Dashboard />} />
                 <Route path="/login" exact={true} element={<Login />} />
                 <Route path="/signup" exact={true} element={<SignUp />} />
-                <Route path="/product/upload" exact={true} element={<ProductUpload />} />
-                <Route path="/product/edit/:id" exact={true} element={<ProductEdit />} />
+                <Route
+                  path="/product/upload"
+                  exact={true}
+                  element={<ProductUpload />}
+                />
+                <Route
+                  path="/product/edit/:id"
+                  exact={true}
+                  element={<ProductEdit />}
+                />
                 <Route path="/product" exact={true} element={<ProductList />} />
-                <Route path="/product/RAMupload" exact={true} element={<AddProductRAM />} />
-                <Route path="/product/WEIGHTupload" exact={true} element={<AddProductWIGHT />} />
-                <Route path="/product/SIZEupload" exact={true} element={<AddProductSIZE />} />
-                <Route path="/Category/add" exact={true} element={<CategoryUpload />} />
-                <Route path="/subCategory/add" exact={true} element={<AddSubCategory />} />
-                <Route path="/subCategory/list" exact={true} element={<SubCatList />} />
-                <Route path="/Category/list" exact={true} element={<CategoryList />} />
+                <Route
+                  path="/product/RAMupload"
+                  exact={true}
+                  element={<AddProductRAM />}
+                />
+                <Route
+                  path="/product/WEIGHTupload"
+                  exact={true}
+                  element={<AddProductWIGHT />}
+                />
+                <Route
+                  path="/product/SIZEupload"
+                  exact={true}
+                  element={<AddProductSIZE />}
+                />
+                <Route
+                  path="/Category/add"
+                  exact={true}
+                  element={<CategoryUpload />}
+                />
+                <Route
+                  path="/subCategory/add"
+                  exact={true}
+                  element={<AddSubCategory />}
+                />
+                <Route
+                  path="/subCategory/list"
+                  exact={true}
+                  element={<SubCatList />}
+                />
+                <Route
+                  path="/Category/list"
+                  exact={true}
+                  element={<CategoryList />}
+                />
                 <Route
                   path="/product/details"
                   exact={true}
@@ -152,4 +220,3 @@ const fetchCategories = async () => {
 
 export default App;
 export { myContext };
-  

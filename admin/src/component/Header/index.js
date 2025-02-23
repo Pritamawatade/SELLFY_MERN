@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdMenuOpen } from "react-icons/md";
 import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
@@ -20,16 +20,19 @@ import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
 import { myContext } from "../../App";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const context = useContext(myContext);
-  const [isLogged, setIsLoggedIn] = useState(true);
+  // const [isLogged, setIsLoggedIn] = useState(true);
 
+  
   const [anchorEl, setAnchorEl] = React.useState(false);
   const [isOpenNotificationDrop, setisOpenNotificationDrop] =
     React.useState(false);
   const openMyAcc = Boolean(anchorEl);
   const openNotification = Boolean(isOpenNotificationDrop);
+  const navigate = useNavigate();
 
   const handleOpenMyAccDrop = (event) => {
     setAnchorEl(event.currentTarget);
@@ -46,6 +49,15 @@ const Header = () => {
     setisOpenNotificationDrop(false);
   };
 
+  const logout = () =>{
+    localStorage.clear()
+    context?.setUser({});
+    toast.success("logout successfully")
+    context?.setIsLogin(false)
+    setTimeout(()=>{
+      navigate("/login")
+    },5000)
+  }
 
   const handleShortcut = (event) => {
     if (event.ctrlKey && event.key == "b") {
@@ -342,7 +354,7 @@ const Header = () => {
               <MdOutlineEmail className="text-2xl" />
             </Button>
 
-            {isLogged === true ? (
+            {context?.isLogin === true ? (
               // my account section
               <div className="myAccWrapper">
                 <Button
@@ -351,19 +363,16 @@ const Header = () => {
                 >
                   <div className="userImg">
                     <span className="rounded-circle">
-                      <img
-                        src="https://i.pinimg.com/originals/16/ed/dc/16eddcc0f802cfdd70bf83a5f1850a6f.jpg"
-                        alt=""
-                      />
+                    {context?.user?.name.charAt(0)}
                     </span>
                   </div>
-
+ 
                   <div className="userInfo  pl-0 ">
                     <h5 className="text-sm mb-0 ml-2 font-bold text-center">
-                      Pritam
+                      {context?.user?.name}
                     </h5>
                     <p className="text-xs text-opacity-10 mt-0 opacity-3 font-normal">
-                      @pritam_awatade
+                      {context?.user?.email}
                     </p>
                   </div>
                 </Button>
@@ -416,7 +425,7 @@ const Header = () => {
                     </ListItemIcon>
                     Reset Password
                   </MenuItem>
-                  <MenuItem onClick={handleCloseMyAccDrop}>
+                  <MenuItem onClick={logout}>
                     <ListItemIcon>
                       <Logout fontSize="small" />
                     </ListItemIcon>

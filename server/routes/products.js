@@ -20,7 +20,7 @@ router.get(`/featured`, async (req, res) => {
 });
 router.get(`/`, async (req, res) => {
   const page = parseInt(req.query.page) || 1;
-  const perpage = parseInt(req.query.perpage) || 6;
+  const perpage = parseInt(req.query.perpage) || 4;
   const totalPosts = await Product.countDocuments();
   const totalPages = Math.ceil(totalPosts / perpage);
 
@@ -75,7 +75,24 @@ router.get(`/`, async (req, res) => {
       totalPages: totalPages,
       page: page,
     });
-  } else {
+  } 
+  else if(req.query.page !== undefined && perpage !== undefined){
+    productList = await Product.find().populate("category subCategory")
+      .skip((page - 1) * perpage)
+      .limit(perpage)
+      .exec(); 
+      if (!productList) {
+       res.status(500).json({ message: false });
+      }
+
+
+      return res.status(200).json({
+      products: productList,
+      totalPages: totalPages,
+      page: page,
+    });
+  }
+  else {
     productList = await Product.find(req.query).populate(
       "category subCategory"
     );
@@ -109,19 +126,8 @@ router.get(`/`, async (req, res) => {
   //   .exec();
   // }
 
-  //TODO: video 39 28 min 
+  //TODO: video 41 20 min 
 
-  if (!productList) {
-    res.status(404).json({ message: false });
-  }
-
-  return res.status(200).json({
-    products: productList,
-    totalPages: totalPages,
-    page: page,
-  });
-
-  // res.send(productList);
 });
 
 router.get(`/recentlyviewd`, async (req, res) => {

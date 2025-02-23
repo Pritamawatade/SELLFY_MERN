@@ -13,7 +13,7 @@ router.post("/signup", async (req, res) => {
     });
 
     if (existedUser) {
-      return res.status(400).json({ message: "user already exists" });
+      return res.status(200).json({ message: "user already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -28,7 +28,7 @@ router.post("/signup", async (req, res) => {
     const token = jwt.sign(
       { email: result.email, id: result._id },
       process.env.JSON_WEB_TOKEN_SECRET_KEY
-    );
+    );  
 
     res.status(200).json({ user: result, token });
   } catch (error) {
@@ -43,16 +43,17 @@ router.post("/signin", async (req, res) => {
     const existedUser = await User.findOne({ email: email });
 
     if (!existedUser) {
-      return res.status(404).json({ message: "user to found" });
+      return res.status(200).json({ message: "user not found" });
     }
 
+    
     const mattchedPassword = await bcrypt.compare(
       password,
       existedUser.password  
     );
 
     if (!mattchedPassword) {
-      return res.status(400).json({ message: "Invalid Creadintials" });
+      return res.status(200).json({ message: "Invalid Creadintials" });
     }
 
     const token = jwt.sign(

@@ -25,14 +25,31 @@ function App() {
     isOpen: false,
   });
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
-  const [isLogIn, setIsLogIn] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    id:""
+  });
   const [productdata, setProductData] = useState([]);
 
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
   }, []);
 
- 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token !== null && token !== "" &&   token !== undefined) {
+      setIsLogin(true);
+      const user = JSON.parse(localStorage.getItem("user"))
+
+      setUser(user)
+    }else{
+      setIsLogin(false);
+    }
+  }, [isLogin]);
   useEffect(()=>{
     fetchdatafromapi("/api/category/").then((res) => {
       setCategories(res);
@@ -73,8 +90,10 @@ function App() {
     setIsOpenProductModal,
     isHeaderFooterShow,
     setIsHeaderFooterShow,
-    isLogIn,
-    setIsLogIn,
+    isLogin,
+    setIsLogin,
+    user,
+    setUser,
     categories,
     subcategories
   };
