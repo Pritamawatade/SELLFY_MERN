@@ -37,14 +37,11 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-
-
-  
   const logout = () =>{
+    toast.success("logout successfully")
     localStorage.clear()
     context?.setUser({});
     context?.setIsLogin(false)
-    toast.success("logout successfully")
     setTimeout(()=>{
       navigate("/signin")
     },2000)
@@ -99,7 +96,7 @@ const Header = () => {
                               aria-haspopup="true"
                               aria-expanded={open ? "true" : undefined}
                             >
-                              <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                              <Avatar sx={{ width: 32, height: 32 }}>{context?.user?.name.charAt(0)}</Avatar>
                             </IconButton>
                           </Tooltip>
                         </Box>
@@ -183,12 +180,13 @@ const Header = () => {
                   <div className="ml-auto cartTab d-flex align-items-center">
                     <span className="price">$3.29</span>
                     <div className="position-relative ml-2">
+                      <Link to={"/cart"}>
                       <Button className="circle ml-2">
                         <IoBagOutline />
                       </Button>
                       <span className="count d-flex align-items-center justify-content-center">
                         1
-                      </span>
+                      </span></Link>
                     </div>
                   </div>
                 </div>

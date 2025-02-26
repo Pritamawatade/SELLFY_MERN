@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 
 import { CiHeart } from "react-icons/ci";
@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import RelatedProducts from "./RelatedProducts";
 import { useParams } from "react-router-dom";
 import { fetchdatafromapi, postData } from "../../utils/api";
+import { mycontext } from "../../App";
 const ProductDetials = () => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
@@ -19,30 +20,51 @@ const ProductDetials = () => {
   const isActive = (size) => {
     setActiveSize(size);
   };
+  let [cartFeilds, setCartFeilds] = useState({});
+  const [productQuantity, setProductQuantity] = useState();
+
   const { id } = useParams();
+
+  const context = useContext(mycontext);
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchdatafromapi(`/api/products/${id}`)
-      .then((res) => {
-        setProductData(res);
+    fetchdatafromapi(`/api/products/${id}`).then((res) => {
+      setProductData(res);
 
-        if (res?.subCatId?.length >= 0) {
-          fetchdatafromapi(`/api/products?subCatId=${res?.subCatId}`).then(
-            (response) => {
-              setRelatedProducts(response?.products);
-              console.log(response);
-              console.log(relatedProducts);
-            }
-          );
-        }
-        postData(`/api/products/recentlyviewd`, res).then((response) => {
-          fetchdatafromapi(`/api/products/recentlyviewd`).then((res) => {
-            setRecentlyViewdProducts(res);
-          });
+      if (res?.subCatId?.length >= 0) {
+        fetchdatafromapi(`/api/products?subCatId=${res?.subCatId}`).then(
+          (response) => {
+            setRelatedProducts(response?.products);
+            console.log(response);
+            console.log(relatedProducts);
+          }
+        );
+      }
+      postData(`/api/products/recentlyviewd`, res).then((response) => {
+        fetchdatafromapi(`/api/products/recentlyviewd`).then((res) => {
+          setRecentlyViewdProducts(res);
         });
-      })
-    
+      });
+    });
   }, [id]); // ✅ Ensures useEffect runs only when `id` changes
+  const quantity = (val) => {
+    setProductQuantity(val);
+  };
+
+  const addToCart = (productData) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    cartFeilds.productTitle = productData?.name;
+    cartFeilds.image = productData?.images[0];
+    cartFeilds.rating = productData?.rating;
+    cartFeilds.price = productData?.price;
+    cartFeilds.quantity = productQuantity;
+    cartFeilds.subTotal = parseInt(productData?.price * productQuantity);
+    cartFeilds.productId = productData?._id;
+    cartFeilds.userId = user?.userId;
+
+    context.addToCart(cartFeilds);
+  };
 
   return (
     <>
@@ -68,15 +90,17 @@ const ProductDetials = () => {
                       size="small"
                       className=""
                     />
-                    <span className="text-slate-400 ml-1">{productData?.numReviews} Review</span>
+                    <span className="text-slate-400 ml-1">
+                      {productData?.numReviews} Review
+                    </span>
                   </li>
                 </ul>
 
-                <div class="d-flex align-items-center">
-                  <span class="oldPrice line-through mr-2 text-lg">
+                <div className="d-flex align-items-center">
+                  <span className="oldPrice line-through mr-2 text-lg">
                     ${productData?.oldPrice}
                   </span>
-                  <span class="netPrice text-danger text-2xl font-semibold">
+                  <span className="netPrice text-danger text-2xl font-semibold">
                     ${productData?.price}
                   </span>
                 </div>
@@ -104,14 +128,17 @@ const ProductDetials = () => {
                 </ul>
               </div>
               <div className="mt-3 d-flex align-items-center info1">
-                <QuantityBox />
-                <Button class="bg-blue-600 ml-3 hover:bg-blue-700 text-white font-normal py-2 px-8 rounded-full">
+                <QuantityBox quantity={quantity} />
+                <Button
+                  className="bg-red-600 ml-3 addToCart hover:bg-blue-700 text-white font-normal py-2 px-8 rounded-full"
+                  onClick={() => addToCart(productData)}
+                >
                   Add to Cart
                 </Button>
-                <Button class=" bg-slate-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-4 text-2xl h-12 w-12 p-2">
+                <Button className=" bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-4 text-2xl h-12 w-12 p-2">
                   <CiHeart />
                 </Button>
-                <Button class="bg-slate-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-2xl h-12 w-12 p-2 text-center">
+                <Button className="bg-slate-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-2xl h-12 w-12 p-2 text-center">
                   <MdOutlineCompareArrows className="text-center mr-2" />
                 </Button>
               </div>
@@ -159,85 +186,85 @@ const ProductDetials = () => {
                   <div className="table-responsive">
                     <table className="table table-bordered">
                       <tbody>
-                        <tr class="stand-up">
+                        <tr className="stand-up">
                           <th>Stand Up</th>
                           <td>
                             <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
                           </td>
                         </tr>
-                        <tr class="folded-wo-wheels">
+                        <tr className="folded-wo-wheels">
                           <th>Folded (w/o wheels)</th>
                           <td>
                             <p>32.5″L x 18.5″W x 16.5″H</p>
                           </td>
                         </tr>
-                        <tr class="folded-w-wheels">
+                        <tr className="folded-w-wheels">
                           <th>Folded (w/ wheels)</th>
                           <td>
                             <p>32.5″L x 24″W x 18.5″H</p>
                           </td>
                         </tr>
-                        <tr class="door-pass-through">
+                        <tr className="door-pass-through">
                           <th>Door Pass Through</th>
                           <td>
                             <p>24</p>
                           </td>
                         </tr>
-                        <tr class="frame">
+                        <tr className="frame">
                           <th>Frame</th>
                           <td>
                             <p>Aluminum</p>
                           </td>
                         </tr>
-                        <tr class="weight-wo-wheels">
+                        <tr className="weight-wo-wheels">
                           <th>Weight (w/o wheels)</th>
                           <td>
                             <p>20 LBS</p>
                           </td>
                         </tr>
-                        <tr class="weight-capacity">
+                        <tr className="weight-capacity">
                           <th>Weight Capacity</th>
                           <td>
                             <p>60 LBS</p>
                           </td>
                         </tr>
-                        <tr class="width">
+                        <tr className="width">
                           <th>Width</th>
                           <td>
                             <p>24″</p>
                           </td>
                         </tr>
-                        <tr class="handle-height-ground-to-handle">
+                        <tr className="handle-height-ground-to-handle">
                           <th>Handle height (ground to handle)</th>
                           <td>
                             <p>37-45″</p>
                           </td>
                         </tr>
-                        <tr class="wheels">
+                        <tr className="wheels">
                           <th>Wheels</th>
                           <td>
                             <p>12″ air / wide track slick tread</p>
                           </td>
                         </tr>
-                        <tr class="seat-back-height">
+                        <tr className="seat-back-height">
                           <th>Seat back height</th>
                           <td>
                             <p>21.5″</p>
                           </td>
                         </tr>
-                        <tr class="head-room-inside-canopy">
+                        <tr className="head-room-inside-canopy">
                           <th>Head room (inside canopy)</th>
                           <td>
                             <p>25″</p>
                           </td>
                         </tr>
-                        <tr class="pa_color">
+                        <tr className="pa_color">
                           <th>Color</th>
                           <td>
                             <p>Black, Blue, Red, White</p>
                           </td>
                         </tr>
-                        <tr class="pa_size">
+                        <tr className="pa_size">
                           <th>Size</th>
                           <td>
                             <p>M, S</p>

@@ -1004,7 +1004,15 @@ padding-left: 30px;
   margin-top: 20px !important;
   width: 80px !important;
 }
-
+.addToCart{
+  background-color: rgb(233, 21, 21) !important;
+}
+/* .toast{
+  padding: 0px 0px !important;
+} */
+/* .Toastify{
+  padding: 0px 0px;
+} */
 .showByFilter button{
   color: #898989 !important;
   text-transform: capitalize !important;

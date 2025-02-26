@@ -29,21 +29,36 @@ const SignUp = () => {
 
   const signUp = (e) => {
     e.preventDefault();
-    alert("signup called")
-    console.log(formFeilds);
     
     if (formFeilds.name === "") {
       toast.error("Name is required");
       return;
     }
-
-    if (formFeilds.email === "") {
-      toast.error("email is required");
+    
+    if (formFeilds.name.trim().length === 0) {
+      toast.error("Name is required and cannot be empty or just spaces");
       return;
     }
 
+
     if (formFeilds.phone === "") {
-      toast.error("phone is required");
+      toast.error("Phone is required");
+      return;
+    }
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(formFeilds.phone)) {
+      toast.error("Phone number must be 10 digits and contain only numbers");
+      return;
+    }
+    if (formFeilds.email === "") {
+      toast.error("Email is required");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formFeilds.email)) {
+      toast.error("Invalid email format");
       return;
     }
 
@@ -78,7 +93,7 @@ const SignUp = () => {
   return (
     <>
       <section className="section max-h-screen overflow-visible ">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
         <div className="container">
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -105,7 +120,7 @@ const SignUp = () => {
                     fullWidth
                     margin="normal"
                     className="mb-2"
-                    required
+                    
                     name="name"
                     onChange={handleInput}
                   />
@@ -115,7 +130,7 @@ const SignUp = () => {
                     fullWidth
                     margin="normal"
                     className="mb-2"
-                    required
+                    
                     name="phone"
                     onChange={handleInput}
                   />
@@ -126,7 +141,7 @@ const SignUp = () => {
                   fullWidth
                   margin="normal"
                   className="mb-2"
-                  required
+                  
                   name="email"
                   onChange={handleInput}
                 />
@@ -137,7 +152,7 @@ const SignUp = () => {
                   variant="outlined"
                   type="password"
                   fullWidth
-                  required
+                  
                   name="password"
                   onChange={handleInput}
                   margin="normal"

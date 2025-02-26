@@ -41,7 +41,7 @@ const SignIn = () => {
             email: res?.data?.user?.email,
             userId: res?.data?.user?._id,
           };
-          localStorage.setItem("token", res?.token);
+          localStorage.setItem("token", res?.data?.token);
           localStorage.setItem("user", JSON.stringify(user));
           context.setUser({
             name: res?.user?.name,
@@ -69,7 +69,7 @@ const SignIn = () => {
   return (
     <>
       <section className="section max-h-screen overflow-visible">
-        <ToastContainer />
+        {/* <ToastContainer /> */}
 
         <div className="container">
           <div className="flex items-center justify-center min-h-screen bg-gray-100">

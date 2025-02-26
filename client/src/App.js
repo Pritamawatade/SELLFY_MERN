@@ -12,7 +12,12 @@ import ProductDetials from "./Pages/ProductDetails/index.js";
 import Cart from "./Pages/Cart/index.js";
 import SignIn from "./Pages/SignIn/index.js";
 import SignUp from "./Pages/SignUp/index.js";
-import { fetchdatafromapi, fetchdatafromapiwithid } from "./utils/api.js";
+import {
+  fetchdatafromapi,
+  fetchdatafromapiwithid,
+  postData,
+} from "./utils/api.js";
+import { toast, ToastContainer } from "react-toastify";
 const mycontext = createContext();
 
 function App() {
@@ -26,13 +31,15 @@ function App() {
   });
   const [isHeaderFooterShow, setIsHeaderFooterShow] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
+  let [cartFeilds, setCartFeilds] = useState({});
 
   const [user, setUser] = useState({
     name: "",
     email: "",
-    id:""
+    id: "",
   });
   const [productdata, setProductData] = useState([]);
+  const [cartData, setCartData] = useState();
 
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
@@ -41,39 +48,33 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token !== null && token !== "" &&   token !== undefined) {
+    if (token !== null && token !== "" && token !== undefined) {
       setIsLogin(true);
-      const user = JSON.parse(localStorage.getItem("user"))
+      const user = JSON.parse(localStorage.getItem("user"));
 
-      setUser(user)
-    }else{
+      setUser(user);
+    } else {
       setIsLogin(false);
     }
   }, [isLogin]);
-  useEffect(()=>{
+  useEffect(() => {
     fetchdatafromapi("/api/category/").then((res) => {
       setCategories(res);
-      
     });
-   
-    
+
     fetchdatafromapi("/api/subcategory/").then((res) => {
       setsubCategories(res);
-      
     });
-
-  },[])
+  }, []);
 
   useEffect(() => {
-    if(isOpenProuctModal.isOpen === true){
-      fetchdatafromapiwithid(`/api/products/${isOpenProuctModal.id}`).then((res) => {
-      
-        setProductData(res);
-  
-        
-      })
+    if (isOpenProuctModal.isOpen === true) {
+      fetchdatafromapiwithid(`/api/products/${isOpenProuctModal.id}`).then(
+        (res) => {
+          setProductData(res);
+        }
+      );
     }
-    
   }, [isOpenProuctModal]);
 
   const getCountryList = async (url) => {
@@ -82,6 +83,28 @@ function App() {
     });
   };
 
+  const addToCart = (data) => {
+    postData(`/api/cart/add`, data)
+      .then((res) => {
+        console.log(res);
+
+        if (
+          res !== null &&
+          res !== undefined &&
+          res !== "" &&
+          res?.data?.message !== "product already exist in cart"
+        ) {
+          toast.success("item added to cart");
+        } else if (res?.data?.message === "product already exist in cart") {
+          toast.error("product already exist in cart");
+        } else {
+          toast.error("something went wrong");
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
   const values = {
     countryList,
     selectedCountry,
@@ -95,11 +118,27 @@ function App() {
     user,
     setUser,
     categories,
-    subcategories
+    subcategories,
+    addToCart,
+    cartData,
+    setCartData,
   };
   return (
     <>
+   
       <BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
         <mycontext.Provider value={values}>
           {isHeaderFooterShow && <Header />}
 
@@ -117,7 +156,9 @@ function App() {
           </Routes>
           {isHeaderFooterShow && <Footer />}
 
-          {isOpenProuctModal.isOpen ===true  && <ProductModal data={productdata}/>}
+          {isOpenProuctModal.isOpen === true && (
+            <ProductModal data={productdata} />
+          )}
         </mycontext.Provider>
       </BrowserRouter>
     </>
