@@ -6,7 +6,7 @@ import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { mycontext } from "../../App";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -24,6 +24,7 @@ import { Box } from "@mui/material";
 import { toast } from "react-toastify";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaClipboardList } from "react-icons/fa6";
+import { fetchdatafromapi } from "../../utils/api";
 
 const Header = () => {
   const context = useContext(mycontext);
@@ -37,6 +38,7 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+
   const logout = () =>{
     toast.success("logout successfully")
     localStorage.clear()
@@ -47,6 +49,11 @@ const Header = () => {
     },2000)
   }
 
+  useEffect(()=>{
+    fetchdatafromapi(`/api/cart`).then((res)=>{
+      context?.setCartData(res);
+    })
+  })
   return (
     <>
       <div className="headerwrapper">
@@ -178,14 +185,16 @@ const Header = () => {
                   )}
 
                   <div className="ml-auto cartTab d-flex align-items-center">
-                    <span className="price">$3.29</span>
+                    <span className="price">{
+                      context?.cartData?.length !== 0 && context?.cartData?.map(item =>  parseInt(item.price) * item.quantity).reduce((total, value)=>total + value,0)
+                      }</span>
                     <div className="position-relative ml-2">
                       <Link to={"/cart"}>
                       <Button className="circle ml-2">
                         <IoBagOutline />
                       </Button>
                       <span className="count d-flex align-items-center justify-content-center">
-                        1
+                        {context?.cartData?.length !== 0 && context?.cartData?.length}
                       </span></Link>
                     </div>
                   </div>

@@ -124,7 +124,7 @@ function Listing() {
 
               <div className="productListing">
                 {
-                  productData.length >= 0 && productData.map((product, index) => (
+                  productData?.length >= 0 && productData.map((product, index) => (
                     <ProductItem product={product} itemView={productView} key={index} />
                   ))
                 }

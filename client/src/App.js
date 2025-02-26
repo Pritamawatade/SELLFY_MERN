@@ -33,14 +33,15 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   let [cartFeilds, setCartFeilds] = useState({});
 
+
   const [user, setUser] = useState({
     name: "",
-    email: "",
+    email: "",  
     id: "",
   });
   const [productdata, setProductData] = useState([]);
   const [cartData, setCartData] = useState();
-
+  
   useEffect((url) => {
     getCountryList("https://countriesnow.space/api/v0.1/countries/");
   }, []);

@@ -51,7 +51,7 @@ const ProductDetials = () => {
     setProductQuantity(val);
   };
 
-  const addToCart = (productData) => {
+  const addToCart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     cartFeilds.productTitle = productData?.name;
@@ -65,6 +65,8 @@ const ProductDetials = () => {
 
     context.addToCart(cartFeilds);
   };
+
+  const selectedItem = ()=>{}
 
   return (
     <>
@@ -128,10 +130,10 @@ const ProductDetials = () => {
                 </ul>
               </div>
               <div className="mt-3 d-flex align-items-center info1">
-                <QuantityBox quantity={quantity} />
+                <QuantityBox quantity={quantity} selectedItem={selectedItem} />
                 <Button
                   className="bg-red-600 ml-3 addToCart hover:bg-blue-700 text-white font-normal py-2 px-8 rounded-full"
-                  onClick={() => addToCart(productData)}
+                  onClick={() => addToCart()}
                 >
                   Add to Cart
                 </Button>

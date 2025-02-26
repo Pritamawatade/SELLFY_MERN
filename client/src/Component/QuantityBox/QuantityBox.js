@@ -15,7 +15,16 @@ const QuantityBox = (props) => {
     }
 
     useEffect(()=>{
+
+
+      if(props?.value !== undefined && props?.value !== null && props?.value !== ""){
+        setinputval(parseInt(props.value))
+      }
+    },[props.value])
+
+    useEffect(()=>{
       props?.quantity(inputval)
+      props?.selectedItem(props?.item, inputval)
     },[inputval])
   return (
     <div className="quantityDrop d-flex align-items-center">
