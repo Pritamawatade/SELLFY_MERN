@@ -11,6 +11,7 @@ const subCatRoutes = require('./routes/SubCat')
 const productRAMRoutes = require('./routes/productRAM')
 const productWIGHTRoutes = require('./routes/productWeight')
 const productSIZERoutes = require('./routes/productSize')
+const reviewRoutes = require('./routes/productReviews')
 const cart = require('./routes/cart')
 const userRoutes = require('./routes/user');
 const authJwt = require('./helper/jwt');
@@ -37,6 +38,7 @@ app.use(`/api/productWEIGHT`, productWIGHTRoutes)
 app.use(`/api/productSIZE`, productSIZERoutes)
 app.use(`/api/user`, userRoutes)
 app.use(`/api/cart`, cart)
+app.use(`/api/reviews`, reviewRoutes)
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {

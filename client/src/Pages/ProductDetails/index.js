@@ -11,6 +11,7 @@ import RelatedProducts from "./RelatedProducts";
 import { useParams } from "react-router-dom";
 import { fetchdatafromapi, postData } from "../../utils/api";
 import { mycontext } from "../../App";
+import { toast } from "react-toastify";
 const ProductDetials = () => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
@@ -20,10 +21,20 @@ const ProductDetials = () => {
   const isActive = (size) => {
     setActiveSize(size);
   };
+  const [productReview, setProductReview] = useState([])
+  
+  const { id } = useParams();
   let [cartFeilds, setCartFeilds] = useState({});
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [review, setReview] = useState({
+    customerName: user?.name,
+    customerId: user?.userId,
+    productId: id,
+    customerRating: 0,
+    review: ""
+  });
   const [productQuantity, setProductQuantity] = useState();
 
-  const { id } = useParams();
 
   const context = useContext(mycontext);
   useEffect(() => {
@@ -35,7 +46,6 @@ const ProductDetials = () => {
         fetchdatafromapi(`/api/products?subCatId=${res?.subCatId}`).then(
           (response) => {
             setRelatedProducts(response?.products);
-            console.log(response);
             console.log(relatedProducts);
           }
         );
@@ -66,7 +76,79 @@ const ProductDetials = () => {
     context.addToCart(cartFeilds);
   };
 
-  const selectedItem = ()=>{}
+  const selectedItem = () => {};
+
+  const handleInput = (e)=>{
+    setReview({...review,[e.target.name]:e.target.value})
+  }
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if(review?.review === ""){
+      toast.error("review is required")
+      return
+    }
+    if(review?.customerRating === 0){ 
+      toast.error("rating is required")
+      return
+    }
+   
+    if(review?.review.length < 10){
+      toast.error("review must be at least 10 characters")
+      return
+    }
+    if(review?.customerRating > 5 || review?.customerRating < 1){
+      toast.error("rating must be at least 1 and at most 5")
+      return
+    }
+
+    // const user = JSON.parse(localStorage.getItem("user"))
+
+    // const formdata = new FormData()
+    // formdata.append("productId",id)
+    // formdata.append("customerName",user?.name)
+    // formdata.append("customerId",user?.userId)
+    // formdata.append("customerRating",review?.rating)
+    // formdata.append("review",review?.review)
+    // console.log(user)
+    // setReview({
+    //   customerName: user?.name,
+    //   customerId: user?.userId,
+    //   productId: id,
+    //   customerRating: review?.customerRating,
+    //   review: review?.review
+    // });
+
+    console.log(review)
+    // console.log(formdata)
+    postData(`/api/reviews/add`, review).then((res)=>{
+      fetchdatafromapi(`/api/reviews/${id}`).then((res)=>{
+        // setProductReview(res?.reviews)
+        console.log(res);
+        console.log(productReview);
+        
+        setProductReview(res)
+        console.log(productReview);
+
+      })
+      if(res?.status === 200){
+        toast.success("review added")
+      }
+
+    })
+  }
+
+  useEffect(()=>{
+
+    fetchdatafromapi(`/api/reviews/${id}`).then((res)=>{
+      // setProductReview(res?.reviews)
+      console.log(id);
+      
+      console.log(res);
+      setProductReview(res)
+      console.log(productReview)
+    })
+  },[id])
 
   return (
     <>
@@ -282,9 +364,53 @@ const ProductDetials = () => {
                 <div className="tabContent">
                   <div className="row">
                     <div className="col-md-8">
-                      <h3>Customer questions & answder</h3>
+                      <h3>Customer questions & answer</h3>
                       <br />
-                      <div className="card p-3 reviewsCard flex-row">
+                     {
+                      productReview?.langth !== 0 && productReview?.map((review, index) => {
+                       return ( <div
+                        key={index}
+                         className="card p-3 reviewsCard flex-row">
+                        <div className="image h-12 w-12">
+                          <div className="rounded-circle rounded-full bg-slate-500 h-12 w-12">
+                            {/* <img
+                              src={review?.customerName?.at(0).toUpperCase()}
+                              className="p-1"
+                              alt={review?.customerName?.at(0).toUpperCase()}
+                            /> */}
+                            <span className="p-1 text-3xl">{review?.customerName?.at(0).toUpperCase()}</span>
+                          </div>
+                          <span className="font-bold capitalize text-lg text-center block">
+                            {review?.customerName}
+                          </span>
+                        </div>
+                        <div className="info">
+                          <div className="flex items-center">
+                            <p className="text-slate-500 text-sm ">
+                              Date 2 Nov 2024 at 07:05 PM
+                            </p>
+                            <div className="ml-auto">
+                              <Rating
+                                size="small"
+                                name="read-only"
+                                value={review?.customerRating}
+                                readOnly
+                              />
+                            </div>
+                          </div>
+                          <p>
+                            {
+                              review?.review
+                            }
+                          </p>
+                        </div>
+                      </div>)
+                      })
+                     }
+
+                     
+
+                      {/* <div className="card p-3 reviewsCard flex-row">
                         <div className="image">
                           <div className="rounded-circle">
                             <img
@@ -354,118 +480,48 @@ const ProductDetials = () => {
                             dolorem aperiam!
                           </p>
                         </div>
-                      </div>
-
-                      <div className="card p-3 reviewsCard flex-row">
-                        <div className="image">
-                          <div className="rounded-circle">
-                            <img
-                              src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                              alt=""
-                            />
-                          </div>
-                          <span className="font-bold capitalize text-lg">
-                            ollena
-                          </span>
-                        </div>
-                        <div className="info">
-                          <div className="flex items-center">
-                            <p className="text-slate-500 text-sm ">
-                              Date 2 Nov 2024 at 07:05 PM
-                            </p>
-                            <div className="ml-auto">
-                              <Rating
-                                size="small"
-                                name="read-only"
-                                value={4}
-                                readOnly
-                              />
-                            </div>
-                          </div>
-                          <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Quis commodi unde labore dolorum perferendis
-                            facere, dicta nihil iusto corrupti adipisci rerum
-                            nam alias autem nesciunt laudantium dolore deleniti,
-                            dolorem aperiam!
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="card p-3 reviewsCard flex-row">
-                        <div className="image">
-                          <div className="rounded-circle">
-                            <img
-                              src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                              alt=""
-                            />
-                          </div>
-                          <span className="font-bold capitalize text-lg">
-                            ollena
-                          </span>
-                        </div>
-                        <div className="info">
-                          <div className="flex items-center">
-                            <p className="text-slate-500 text-sm ">
-                              Date 2 Nov 2024 at 07:05 PM
-                            </p>
-                            <div className="ml-auto">
-                              <Rating
-                                size="small"
-                                name="read-only"
-                                value={4}
-                                readOnly
-                              />
-                            </div>
-                          </div>
-                          <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing
-                            elit. Quis commodi unde labore dolorum perferendis
-                            facere, dicta nihil iusto corrupti adipisci rerum
-                            nam alias autem nesciunt laudantium dolore deleniti,
-                            dolorem aperiam!
-                          </p>
-                        </div>
-                      </div>
+                      </div> */}
 
                       <br />
                       <br />
 
-                      <form className="reviewForm">
+                      <form className="reviewForm" onSubmit={handleSubmit}>
                         <h4>Add a Review</h4>
                         <div className="form-group">
                           <textarea
-                            name=""
+                            name="review"
                             placeholder="Write a review"
                             id=""
                             className="form-control"
+                            onChange={handleInput}
                           ></textarea>
                         </div>
                         <div className="row">
-                          <div className="col-md-6">
+                          {/* <div className="col-md-6">
                             <div className="form-group">
                               <input
                                 type="text"
                                 placeholder="Name"
-                                name=""
+                                name="customerName"
                                 className="form-control"
                                 id=""
                               />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-md-6">
                             <div className="form-group">
                               <input
-                                type="text"
-                                placeholder="Email"
-                                name=""
+                                type="number"
+                                placeholder="rating"
+                                name="customerRating"
                                 className="form-control"
                                 id=""
+                                onChange={handleInput}
                               />
                             </div>
                           </div>
                         </div>
-
+{/* 
                         <div className="form-group">
                           <input
                             type="text"
@@ -474,10 +530,10 @@ const ProductDetials = () => {
                             className="form-control"
                             id=""
                           />
-                        </div>
+                        </div> */}
 
                         <div className="form-group">
-                          <Button className="bg-blue-300 text-black">
+                          <Button className="bg-blue-300 text-black" type="submit">
                             Submit Review
                           </Button>
                         </div>
