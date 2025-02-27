@@ -6,12 +6,18 @@ const router = express.Router();
 
 const cloudinary = require("cloudinary").v2;
 
+
 cloudinary.config({
   cloud_name: process.env.cloudinary_Config_Cloud_Name,
   api_key: process.env.cloudinary_Config_api_key,
   api_secret: process.env.cloudinary_Config_api_secret,
 });
 
+// cloudinary.config({ 
+//     cloud_name: 'ddjdnah0i', 
+//     api_key: '136682849879316', 
+//     api_secret: "xY2q2oBgjROeddjbzApEysR7qRw" // Click 'View API Keys' above to copy your API secret
+//   });
 router.get(`/`, async (req, res) => {
   const categoryList = await Category.find();
   if (!categoryList) {

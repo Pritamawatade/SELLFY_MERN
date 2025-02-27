@@ -7,8 +7,21 @@ const upload = require("../middlewares/upload");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs").promises;
 const pLimit = require("p-limit");
-const { RelatedProducts, RecentlyViewd } = require("../models/recentlyViewd.js");
+const {  RecentlyViewd } = require("../models/recentlyViewd.js");
+require('dotenv/config')
 
+// cloudinary.config({ 
+//   cloud_name: 'ddjdnah0i', 
+//   api_key: '136682849879316', 
+//   api_secret: "xY2q2oBgjROeddjbzApEysR7qRw" // Click 'View API Keys' above to copy your API secret
+// });
+
+
+cloudinary.config({
+  cloud_name: process.env.cloudinary_Config_Cloud_Name,
+  api_key: process.env.cloudinary_Config_api_key,
+  api_secret: process.env.cloudinary_Config_api_secret,
+});
 const limit = pLimit(5);
 
 router.get(`/featured`, async (req, res) => {
@@ -129,6 +142,66 @@ router.get(`/`, async (req, res) => {
   //TODO: video 41 20 min 
 
 });
+
+router.post(`/create`, upload.array("images", 4), async (req, res) => {
+  
+console.log(process.env.cloudinary_Config_api_key)
+console.log(process.env.cloudinary_Config_Cloud_Name)
+console.log(process.env.cloudinary_Config_api_secret)
+  try {
+    const category = await Category.findById(req.body.category);
+    if (!category) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid category" });
+    }
+
+    const uploadPromises = req.files.map(async (file) => {
+      try {
+        const result = await cloudinary.uploader.upload(file.path);
+        await fs.unlink(file.path); // Delete the file after upload
+        return result;
+      } catch (error) {
+        console.error("Error uploading to cloudinary:", error);
+        throw error;
+      }
+    });
+
+    const uploadStatus = await Promise.all(uploadPromises);
+    const imgurl = uploadStatus.map((item) => item.secure_url);
+
+    // if(!req.body.productSIZE){
+    //   req.body.productSIZE = null;
+    // }
+    // if(!req.body.productWEIGHT){
+    //   req.body.productSIZE = null;
+    // }
+    // if(!req.body.productRAMS){
+    //   req.body.productSIZE = null;
+    // }
+    console.log(req.body);
+
+    let product = new Product({
+      ...req.body,
+      images: imgurl,
+      isFeatured: req.body.isFeatured === "true",
+    });
+
+    product = await product.save();
+
+    if (!product) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Failed to create product" });
+    }
+
+    res.status(201).json({ success: true, product });
+  } catch (err) {
+    console.error("Error creating product:", err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 
 router.get(`/recentlyviewd`, async (req, res) => {
   try {

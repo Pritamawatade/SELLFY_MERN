@@ -15,6 +15,7 @@ const cart = require('./routes/cart')
 const userRoutes = require('./routes/user');
 const authJwt = require('./helper/jwt');
 require('dotenv/config')
+// require("dotenv").config();
 
 app.use(cors())
 app.options('*', cors())

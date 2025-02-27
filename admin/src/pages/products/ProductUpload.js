@@ -354,9 +354,9 @@ const ProductUpload = () => {
       toast.error("Failed to create product");
     } finally {
       loadingBar.current.complete();
-      setTimeout(() => {
-        navigate("/product");
-      }, 3000);
+      // setTimeout(() => {
+      //   navigate("/product");
+      // }, 3000);
     }
   };
 
