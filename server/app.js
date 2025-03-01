@@ -14,6 +14,7 @@ const productSIZERoutes = require('./routes/productSize')
 const reviewRoutes = require('./routes/productReviews')
 const cart = require('./routes/cart')
 const userRoutes = require('./routes/user');
+const orders = require('./routes/orders');
 const authJwt = require('./helper/jwt');
 require('dotenv/config')
 // require("dotenv").config();
@@ -39,6 +40,8 @@ app.use(`/api/productSIZE`, productSIZERoutes)
 app.use(`/api/user`, userRoutes)
 app.use(`/api/cart`, cart)
 app.use(`/api/reviews`, reviewRoutes)
+app.use(`/api/orders`, orders)
+
 
 //Databse connection 
 mongoose.connect(process.env.CONNECTION_STRING, {

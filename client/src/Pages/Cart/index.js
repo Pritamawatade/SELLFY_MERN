@@ -5,6 +5,7 @@ import QuantityBox from "../../Component/QuantityBox/QuantityBox.js";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteCategory, editdata, fetchdatafromapi } from "../../utils/api.js";
+// import { FaCartShopping } from "react-icons/fa6";
 
 const Cart = () => {
   const [productQuantity, setProductQuantity] = useState();
@@ -162,9 +163,11 @@ if(changeQuantity !== 0){
                 cardItem?.length !== 0 && cardItem.map(item =>  parseInt(item.price) * item.quantity).reduce((total, value)=>total + value,0)
                 }</span>
                 </div>
+                <Link to={"/checkout"}>
                 <button className="w-full mt-4 bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center gap-2 justify-center">
-                  <FaCartShopping /> Add To Cart
+                  <FaCartShopping /> Proceed To Checkout
                 </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -53,7 +53,7 @@ const Header = () => {
     fetchdatafromapi(`/api/cart`).then((res)=>{
       context?.setCartData(res);
     })
-  })
+  },[])
   return (
     <>
       <div className="headerwrapper">
@@ -103,7 +103,7 @@ const Header = () => {
                               aria-haspopup="true"
                               aria-expanded={open ? "true" : undefined}
                             >
-                              <Avatar sx={{ width: 32, height: 32 }}>{context?.user?.name.charAt(0)}</Avatar>
+                              <Avatar sx={{ width: 32, height: 32 }}>{context?.user?.name.charAt(0).toUpperCase()}</Avatar>
                             </IconButton>
                           </Tooltip>
                         </Box>

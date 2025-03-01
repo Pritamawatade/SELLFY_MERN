@@ -18,6 +18,8 @@ import {
   postData,
 } from "./utils/api.js";
 import { toast, ToastContainer } from "react-toastify";
+import Checkout from "./Pages/Checkout/index.js";
+import Orders from "./Pages/Orders/index.js";
 const mycontext = createContext();
 
 function App() {
@@ -154,6 +156,8 @@ function App() {
             <Route path="/cart" exact={true} element={<Cart />} />
             <Route path="/SignIn" exact={true} element={<SignIn />} />
             <Route path="/Signup" exact={true} element={<SignUp />} />
+            <Route path="/checkout" exact={true} element={<Checkout />} />
+            <Route path="/orders" exact={true} element={<Orders />} />
           </Routes>
           {isHeaderFooterShow && <Footer />}
 

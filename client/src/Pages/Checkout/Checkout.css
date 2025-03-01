@@ -1,0 +1,15 @@
+.checkout-container {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-left: 20px;
+    margin-top: 20px;
+    width:100vw !important;
+  }
+  
+  .checkout-container:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  input:focus {
+    transition: border-color 0.3s ease;
+  }
