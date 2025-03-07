@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./component/Header";
@@ -21,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 import AddProductRAM from "./pages/products/AddProductRAM";
 import AddProductWIGHT from "./pages/products/AddProductWeight";
 import AddProductSIZE from "./pages/products/AddProductSIZE";
+import Orders from "./pages/Orders";
 
 const myContext = createContext();
 export const LoadingContext = createContext();
@@ -31,6 +32,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
+  // const navigate = useNavigate()
 
   const [user, setUser] = useState({
     name: "",
@@ -99,6 +101,8 @@ function App() {
       setUser(user)
     }else{
       setIsLogin(false);
+      // navigate("/login")
+
     }
   }, [isLogin]);
 
@@ -158,6 +162,7 @@ function App() {
                 <Route path="/dashboard" exact={true} element={<Dashboard />} />
                 <Route path="/login" exact={true} element={<Login />} />
                 <Route path="/signup" exact={true} element={<SignUp />} />
+                <Route path="/orders" exact={true} element={<Orders />} />
                 <Route
                   path="/product/upload"
                   exact={true}

@@ -98,7 +98,7 @@ if(changeQuantity !== 0){
                                   <img
                                     className="img-fluid"
                                     src={item.image}
-                                    alt={item.productTitle}
+                                    alt={item.productTitle.substr(1,50)}
                                     style={{
                                       width: "100%",
                                       height: "100%",
@@ -106,8 +106,8 @@ if(changeQuantity !== 0){
                                     }}
                                   />
                                 </div>
-                                <h6 className="text-black ml-3">
-                                  {item.productTitle}
+                                <h6 className="text-gray-700 ml-3">
+                                  {item.productTitle.substr(1,30)+"..."}
                                 </h6>
                               </div>
                             </Link>
@@ -139,6 +139,9 @@ if(changeQuantity !== 0){
                 </table>
               </div>
             </div>
+
+
+            
 
             <div className="col-md-4">
               <div className="border rounded-lg p-4 w-72">

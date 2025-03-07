@@ -156,14 +156,14 @@ const Header = () => {
                           </MenuItem>
                           <Divider />
                          
-                          <MenuItem onClick={handleClose}>
+                         <Link to={"/orders"}>
+                         <MenuItem onClick={handleClose}>
                           <FaCheckCircle className="mr-2 text-xl"/> My Orders
                           </MenuItem>
+                         </Link>
                           <Divider />
                          
-                          <MenuItem onClick={handleClose}>
-                          <FaClipboardList className="mr-2 text-xl"/> My Lists
-                          </MenuItem>
+                        
                           <Divider />
                          
                           <MenuItem onClick={logout}>

@@ -178,7 +178,7 @@ const Checkout = () => {
     console.log("payload = ", payload);
 
         postData("/api/orders/create", payload).then((res) => {
-            navigate("/")
+            navigate("/orders")
         });
       },
       theme:{

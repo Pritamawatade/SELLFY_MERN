@@ -14,7 +14,8 @@ import ProductZoom from "../ProductZoom";
 
 const ProductModal = (props) => {
   const context = useContext(mycontext);
-
+  const quantity = ()=>{}
+  const selectedItem = ()=>{}
   return (
     <Dialog
       open={context.isOpenProuctModal}
@@ -98,8 +99,10 @@ const ProductModal = (props) => {
           </p>
 
           {/* Add to Cart Section */}
-          <div className="flex items-center gap-4">
-            <QuantityBox />
+          {/* <div className="flex items-center gap-4">
+            <QuantityBox  quantity={quantity} 
+            selectedItem={selectedItem}
+            />
             <Button
               variant="contained"
               style={{
@@ -112,10 +115,10 @@ const ProductModal = (props) => {
             >
               Add to Cart
             </Button>
-          </div>
+          </div> */}
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-4 pt-4">
+          {/* <div className="flex items-center gap-4 pt-4">
             <Button
               variant="outlined"
               style={{
@@ -138,7 +141,7 @@ const ProductModal = (props) => {
             >
               Compare
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </Dialog>

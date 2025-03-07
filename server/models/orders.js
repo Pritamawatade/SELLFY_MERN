@@ -24,8 +24,8 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     paymentId: {
-      type: String,
-      required: true,
+      type: String
+      // required: true,
     },
     userId: {
       type: String,
@@ -60,6 +60,10 @@ const orderSchema = mongoose.Schema(
         },
       },
     ],
+    status:{
+      type:String,
+      default:"pending"
+    }
   },
   {
     timestamps: true,

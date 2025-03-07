@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { fetchdatafromapi } from '../../utils/api';
-import { mycontext } from '../../App';
+import { myContext } from '../../App';
 import { Link } from 'react-router-dom';
 
 function Orders() {
-  const context = useContext(mycontext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState(null);
@@ -12,14 +11,13 @@ function Orders() {
   useEffect(() => {
     setLoading(true);
     fetchdatafromapi(`/api/orders`).then((res) => {
-      const filterOrders = res.filter((order) => order.userId == context.user.userId);
-      setOrders(filterOrders);
+      setOrders(res);
       setLoading(false);
     }).catch(err => {
       console.error("Error fetching orders:", err);
       setLoading(false);
     });
-  }, [context.user.userId]);
+  }, []);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -39,7 +37,7 @@ function Orders() {
   };
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-12 bg-gray-50 dark:bg-gray-700 mt-12 text-white dark:text-red-600">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-gray-800 border-b pb-4">Your Orders</h2>
         
@@ -63,23 +61,23 @@ function Orders() {
         ) : (
           <div className="space-y-6">
             {orders.map((order) => (
-              <div key={order._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="p-6 border-b">
+              <div key={order._id} className="bg-white dark:bg-slate-800 dark:text-black rounded-lg shadow-md overflow-hidden">
+                <div className="p-6 border-b dark:bg-slate-800 dark:text-white">
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">ORDER PLACED</p>
+                      <p className="text-sm dark:text-white text-gray-500 mb-1">ORDER PLACED</p>    
                       <p className="font-medium">{formatDate(order.date)}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">TOTAL</p>
+                      <p className="text-sm dark:text-white text-gray-500 mb-1">TOTAL</p>
                       <p className="font-bold text-xl">₹{order.amount.toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">ORDER ID</p>
+                      <p className="text-sm dark:text-white text-gray-500 mb-1">ORDER ID</p>
                       <p className="font-medium text-gray-800">{order._id}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">PAYMENT ID</p>
+                      <p className="text-sm dark:text-white text-gray-500 mb-1">PAYMENT ID</p>
                       <p className="font-medium text-gray-800">{order.paymentId}</p>
                     </div>
                     <button 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import {toast, ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify";
 import { mycontext } from "../../App";
 import { FaGoogle } from "react-icons/fa";
 import { TextField } from "@mui/material";
@@ -29,17 +29,16 @@ const SignUp = () => {
 
   const signUp = (e) => {
     e.preventDefault();
-    
+
     if (formFeilds.name === "") {
       toast.error("Name is required");
       return;
     }
-    
+
     if (formFeilds.name.trim().length === 0) {
       toast.error("Name is required and cannot be empty or just spaces");
       return;
     }
-
 
     if (formFeilds.phone === "") {
       toast.error("Phone is required");
@@ -93,7 +92,7 @@ const SignUp = () => {
   return (
     <>
       <section className="section max-h-screen overflow-visible ">
-      {/* <ToastContainer /> */}
+        {/* <ToastContainer /> */}
 
         <div className="container">
           <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -110,8 +109,7 @@ const SignUp = () => {
               <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
                 Sign Up
               </h2>
-<form onSubmit={signUp}>
-  
+              <form onSubmit={signUp}>
                 {/* Email Input */}
                 <div className="flex items-center gap-3">
                   <TextField
@@ -120,7 +118,6 @@ const SignUp = () => {
                     fullWidth
                     margin="normal"
                     className="mb-2"
-                    
                     name="name"
                     onChange={handleInput}
                   />
@@ -130,7 +127,6 @@ const SignUp = () => {
                     fullWidth
                     margin="normal"
                     className="mb-2"
-                    
                     name="phone"
                     onChange={handleInput}
                   />
@@ -141,24 +137,22 @@ const SignUp = () => {
                   fullWidth
                   margin="normal"
                   className="mb-2"
-                  
                   name="email"
                   onChange={handleInput}
                 />
-  
+
                 {/* Password Input */}
                 <TextField
                   label="Password"
                   variant="outlined"
                   type="password"
                   fullWidth
-                  
                   name="password"
                   onChange={handleInput}
                   margin="normal"
                   className="mb-2"
                 />
-  
+
                 {/* Forgot Password Link */}
                 <div className="flex justify-end mb-2">
                   <Link
@@ -176,16 +170,16 @@ const SignUp = () => {
                     Signin
                   </Link>
                 </div>
-  
+
                 {/* Sign In Button */}
-  
+
                 <button
                   type="submit"
                   className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:-translate-y-1"
                 >
-                Sign Up
-              </button>
-</form>
+                  Sign Up
+                </button>
+              </form>
 
               {/* Divider */}
               <Link to="/">

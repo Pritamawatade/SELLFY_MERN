@@ -6,20 +6,20 @@ import { IoIosLogIn } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import { MdNotificationAdd } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
-import { RiDashboardHorizontalLine } from "react-icons/ri";
 
 import { BsCartCheckFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaProductHunt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
-import { useContext, useState } from "react";
+import { useContext, useState , useEffect} from "react";
 import { myContext } from "../../App";
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isActiveTab, setIsActiveTab] = useState(false);
+  const navigate = useNavigate()
 
   const context = useContext(myContext);
 
@@ -82,6 +82,22 @@ const Sidebar = () => {
       setIsActiveTab(true);
     }
   };
+
+  const redirect = ()=>{
+    navigate("/login")
+  }
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+  
+      if (token !== null && token !== "" &&   token !== undefined) {
+        return;
+      }else{
+
+        redirect()
+  
+      }
+    }, []);
   return (
     <div className="sidebar" id="sidebar1">
       <motion.ul
@@ -251,7 +267,7 @@ const Sidebar = () => {
           whileHover={hoverAnimation}
           whileTap={{ scale: 0.98 }}
         >
-          <Link to="/">
+          <Link to="/orders">
             <Button
               className={`w-100 ${activeTab === 2 && isActiveTab ? "active" : ""}`}
               onClick={() => isOpenSubMenu(2)}

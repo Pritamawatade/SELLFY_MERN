@@ -18,6 +18,7 @@ const ProductDetials = () => {
   const [productData, setProductData] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState();
   const [recentlyViewdProducts, setRecentlyViewdProducts] = useState();
+  let rating;
   const isActive = (size) => {
     setActiveSize(size);
   };
@@ -41,6 +42,7 @@ const ProductDetials = () => {
     window.scrollTo(0, 0);
     fetchdatafromapi(`/api/products/${id}`).then((res) => {
       setProductData(res);
+      rating = productData?.rating
 
       if (res?.subCatId?.length >= 0) {
         fetchdatafromapi(`/api/products?subCatId=${res?.subCatId}`).then(
