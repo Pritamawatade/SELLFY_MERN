@@ -271,7 +271,7 @@ const ProductList = () => {
                       </td>
                       <td className="p-2 text-center border border-gray-300">
                         <div className="flex justify-center gap-2">
-                          <Link to="/product/details">
+                          <Link to={`/product/${product._id}`}>
                             <motion.button
                               className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded shadow-md"
                               variants={buttonVariants}

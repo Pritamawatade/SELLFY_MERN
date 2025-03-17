@@ -29,7 +29,7 @@ const ProductZoom = (props) => {
                 modules={[Navigation]}
 
                 className="zoomSliderBig" 
-                ref={zoomSliderBig}
+                ref={zoomSliderBig} 
               >
                 {
                   props?.images?.map((image, index) => (

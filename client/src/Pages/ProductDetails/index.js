@@ -22,8 +22,8 @@ const ProductDetials = () => {
   const isActive = (size) => {
     setActiveSize(size);
   };
-  const [productReview, setProductReview] = useState([])
-  
+  const [productReview, setProductReview] = useState([]);
+
   const { id } = useParams();
   let [cartFeilds, setCartFeilds] = useState({});
   const user = JSON.parse(localStorage.getItem("user"));
@@ -32,17 +32,16 @@ const ProductDetials = () => {
     customerId: user?.userId,
     productId: id,
     customerRating: 0,
-    review: ""
+    review: "",
   });
   const [productQuantity, setProductQuantity] = useState();
-
 
   const context = useContext(mycontext);
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchdatafromapi(`/api/products/${id}`).then((res) => {
       setProductData(res);
-      rating = productData?.rating
+      rating = productData?.rating;
 
       if (res?.subCatId?.length >= 0) {
         fetchdatafromapi(`/api/products?subCatId=${res?.subCatId}`).then(
@@ -80,28 +79,28 @@ const ProductDetials = () => {
 
   const selectedItem = () => {};
 
-  const handleInput = (e)=>{
-    setReview({...review,[e.target.name]:e.target.value})
-  }
+  const handleInput = (e) => {
+    setReview({ ...review, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(review?.review === ""){
-      toast.error("review is required")
-      return
+    if (review?.review === "") {
+      toast.error("review is required");
+      return;
     }
-    if(review?.customerRating === 0){ 
-      toast.error("rating is required")
-      return
+    if (review?.customerRating === 0) {
+      toast.error("rating is required");
+      return;
     }
-   
-    if(review?.review.length < 10){
-      toast.error("review must be at least 10 characters")
-      return
+
+    if (review?.review.length < 10) {
+      toast.error("review must be at least 10 characters");
+      return;
     }
-    if(review?.customerRating > 5 || review?.customerRating < 1){
-      toast.error("rating must be at least 1 and at most 5")
-      return
+    if (review?.customerRating > 5 || review?.customerRating < 1) {
+      toast.error("rating must be at least 1 and at most 5");
+      return;
     }
 
     // const user = JSON.parse(localStorage.getItem("user"))
@@ -121,36 +120,33 @@ const ProductDetials = () => {
     //   review: review?.review
     // });
 
-    console.log(review)
+    console.log(review);
     // console.log(formdata)
-    postData(`/api/reviews/add`, review).then((res)=>{
-      fetchdatafromapi(`/api/reviews/${id}`).then((res)=>{
+    postData(`/api/reviews/add`, review).then((res) => {
+      fetchdatafromapi(`/api/reviews/${id}`).then((res) => {
         // setProductReview(res?.reviews)
         console.log(res);
         console.log(productReview);
-        
-        setProductReview(res)
+
+        setProductReview(res);
         console.log(productReview);
-
-      })
-      if(res?.status === 200){
-        toast.success("review added")
+      });
+      if (res?.status === 200) {
+        toast.success("review added");
       }
+    });
+  };
 
-    })
-  }
-
-  useEffect(()=>{
-
-    fetchdatafromapi(`/api/reviews/${id}`).then((res)=>{
+  useEffect(() => {
+    fetchdatafromapi(`/api/reviews/${id}`).then((res) => {
       // setProductReview(res?.reviews)
       console.log(id);
-      
+
       console.log(res);
-      setProductReview(res)
-      console.log(productReview)
-    })
-  },[id])
+      setProductReview(res);
+      console.log(productReview);
+    });
+  }, [id]);
 
   return (
     <>
@@ -243,27 +239,13 @@ const ProductDetials = () => {
                   </Button>
                 </li>
                 <li className="list-inline-item">
-                  <Button onClick={() => setActiveTab(2)}>Review (3)</Button>
+                  <Button onClick={() => setActiveTab(2)}>Review ({productReview?.length})</Button>
                 </li>
               </ul>
 
               {activeTab === 0 && (
                 <div className="tabContent">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Iusto pariatur temporibus aut neque itaque expedita sint
-                    ducimus, asperiores blanditiis, cupiditate harum. Iure
-                    deserunt, odio dolorem non facere cum nulla, est quisquam
-                    dignissimos repudiandae impedit ex quas esse quis suscipit
-                    excepturi consequatur quos doloribus rem eligendi quibusdam
-                    cupiditate possimus! Autem quaerat in hic porro distinctio
-                    modi, obcaecati dignissimos cumque sunt exercitationem
-                    quibusdam inventore ea amet ad iusto corporis! Laboriosam
-                    expedita cupiditate amet dolor mollitia iusto illum a optio
-                    ullam, odio voluptatibus qui modi odit laudantium natus
-                    aspernatur, quis earum repellendus neque sapiente fugit vel
-                    soluta consectetur! Et molestiae id nobis voluptate?
-                  </p>
+                  <p>productData?.description</p>
                 </div>
               )}
 
@@ -368,49 +350,63 @@ const ProductDetials = () => {
                     <div className="col-md-8">
                       <h3>Customer questions & answer</h3>
                       <br />
-                     {
-                      productReview?.langth !== 0 && productReview?.map((review, index) => {
-                       return ( <div
-                        key={index}
-                         className="card p-3 reviewsCard flex-row">
-                        <div className="image h-12 w-12">
-                          <div className="rounded-circle rounded-full bg-slate-500 h-12 w-12">
-                            {/* <img
-                              src={review?.customerName?.at(0).toUpperCase()}
-                              className="p-1"
-                              alt={review?.customerName?.at(0).toUpperCase()}
-                            /> */}
-                            <span className="p-1 text-3xl">{review?.customerName?.at(0).toUpperCase()}</span>
-                          </div>
-                          <span className="font-bold capitalize text-lg text-center block">
-                            {review?.customerName}
-                          </span>
-                        </div>
-                        <div className="info">
-                          <div className="flex items-center">
-                            <p className="text-slate-500 text-sm ">
-                              Date 2 Nov 2024 at 07:05 PM
-                            </p>
-                            <div className="ml-auto">
-                              <Rating
-                                size="small"
-                                name="read-only"
-                                value={review?.customerRating}
-                                readOnly
-                              />
-                            </div>
-                          </div>
-                          <p>
-                            {
-                              review?.review
-                            }
-                          </p>
-                        </div>
-                      </div>)
-                      })
-                     }
+                      {productReview?.langth !== 0 &&
+                        productReview?.map((review, index) => {
+                          return (
+                         
+                            <div key={index} className="card p-4 reviewsCard flex flex-row items-start gap-4 bg-white shadow-lg rounded-lg border border-gray-200">
+                              {/* Avatar and Customer Name */}
+                              <div className="flex flex-col items-center">
+                                <div className="rounded-full bg-slate-500 h-14 w-14 flex items-center justify-center shadow-md">
+                                  <span className="text-white text-2xl font-bold">
+                                    {review?.customerName?.at(0).toUpperCase()}
+                                  </span>
+                                </div>
+                                <span className="font-semibold capitalize text-lg mt-2 text-gray-800">
+                                  {review.customerName}
+                                </span>
+                              </div>
 
-                     
+                              {/* Review Info */}
+                              <div className="flex-1">
+                                <div className="flex items-center mb-2">
+                                  {/* Date */}
+                                  <p className="text-slate-500 text-sm">
+                                    {review?.updatedAt
+                                      ? new Date(
+                                          review.updatedAt
+                                        ).toLocaleString("en-US", {
+                                          year: "numeric",
+                                          month: "long",
+                                          day: "numeric",
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                          second: "2-digit",
+                                          hour12: true,
+                                        })
+                                      : "No date available"}
+                                  </p>
+
+                                  {/* Rating */}
+                                  <div className="ml-auto">
+                                    <Rating
+                                      size="small"
+                                      name="read-only"
+                                      value={review.customerRating}
+                                      readOnly
+                                      className="scale-110"
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* Review Text */}
+                                <p className="text-gray-700 leading-relaxed bg-gray-50 p-3 rounded-md border border-gray-300 shadow-sm">
+                                  {review.review}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
 
                       {/* <div className="card p-3 reviewsCard flex-row">
                         <div className="image">
@@ -523,7 +519,7 @@ const ProductDetials = () => {
                             </div>
                           </div>
                         </div>
-{/* 
+                        {/* 
                         <div className="form-group">
                           <input
                             type="text"
@@ -535,7 +531,10 @@ const ProductDetials = () => {
                         </div> */}
 
                         <div className="form-group">
-                          <Button className="bg-blue-300 text-black" type="submit">
+                          <Button
+                            className="bg-blue-300 text-black"
+                            type="submit"
+                          >
                             Submit Review
                           </Button>
                         </div>

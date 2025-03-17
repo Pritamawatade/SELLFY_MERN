@@ -19,7 +19,8 @@ router.get(`/`, async (req,res)=>{
 
 
 router.get(`/:id`, async (req,res)=>{
-    const review = await ProductReviews.find({productId: req.params.id})
+    const {id} = req.params
+    const review = await ProductReviews.find({productId: id})
     if(!review){
         return res.status(404).json({message:"review not found"})
     }

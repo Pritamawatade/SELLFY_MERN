@@ -38,8 +38,7 @@ if(changeQuantity !== 0){
   });
 }
 
-      // setCartItem(res?.data)
-      // console.log(cardItem);
+  
   };
 
   useEffect(() => {

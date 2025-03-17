@@ -55,7 +55,7 @@ function Orders() {
               </svg>
               <h3 className="text-xl font-semibold mb-2">No orders found</h3>
               <p className="text-gray-600 mb-6">You haven't placed any orders yet.</p>
-              <Link to="/products" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              <Link to="/" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
                 Start Shopping
               </Link>
             </div>

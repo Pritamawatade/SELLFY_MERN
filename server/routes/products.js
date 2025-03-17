@@ -139,7 +139,7 @@ router.get(`/`, async (req, res) => {
   //   .exec();
   // }
 
-  //TODO: video 41 20 min 
+  //TODO: video 49
 
 });
 
@@ -278,7 +278,7 @@ router.post(`/recentlyviewd`, async (req, res) =>{
 }) 
 router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate("category subCategory");
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" }); // ✅ Stops execution

@@ -1,9 +1,10 @@
 import { IoIosPricetags } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
 
 import Button from "@mui/material/Button";
-import { SlSizeFullscreen } from "react-icons/sl";
+import { BiSolidCategory } from "react-icons/bi";
+
 import "swiper/css";
 import { IoIosColorPalette } from "react-icons/io";
 
@@ -26,13 +27,31 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import { useParams } from "react-router-dom";
+import { fetchdatafromapi } from "../../utils/api";
 
 const ProductDetails = () => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [product, setProducts] = useState([]);
+  const [reviews, setReviews] = useState();
   const isActive = (size) => {
     setActiveSize(size);
   };
+
+  const { id } = useParams();
+  useEffect(() => {
+    fetchdatafromapi(`/api/products/${id}`).then((res) => {
+      setProducts(res);
+      console.log(res);
+    });
+    
+    fetchdatafromapi(`/api/reviews/${id}`).then((res) => {
+      setReviews(res);
+      console.log(res);
+    });
+
+  }, []);
   return (
     <div className="right-content w-100">
       <div className=" p-12">
@@ -41,112 +60,115 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <div className="card">
-        <div className="row">
-          <div className="col-md-5">
-            <h4 className="mb-3 mt-3 pl-2">Product Gallery</h4>
+      {
+      product != undefined && (
+        <div className="card">
+          <div className="row">
+            <div className="col-md-5">
+              <h4 className="mb-3 mt-3 pl-2">Product Gallery</h4>
 
-            <div className="siperWrapper py-3 pl-2">
-              <Swiper
-                spaceBetween={50}
-                navigation={true}
-                modules={[Navigation]}
-                slidesPerView={1}
-                onSwiper={(swiper) => console.log(swiper)}
-              >
-                <SwiperSlide>
-                  <img
-                    src="https://mironcoder-hotash.netlify.app/images/product/single/01.webp"
-                    alt=""
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://mironcoder-hotash.netlify.app/images/product/single/02.webp"
-                    alt=""
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://mironcoder-hotash.netlify.app/images/product/single/03.webp"
-                    alt=""
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://mironcoder-hotash.netlify.app/images/product/single/04.webp"
-                    alt=""
-                  />
-                </SwiperSlide>
-              </Swiper>
+              <div className="siperWrapper py-3 pl-2 overflow-x-auto">
+                <Swiper
+                  // key={i}
+                  spaceBetween={0}
+                  navigation={true}
+                  modules={[Navigation]}
+                  slidesPerView={1}
+                  // onSwiper={(swiper) => console.log(swiper)}
+                >
+                  {product?.images?.length > 0 &&
+                    product?.images?.map((image, i) => {
+                      return (
+                        <SwiperSlide>
+                          <img src={image} alt="" />
+                        </SwiperSlide>
+                      );
+                    })}
+                </Swiper>
+              </div>
             </div>
-          </div>
-          <div className="col-md-7">
-            <div className="rightContent py-3 pl-2">
-              <h4>Product Details</h4>
-              <h4 className="p-2 mt-2 ">
-                Formal suits for men wedding slim fit 3 piece dress business
-                party jacket
-              </h4>
+            <div className="col-md-7">
+              <div className="rightContent py-3 pl-2">
+                <h4>Product Details</h4>
+                <h4 className="p-2 mt-2 ">{product.name}</h4>
 
-              <div className="row mt-4">
+                <div className="row mt-4">
+                  <div className="col-sm-5">
+                    <div className="flex align-items-center">
+                      <span className="icon mr-2">
+                        <TbBrandSnowflake />
+                      </span>
+                      <span className="brands">Brand</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-1 colon-center">:</div>
+                  <div className="col-sm-6">
+                    <div className="brand-name">
+                      <span className="text-sm-font-normal text-gray-300">
+                        {product.brand}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
+                  <div className="col-sm-5">
+                    <div className="flex align-items-center">
+                      <span className="icon mr-2">
+                        <TbCategory2 />
+                      </span>
+                      <span className="brands">Category</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-1 colon-center">:</div>
+                  <div className="col-sm-6">
+                    <div className="brand-name">
+                      <span className="text-sm-font-normal text-gray-300">
+                        {product.catName}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row mt-4">
                 <div className="col-sm-5">
                   <div className="flex align-items-center">
                     <span className="icon mr-2">
-                      <TbBrandSnowflake />
+                      <BiSolidCategory />
                     </span>
-                    <span className="brands">Brand</span>
+                    <span className="brands">sub Category</span>
                   </div>
                 </div>
                 <div className="col-sm-1 colon-center">:</div>
                 <div className="col-sm-6">
                   <div className="brand-name">
                     <span className="text-sm-font-normal text-gray-300">
-                      Ecasty
+                      {product?.subCategory?.subCategory}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="row mt-4">
-                <div className="col-sm-5">
-                  <div className="flex align-items-center">
-                    <span className="icon mr-2">
-                      <TbCategory2 />
-                    </span>
-                    <span className="brands">Category</span>
+                <div className="row mt-4">
+                  <div className="col-sm-5">
+                    <div className="flex align-items-center">
+                      <span className="icon mr-2">
+                        <IoIosSettings />
+                      </span>
+                      <span className="brands">Tags</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-1 colon-center">:</div>
+                  <div className="col-sm-6">
+                    <div className="brand-name">
+                      <span className="text-sm-font-normal text-gray-300">
+                        {product.catName}
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className="col-sm-1 colon-center">:</div>
-                <div className="col-sm-6">
-                  <div className="brand-name">
-                    <span className="text-sm-font-normal text-gray-300">
-                      Men's
-                    </span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="row mt-4">
-                <div className="col-sm-5">
-                  <div className="flex align-items-center">
-                    <span className="icon mr-2">
-                      <IoIosSettings />
-                    </span>
-                    <span className="brands">Tags</span>
-                  </div>
-                </div>
-                <div className="col-sm-1 colon-center">:</div>
-                <div className="col-sm-6">
-                  <div className="brand-name">
-                    <span className="text-sm-font-normal text-gray-300">
-                      Former
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row mt-4">
+                {/* <div className="row mt-4">
                 <div className="col-sm-5">
                   <div className="flex align-items-center">
                     <span className="icon mr-2">
@@ -159,72 +181,56 @@ const ProductDetails = () => {
                 <div className="col-sm-6">
                   <div className="brand-name">
                     <span className="text-sm-font-normal text-gray-300">
-                      RED
+                      
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="row mt-4">
-                <div className="col-sm-5">
-                  <div className="flex align-items-center">
-                    <span className="icon mr-2">
-                      <SlSizeFullscreen />
-                    </span>
-                    <span className="brands">size</span>
-                  </div>
-                </div>
-                <div className="col-sm-1 colon-center">:</div>
-                <div className="col-sm-6">
-                  <div className="brand-name">
-                    <span className="text-sm-font-normal text-gray-300">
-                      M, &nbsp; L &nbsp; XL
-                    </span>
-                  </div>
-                </div>
-              </div>
+               
 
-              <div className="row mt-4">
-                <div className="col-sm-5">
-                  <div className="flex align-items-center">
-                    <span className="icon mr-2">
-                      <IoIosPricetags />
-                    </span>
-                    <span className="brands">Price</span>
+                <div className="row mt-4">
+                  <div className="col-sm-5">
+                    <div className="flex align-items-center">
+                      <span className="icon mr-2">
+                        <IoIosPricetags />
+                      </span>
+                      <span className="brands">Price</span>
+                    </div>
+                  </div>
+                  <div className="col-sm-1 colon-center">:</div>
+                  <div className="col-sm-6">
+                    <div className="brand-name">
+                      <span className="text-sm-font-normal text-gray-300">
+                        ₹{product.price}
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className="col-sm-1 colon-center">:</div>
-                <div className="col-sm-6">
-                  <div className="brand-name">
-                    <span className="text-sm-font-normal text-gray-300">
-                      $100
-                    </span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="row mt-4">
-                <div className="col-sm-5">
-                  <div className="flex align-items-center">
-                    <span className="icon mr-2">
-                      <MdOutlineProductionQuantityLimits />
-                    </span>
-                    <span className="brands">Stock</span>
+                <div className="row mt-4">
+                  <div className="col-sm-5">
+                    <div className="flex align-items-center">
+                      <span className="icon mr-2">
+                        <MdOutlineProductionQuantityLimits />
+                      </span>
+                      <span className="brands">Stock</span>
+                    </div>
                   </div>
-                </div>
-                <div className="col-sm-1 colon-center">:</div>
-                <div className="col-sm-6">
-                  <div className="brand-name">
-                    <span className="text-sm-font-normal text-gray-300">
-                      (73) pieces
-                    </span>
+                  <div className="col-sm-1 colon-center">:</div>
+                  <div className="col-sm-6">
+                    <div className="brand-name">
+                      <span className="text-sm-font-normal text-gray-300">
+                        {product.countInStock}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="card mt-5 p-5 detailsPageTabs bg-red-600">
         <div className="customTabs ">
@@ -236,27 +242,15 @@ const ProductDetails = () => {
               <Button onClick={() => setActiveTab(1)}>Aditional Info</Button>
             </li>
             <li className="list-inline-item">
-              <Button onClick={() => setActiveTab(2)}>Review (3)</Button>
+              <Button onClick={() => setActiveTab(2)}>Review ({reviews?.length})</Button>
             </li>
           </ul>
 
           {activeTab === 0 && (
             <div className="tabContent">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                pariatur temporibus aut neque itaque expedita sint ducimus,
-                asperiores blanditiis, cupiditate harum. Iure deserunt, odio
-                dolorem non facere cum nulla, est quisquam dignissimos
-                repudiandae impedit ex quas esse quis suscipit excepturi
-                consequatur quos doloribus rem eligendi quibusdam cupiditate
-                possimus! Autem quaerat in hic porro distinctio modi, obcaecati
-                dignissimos cumque sunt exercitationem quibusdam inventore ea
-                amet ad iusto corporis! Laboriosam expedita cupiditate amet
-                dolor mollitia iusto illum a optio ullam, odio voluptatibus qui
-                modi odit laudantium natus aspernatur, quis earum repellendus
-                neque sapiente fugit vel soluta consectetur! Et molestiae id
-                nobis voluptate?
-              </p>
+              <p>{
+                product.description
+                }</p>
             </div>
           )}
 
@@ -359,208 +353,66 @@ const ProductDetails = () => {
             <div className="tabContent">
               <div className="row">
                 <div className="col-md-8">
-                  <h3>Customer questions & answder</h3>
+                  <h3>Customer reviews</h3>
                   <br />
-                  <div className="card p-3 reviewsCard flex-row">
-                    <div className="image">
-                      <div className="rounded-circle">
-                        <img
-                          src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-bold capitalize text-lg">
-                        ollena
-                      </span>
-                    </div>
-                    <div className="info">
-                      <div className="flex items-center">
-                        <p className="text-slate-500 text-sm ">
-                          Date 2 Nov 2024 at 07:05 PM
-                        </p>
-                        <div className="ml-auto">
-                          <Rating
-                            size="small"
-                            name="read-only"
-                            value={4}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Quis commodi unde labore dolorum perferendis
-                        facere, dicta nihil iusto corrupti adipisci rerum nam
-                        alias autem nesciunt laudantium dolore deleniti, dolorem
-                        aperiam!
-                      </p>
-                    </div>
+             {
+              reviews?.length != 0 && reviews.map((review, index)=>(
+                <div className="card p-4 reviewsCard flex flex-row items-start gap-4 bg-white shadow-lg rounded-lg border border-gray-200">
+                {/* Avatar and Customer Name */}
+                <div className="flex flex-col items-center">
+                  <div className="rounded-full bg-slate-500 h-14 w-14 flex items-center justify-center shadow-md">
+                    <span className="text-white text-2xl font-bold">
+                      {review?.customerName?.at(0).toUpperCase()}
+                    </span>
                   </div>
-
-                  <div className="card p-3 reviewsCard flex-row">
-                    <div className="image">
-                      <div className="rounded-circle">
-                        <img
-                          src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-bold capitalize text-lg">
-                        ollena
-                      </span>
-                    </div>
-                    <div className="info">
-                      <div className="flex items-center">
-                        <p className="text-slate-500 text-sm ">
-                          Date 2 Nov 2024 at 07:05 PM
-                        </p>
-                        <div className="ml-auto">
-                          <Rating
-                            size="small"
-                            name="read-only"
-                            value={4}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Quis commodi unde labore dolorum perferendis
-                        facere, dicta nihil iusto corrupti adipisci rerum nam
-                        alias autem nesciunt laudantium dolore deleniti, dolorem
-                        aperiam!
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="card p-3 reviewsCard flex-row">
-                    <div className="image">
-                      <div className="rounded-circle">
-                        <img
-                          src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-bold capitalize text-lg">
-                        ollena
-                      </span>
-                    </div>
-                    <div className="info">
-                      <div className="flex items-center">
-                        <p className="text-slate-500 text-sm ">
-                          Date 2 Nov 2024 at 07:05 PM
-                        </p>
-                        <div className="ml-auto">
-                          <Rating
-                            size="small"
-                            name="read-only"
-                            value={4}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Quis commodi unde labore dolorum perferendis
-                        facere, dicta nihil iusto corrupti adipisci rerum nam
-                        alias autem nesciunt laudantium dolore deleniti, dolorem
-                        aperiam!
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="card p-3 reviewsCard flex-row">
-                    <div className="image">
-                      <div className="rounded-circle">
-                        <img
-                          src="https://wp.alithemes.com/html/nest/demo/assets/imgs/blog/author-2.png"
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-bold capitalize text-lg">
-                        ollena
-                      </span>
-                    </div>
-                    <div className="info">
-                      <div className="flex items-center">
-                        <p className="text-slate-500 text-sm ">
-                          Date 2 Nov 2024 at 07:05 PM
-                        </p>
-                        <div className="ml-auto">
-                          <Rating
-                            size="small"
-                            name="read-only"
-                            value={4}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Quis commodi unde labore dolorum perferendis
-                        facere, dicta nihil iusto corrupti adipisci rerum nam
-                        alias autem nesciunt laudantium dolore deleniti, dolorem
-                        aperiam!
-                      </p>
-                    </div>
-                  </div>
-
-                  <br />
-                  <br />
-
-                  <form className="reviewForm">
-                    <h4>Add a Review</h4>
-                    <div className="form-group">
-                      <textarea
-                        name=""
-                        placeholder="Write a review"
-                        id=""
-                        className="form-control"
-                      ></textarea>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            placeholder="Name"
-                            name=""
-                            className="form-control"
-                            id=""
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <input
-                            type="text"
-                            placeholder="Email"
-                            name=""
-                            className="form-control"
-                            id=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        placeholder="Website"
-                        name=""
-                        className="form-control"
-                        id=""
+                  <span className="font-semibold capitalize text-lg mt-2 text-gray-800">
+                    {review.customerName}
+                  </span>
+                </div>
+              
+                {/* Review Info */}
+                <div className="flex-1">
+                  <div className="flex items-center mb-2">
+                    {/* Date */}
+                    <p className="text-slate-500 text-sm">
+                      {review?.updatedAt
+                        ? new Date(review.updatedAt).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: true,
+                          })
+                        : 'No date available'}
+                    </p>
+              
+                    {/* Rating */}
+                    <div className="ml-auto">
+                      <Rating
+                        size="small"
+                        name="read-only"
+                        value={review.customerRating}
+                        readOnly
+                        className="scale-110"
                       />
                     </div>
-
-                    <div className="form-group">
-                      <Button className="bg-blue-300 text-black">
-                        Submit Review
-                      </Button>
-                    </div>
-                  </form>
+                  </div>
+              
+                  {/* Review Text */}
+                  <p className="text-gray-700 leading-relaxed dark:bg-gray-900 dark:text-white -light:bg-gray-50 p-3 rounded-md border border-gray-300 shadow-sm">
+                    {review.review}
+                  </p>
                 </div>
-                <div className="col-md-4 mb-4 reviewSection">
+              </div>
+              
+              ))
+             }
+
+
+                </div>
+                {/* <div className="col-md-4 mb-4 reviewSection">
                   <div className="flex items-center content-center">
                     <Rating
                       name="read-only"
@@ -617,7 +469,7 @@ const ProductDetails = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           )}

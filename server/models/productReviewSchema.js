@@ -24,7 +24,7 @@ const productReviewsSchema = mongoose.Schema({
         required:true
     }
 },{
-    timestamps:true
+    timestamps:true 
 })
 
 exports.ProductReviews = mongoose.model("ProductReviews", productReviewsSchema)
