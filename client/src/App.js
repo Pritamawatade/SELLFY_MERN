@@ -20,6 +20,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import Checkout from "./Pages/Checkout/index.js";
 import Orders from "./Pages/Orders/index.js";
+import AboutUsPage from "./Pages/About/index.js";
 const mycontext = createContext();
 
 function App() {
@@ -158,6 +159,7 @@ function App() {
             <Route path="/Signup" exact={true} element={<SignUp />} />
             <Route path="/checkout" exact={true} element={<Checkout />} />
             <Route path="/orders" exact={true} element={<Orders />} />
+            <Route path="/about" exact={true} element={<AboutUsPage />} />
           </Routes>
           {isHeaderFooterShow && <Footer />}
 

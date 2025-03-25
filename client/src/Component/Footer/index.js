@@ -10,13 +10,9 @@ import { BsTwitterX } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 
 
-
-
-
-
 const Footer =()=>{
     return(
-        <footer>
+        <footer className="mb-0">
         <div className="container">
             <div className="topInfo row">
                 <div className=" col d-flex justify-content-center">
@@ -26,7 +22,7 @@ const Footer =()=>{
                 <div className=" col d-flex justify-content-center">
                     <span><TbTruckDelivery /></span>
                     <p className="ml-2">
-                    Free delivery for order over $70</p>
+                    Free delivery for order over 700rs</p>
                 </div>
                 <div className=" col d-flex justify-content-center">
                     <span><CiDiscount1 /></span>
@@ -38,7 +34,7 @@ const Footer =()=>{
                 </div>
             </div>
 
-
+{/* 
             <div className="row mt-5 linksWrap">
                 <div className="col">
                     <h5>FRUIT & VEGETABLES</h5>
@@ -100,7 +96,7 @@ const Footer =()=>{
                         <li><Link to="/">Party Trays</Link></li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
 
 
             <div className="copywrite  mt-5 mb-2 d-flex justify-content-center">

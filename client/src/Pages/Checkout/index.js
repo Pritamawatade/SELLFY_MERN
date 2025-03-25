@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Checkout.css";
 import { toast } from "react-toastify";
 import { fetchdatafromapi, postData } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import { mycontext } from "../../App";
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const Checkout = () => {
     address: "",
     pincode: "",
   });
+  const context = useContext(mycontext);
   const navigate = useNavigate();
   const [cardItem, setCartItem] = useState([]);
 
@@ -178,6 +180,8 @@ const Checkout = () => {
     console.log("payload = ", payload);
 
         postData("/api/orders/create", payload).then((res) => {
+          
+          context.cartData = null
             navigate("/orders")
         });
       },

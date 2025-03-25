@@ -59,6 +59,12 @@ const Navigation = () => {
                 <Link to="/">
                   <Button>Home</Button>
                 </Link>
+               
+              </li>
+              <li className="list-inline-item">
+              <Link to="/about">
+                  <Button>About</Button>
+                </Link>
               </li>
             {
                  context?.subcategories?.length > 0 && context?.subcategories?.map((category, index) => (
@@ -77,6 +83,7 @@ const Navigation = () => {
                   </li>
                   ))
                }
+
             </ul>
           </div>
         </div>
