@@ -115,14 +115,7 @@ const Login = () => {
                   onChange={handleInput}
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
+           
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -133,15 +126,6 @@ const Login = () => {
                 Sign in
               </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                type=""
-                className=" flex items-center justify-center w-full text-white bg-green-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                <FaGoogle className="mr-2 text-lg" />
-                Sign in with Google
-              </motion.button>
 
               <p className="text-sm font-light text-black dark:text-gray-400">
                 Don’t have an account yet?
