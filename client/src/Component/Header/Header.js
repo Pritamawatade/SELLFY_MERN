@@ -78,7 +78,7 @@ const Header = () => {
 
                 {/* Header search bar start here */}
 
-                <SearchBox />
+                {/* <SearchBox /> */}
 
                 {/* Header search bar end here */}
 
@@ -186,7 +186,7 @@ const Header = () => {
 
                   <div className="ml-auto cartTab d-flex align-items-center">
                     <span className="price">{
-                      context?.cartData?.length !== 0 && context?.cartData?.map(item =>  parseInt(item.price) * item.quantity).reduce((total, value)=>total + value,0)
+                     "Rs"+ context?.cartData?.length !== 0 && context?.cartData?.map(item =>  parseInt(item.price) * item.quantity).reduce((total, value)=>total + value,0)
                       }</span>
                     <div className="position-relative ml-2">
                       <Link to={"/cart"}>

@@ -119,9 +119,9 @@ const ProductList = () => {
       /> */}
       <LoadingBar color="#f11946" ref={loadingBar} shadow={true} />
       <div className="shadow mt-3 border-0 p-3 card table1">
-        <h3 className="font-bold text-gray-700">Best Selling Product</h3>
+        <h3 className="font-bold text-gray-700"> Product</h3>
         <div className="row cardFilters mt-3">
-          <div className="col-md-3">
+          {/* <div className="col-md-3">
             <h5 className="mt-3 lableText">SHOW BY</h5>
             <Select
               labelId="demo-simple-select-label"
@@ -135,9 +135,9 @@ const ProductList = () => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </div>
+          </div> */}
 
-          <div className="col-md-3">
+          {/* <div className="col-md-3">
             <h5 className="mt-3 lableText">Category By</h5>
             <Select
               labelId="demo-simple-select-label"
@@ -151,7 +151,7 @@ const ProductList = () => {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </div>
+          </div> */}
         </div>
 
         <div className="tableWrapper overflow-visible mb-2 w-full">
@@ -244,10 +244,10 @@ const ProductList = () => {
                         {product?.brand || "No Brand"}
                       </td>
                       <td className="p-2 text-center border border-gray-300">
-                        ${product?.price || 0}
+                        ₹{product?.price || 0}
                       </td>
                       <td className="p-2 text-center border border-gray-300">
-                        ${product?.oldPrice || 0}
+                        ₹{product?.oldPrice || 0}
                       </td>
                       <td className="p-2 text-center border border-gray-300">
                         {product?.countInStock || 0}

@@ -155,10 +155,10 @@ if(changeQuantity !== 0){
                   <span className="text-gray-600">Shipping</span>
                   <span className="text-green-500 font-semibold">Free</span>
                 </div>
-                <div className="flex justify-between mb-2">
+                {/* <div className="flex justify-between mb-2">
                   <span className="text-gray-600">Estimate for</span>
                   <span className="font-semibold">United Kingdom</span>
-                </div>
+                </div> */}
                 <div className="flex justify-between mt-4 border-t pt-2">
                   <span className="text-lg font-semibold">Total</span>
                   <span className="text-red-500 font-semibold">{

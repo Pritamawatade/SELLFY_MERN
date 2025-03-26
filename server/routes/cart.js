@@ -99,4 +99,20 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.delete(`/del`, async (req, res) => {
+  try {
+    const result = await Cart.deleteMany({});
+    return res.status(200).json({
+      message: "All cart items deleted successfully",
+      success: true,
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    console.error("Error deleting all cart items:", error);
+    res.status(500).json({
+      message: error.message,
+      success: false,
+    });
+  }
+});
 module.exports = router;

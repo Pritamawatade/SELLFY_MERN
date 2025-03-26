@@ -129,18 +129,18 @@ const Header = () => {
             >
               <MdLightMode className="text-2xl" />
             </Button>
-            <Button
+            {/* <Button
               className="rounded-circle mr-3 "
               onClick={handleOpenMyAccDrop}
             >
               <AiOutlineShoppingCart className="text-2xl" />
-            </Button>
-            <Button
+            </Button> */}
+            {/* <Button
               className="rounded-circle mr-3 "
               onClick={handleOpenNotificationDrop}
             >
               <IoMdNotificationsOutline className="text-2xl" />
-            </Button>
+            </Button> */}
             <motion.div layout>
               <Menu
                 anchorEl={isOpenNotificationDrop}
@@ -350,9 +350,9 @@ const Header = () => {
                 </MenuItem>
               </Menu>
             </motion.div>
-            <Button className="rounded-circle mr-3 ">
+            {/* <Button className="rounded-circle mr-3 ">
               <MdOutlineEmail className="text-2xl" />
-            </Button>
+            </Button> */}
 
             {context?.isLogin === true ? (
               // my account section
@@ -414,17 +414,17 @@ const Header = () => {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={handleCloseMyAccDrop}>
+                  {/* <MenuItem onClick={handleCloseMyAccDrop}>
                     <Avatar /> My account
-                  </MenuItem>
+                  </MenuItem> */}
                   <Divider />
 
-                  <MenuItem onClick={handleCloseMyAccDrop}>
+                  {/* <MenuItem onClick={handleCloseMyAccDrop}>
                     <ListItemIcon>
                       <Settings fontSize="small" />
                     </ListItemIcon>
                     Reset Password
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={logout}>
                     <ListItemIcon>
                       <Logout fontSize="small" />

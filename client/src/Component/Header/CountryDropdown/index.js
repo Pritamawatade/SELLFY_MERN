@@ -40,7 +40,7 @@ function CountryDrop() {
     <>
       <Button className="countryDrop" onClick={() => setIsOpenModal(true)}>
         <div className="info d-flex flex-column ">
-          <span className="label">Your location</span>
+          {/* <span className="label">Your location</span> */}
           <br />
           <span className="name"> {context.selectedCountry !== "" ? context.selectedCountry.length > 10 ? context.selectedCountry.substring(0, 10) + "..." : context.selectedCountry : "Select location"}</span>
         </div>

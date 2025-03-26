@@ -157,13 +157,13 @@ const Sidebar = () => {
               >
                 <Link to="/product">Prroduct list</Link>
               </motion.li>
-              <motion.li 
+              {/* <motion.li 
                 variants={itemVariants}
                 whileHover={hoverAnimation}
                 whileTap={{ scale: 0.98 }}
               >
                 <Link to="/product/details">Prroduct view</Link>
-              </motion.li>
+              </motion.li> */}
               <motion.li 
                 variants={itemVariants}
                 whileHover={hoverAnimation}
@@ -287,60 +287,7 @@ const Sidebar = () => {
           whileHover={hoverAnimation}
           whileTap={{ scale: 0.98 }}
         >
-          <Link to="/">
-            <Button
-              className={`w-100 ${activeTab === 3 && isActiveTab ? "active" : ""}`}
-              onClick={() => isOpenSubMenu(3)}
-            >
-              <span className="icon">
-                <RiMessage2Fill />
-              </span>
-              Message
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
-        </motion.li>
-        <motion.li 
-          variants={itemVariants}
-          whileHover={hoverAnimation}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Link to="/">
-            <Button
-              className={`w-100 ${activeTab === 4 && isActiveTab ? "active" : ""}`}
-              onClick={() => isOpenSubMenu(4)}
-            >
-              <span className="icon">
-                <MdNotificationAdd />
-              </span>
-              Notifications
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
-        </motion.li>
-        <motion.li 
-          variants={itemVariants}
-          whileHover={hoverAnimation}
-          whileTap={{ scale: 0.98 }}
-        >
-          <Link to="/">
-            <Button
-              className={`w-100 ${activeTab === 5 && isActiveTab ? "active" : ""}`}
-              onClick={() => isOpenSubMenu(5)}
-            >
-              <span className="icon">
-                <IoSettings />
-              </span>
-              Setting
-              <span className="arrow">
-                <IoIosArrowForward />
-              </span>
-            </Button>
-          </Link>
+       
         </motion.li>
         <motion.li 
           variants={itemVariants}

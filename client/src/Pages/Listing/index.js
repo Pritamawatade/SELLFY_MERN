@@ -52,7 +52,7 @@ function Listing() {
     })
   }
   const filterByRating = (rating) =>{
-    alert(rating)
+    // alert(rating)
     fetchdatafromapi(`/api/products?subCatId=${subCatId}&rating=${rating}`).then((res) => {
 
       console.log(res);
@@ -97,7 +97,7 @@ function Listing() {
                     onClick={handleClick}
                   >
                     
-                    Show <span className="ml-1 text-black">9 </span>&nbsp; <FaAngleDown className="ml-auto"/>
+                    {/* Show <span className="ml-1 text-black">9 </span>&nbsp; <FaAngleDown className="ml-auto"/> */}
                   </Button>
                   <Menu
                     className="showPerPageDropdown mt-2"
@@ -131,9 +131,9 @@ function Listing() {
                
               </div>
 
-                  <div className="d-flex align-items-center justify-center  mt-5">
+                  {/* <div className="d-flex align-items-center justify-center  mt-5">
                   <Pagination count={10} color="primary"  size="large"/>
-                  </div>
+                  </div> */}
 
             </div>
           </div>

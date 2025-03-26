@@ -154,14 +154,14 @@ const SignUp = () => {
                 />
 
                 {/* Forgot Password Link */}
-                <div className="flex justify-end mb-2">
+                {/* <div className="flex justify-end mb-2">
                   <Link
                     to="/"
                     className="text-sm text-blue-600 hover:underline transition duration-300"
                   >
                     Forgot Password?
                   </Link>
-                </div>
+                </div> */}
                 <div className="flex justify-end mb-2">
                   <Link
                     to="/signin"
@@ -192,17 +192,17 @@ const SignUp = () => {
               </Link>
 
               {/* Divider */}
-              <div className="flex items-center justify-center my-4">
+              {/* <div className="flex items-center justify-center my-4">
                 <hr className="w-1/4 border-gray-300" />
                 <span className="px-4 text-gray-500">or</span>
                 <hr className="w-1/4 border-gray-300" />
-              </div>
+              </div> */}
 
               {/* Google Sign In Button */}
-              <button className="flex items-center justify-center w-full py-2 px-4 border border-gray-300 rounded-lg text-gray-600 font-semibold hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1">
+              {/* <button className="flex items-center justify-center w-full py-2 px-4 border border-gray-300 rounded-lg text-gray-600 font-semibold hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1">
                 <FaGoogle className="mr-2" />
                 Continue with Google
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

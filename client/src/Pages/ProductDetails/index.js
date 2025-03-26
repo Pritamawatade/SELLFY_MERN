@@ -180,10 +180,10 @@ const ProductDetials = () => {
 
                 <div className="d-flex align-items-center">
                   <span className="oldPrice line-through mr-2 text-lg">
-                    ${productData?.oldPrice}
+                    ₹{productData?.oldPrice}
                   </span>
                   <span className="netPrice text-danger text-2xl font-semibold">
-                    ${productData?.price}
+                    ₹{productData?.price}
                   </span>
                 </div>
               </div>
@@ -233,11 +233,11 @@ const ProductDetials = () => {
                 <li className="list-inline-item">
                   <Button onClick={() => setActiveTab(0)}>Description</Button>
                 </li>
-                <li className="list-inline-item">
+                {/* <li className="list-inline-item">
                   <Button onClick={() => setActiveTab(1)}>
                     Aditional Info
                   </Button>
-                </li>
+                </li> */}
                 <li className="list-inline-item">
                   <Button onClick={() => setActiveTab(2)}>Review ({productReview?.length})</Button>
                 </li>
@@ -245,7 +245,7 @@ const ProductDetials = () => {
 
               {activeTab === 0 && (
                 <div className="tabContent">
-                  <p>productData?.description</p>
+                  <p>{productData?.description}</p>
                 </div>
               )}
 
@@ -540,7 +540,7 @@ const ProductDetials = () => {
                         </div>
                       </form>
                     </div>
-                    <div className="col-md-4 mb-4 reviewSection">
+                    {/* <div className="col-md-4 mb-4 reviewSection">
                       <div className="flex items-center content-center">
                         <Rating
                           name="read-only"
@@ -610,7 +610,7 @@ const ProductDetials = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}

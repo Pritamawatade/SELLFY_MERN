@@ -64,7 +64,7 @@ function DashboardBox(props) {
 
   return (
     <>
-      <motion.div
+      {/* <motion.div
         variants={boxVariants}
         initial="hidden"
         animate="visible"
@@ -80,7 +80,7 @@ function DashboardBox(props) {
           className="d-flex w-100 align-items-center">
           <div className="col1">
             <h4 className="text-white">Total Users</h4>
-            <span className="text-white">277</span>
+            <span className="text-white">9</span>
           </div>
 
           <div className="ml-auto p-2">
@@ -117,7 +117,7 @@ function DashboardBox(props) {
             </Menu>
           </span>
         </div>
-      </motion.div>
+      </motion.div> */}
     </>
   );
 }
